@@ -452,6 +452,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 11402826, guid: b7828e9b10118314999c14f9a4bb114e, type: 2}
+      propertyPath: cellPrefab
+      value: 
+      objectReference: {fileID: 178436, guid: 735eb51fd4efeaf46ba6f408495637fb, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b7828e9b10118314999c14f9a4bb114e, type: 2}
   m_IsPrefabParent: 0
