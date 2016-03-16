@@ -41,6 +41,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   indestructibleCube: {fileID: 178436, guid: 735eb51fd4efeaf46ba6f408495637fb, type: 2}
   destructibleCube: {fileID: 142050, guid: 1223ed3e633f30c4897d652179ca889a, type: 2}
+  mazeExit: {fileID: 196664, guid: 998967a7c58b4c44189d9e25f7964dd7, type: 2}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
