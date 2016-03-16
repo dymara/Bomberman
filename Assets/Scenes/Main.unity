@@ -569,7 +569,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9d5fda9727e9af46ab9c83d463c338d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mazePrefab: {fileID: 1026164854}
+  mazeInstance: {fileID: 1026164854}
   width: 45
   length: 45
 --- !u!4 &1711594432

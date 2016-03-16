@@ -45,7 +45,7 @@ public class Maze : MonoBehaviour
             for (int j = 0; j < count_z; j++)
             {
                 board[2 * i + 1, 2 * j + 1] = true;
-                CreateIndestructibleCube((i * 4 + cubeSize.x) * cubeSize.x / 2, cubeSize.y / 2, (j * 4 + cubeSize.z) * cubeSize.z / 2);
+                CreateCube((i * 4 + cubeSize.x) * cubeSize.x / 2, cubeSize.y / 2, (j * 4 + cubeSize.z) * cubeSize.z / 2, indestructibleCube);
             }
         }
 
@@ -67,24 +67,15 @@ public class Maze : MonoBehaviour
             {
                 if (!board[x, z] && rnd.Next(0, 2) % 2 == 0)
                 {
-                    CreateDestructibleCube((x * 2 + 1) * cubeSize.x / 2, cubeSize.y / 2, (z * 2 + 1) * cubeSize.z / 2);
+                    CreateCube((x * 2 + 1) * cubeSize.x / 2, cubeSize.y / 2, (z * 2 + 1) * cubeSize.z / 2, destructibleCube);
                 }
             }
         }
     }
 
-    private void CreateIndestructibleCube(float x, float y, float z)
+    private void CreateCube(float x, float y, float z, GameObject cubePrefab)
     {
-        GameObject newCell = Instantiate(indestructibleCube);
-        newCell.name = "Maze Cell " + x + ", " + z;
-        newCell.transform.parent = transform;
-        newCell.transform.localPosition =
-            new Vector3(x, y, z);
-    }
-
-    private void CreateDestructibleCube(float x, float y, float z)
-    {
-        GameObject newCell = Instantiate(destructibleCube);
+        GameObject newCell = Instantiate(cubePrefab);
         newCell.name = "Maze Cell " + x + ", " + z;
         newCell.transform.parent = transform;
         newCell.transform.localPosition =

@@ -3,9 +3,7 @@ using System.Collections;
 
 public class GameManager : MonoBehaviour {
 
-    public Maze mazePrefab;
-
-    private Maze mazeInstance;
+    public Maze mazeInstance;
 
     public int width;
 
@@ -22,7 +20,6 @@ public class GameManager : MonoBehaviour {
 	}
 
     private void BeginGame() {
-        mazeInstance = Instantiate(mazePrefab) as Maze;
         mazeInstance.Generate(width, length);
     }
 
