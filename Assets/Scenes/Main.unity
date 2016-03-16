@@ -456,6 +456,14 @@ Prefab:
       propertyPath: cellPrefab
       value: 
       objectReference: {fileID: 178436, guid: 735eb51fd4efeaf46ba6f408495637fb, type: 2}
+    - target: {fileID: 11402826, guid: b7828e9b10118314999c14f9a4bb114e, type: 2}
+      propertyPath: indestructibleCube
+      value: 
+      objectReference: {fileID: 178436, guid: 735eb51fd4efeaf46ba6f408495637fb, type: 2}
+    - target: {fileID: 11402826, guid: b7828e9b10118314999c14f9a4bb114e, type: 2}
+      propertyPath: destructibleCube
+      value: 
+      objectReference: {fileID: 142050, guid: 1223ed3e633f30c4897d652179ca889a, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b7828e9b10118314999c14f9a4bb114e, type: 2}
   m_IsPrefabParent: 0
