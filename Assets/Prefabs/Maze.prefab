@@ -39,7 +39,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84a76e938dac6bc40b88935a0bab2f94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cellPrefab: {fileID: 178436, guid: 735eb51fd4efeaf46ba6f408495637fb, type: 2}
+  indestructibleCube: {fileID: 178436, guid: 735eb51fd4efeaf46ba6f408495637fb, type: 2}
+  destructibleCube: {fileID: 142050, guid: 1223ed3e633f30c4897d652179ca889a, type: 2}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
