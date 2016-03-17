@@ -3,15 +3,25 @@ using System.Collections;
 
 public class Bomb : MonoBehaviour {
 
-	public float detonateDelay;
+    [Range(1, 10)]
+	public int detonateDelay;
 	public GameObject[] explosions;
 
+    private TextMesh textMesh;
+
 	public void PlaceBomb() {
-		StartCoroutine (Detonate());
+        textMesh = GetComponentInChildren<TextMesh>();
+        StartCoroutine(Detonate());
 	}
 
 	IEnumerator Detonate() {
-		yield return new WaitForSeconds(detonateDelay);
+        int timeLeft = detonateDelay;
+        while (timeLeft > 0)
+        {
+            textMesh.text = timeLeft.ToString();
+            yield return new WaitForSeconds(1);
+            timeLeft--;
+        }
 
 		int explosionIndex = Random.Range (0, explosions.Length);
 		GameObject explosionObject = Instantiate(explosions[explosionIndex], this.transform.position, Quaternion.identity) as GameObject;
