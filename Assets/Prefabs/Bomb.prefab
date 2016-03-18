@@ -185,6 +185,7 @@ MonoBehaviour:
   - {fileID: 100000, guid: e6ab56e4714ff4154ac034cf28db78b2, type: 2}
   - {fileID: 100000, guid: ebd39b50df8574fb88f15e5d023ef3a7, type: 2}
   - {fileID: 100000, guid: f75468363e2394440a081e9c175e6c93, type: 2}
+  explosionSound: {fileID: 8300000, guid: 4df42c41bf6025a4d8bf72ebc4d7d15b, type: 3}
 --- !u!135 &13597304
 SphereCollider:
   m_ObjectHideFlags: 1

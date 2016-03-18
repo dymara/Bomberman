@@ -1,11 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
-
 public class Bomb : MonoBehaviour {
 
     [Range(1, 10)]
 	public int detonateDelay;
 	public GameObject[] explosions;
+    public AudioClip explosionSound;
 
     private TextMesh textMesh;
 
@@ -27,7 +27,7 @@ public class Bomb : MonoBehaviour {
 		GameObject explosionObject = Instantiate(explosions[explosionIndex], this.transform.position, Quaternion.identity) as GameObject;
 
 		ParticleSystem explosion = explosionObject.GetComponent<ParticleSystem> ();
-		explosion.Play ();
+        AudioSource.PlayClipAtPoint(explosionSound, this.transform.position, 0.4f);
 		DestroyBoxes ();
 		Destroy (this.gameObject);
 		Destroy (explosionObject, explosion.duration);
