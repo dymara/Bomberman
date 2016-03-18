@@ -1,20 +1,27 @@
 ﻿using UnityEngine;
 using System.Collections;
-public class Bomb : MonoBehaviour {
+public class Bomb : MonoBehaviour
+{
+    private const float EXPLOSION_SOUND_VOLUME = 0.4f;
+    private const string DESTRUCTIBLE_TAG = "Destructible";
 
     [Range(1, 10)]
-	public int detonateDelay;
-	public GameObject[] explosions;
+    public int detonateDelay;
+    [Range(1, 100)]
+    public int explosionRadius;
+    public GameObject[] explosions;
     public AudioClip explosionSound;
 
     private TextMesh textMesh;
 
-	public void PlaceBomb() {
+    public void PlaceBomb()
+    {
         textMesh = GetComponentInChildren<TextMesh>();
         StartCoroutine(Detonate());
-	}
+    }
 
-	IEnumerator Detonate() {
+    IEnumerator Detonate()
+    {
         int timeLeft = detonateDelay;
         while (timeLeft > 0)
         {
@@ -23,25 +30,40 @@ public class Bomb : MonoBehaviour {
             timeLeft--;
         }
 
-		int explosionIndex = Random.Range (0, explosions.Length);
-		GameObject explosionObject = Instantiate(explosions[explosionIndex], this.transform.position, Quaternion.identity) as GameObject;
+        PlayExplosionEffect();
+        PlayExplosionSound();
+        DestroyBoxes();
+        Destroy(this.gameObject);
+    }
 
-		ParticleSystem explosion = explosionObject.GetComponent<ParticleSystem> ();
-        AudioSource.PlayClipAtPoint(explosionSound, this.transform.position, 0.4f);
-		DestroyBoxes ();
-		Destroy (this.gameObject);
-		Destroy (explosionObject, explosion.duration);
-	}
+    private void PlayExplosionEffect()
+    {
+        int explosionIndex = Random.Range(0, explosions.Length);
+        GameObject explosionObject = Instantiate(explosions[explosionIndex], this.transform.position, Quaternion.identity) as GameObject;
 
-	private void DestroyBoxes() {
-		RaycastHit[] hitBoxes = Physics.SphereCastAll (this.transform.position, 4f, Vector3.down);
-		if (hitBoxes != null) {
-			foreach (RaycastHit hit in hitBoxes) {
-				GameObject hitGameObject = hit.collider.gameObject;
-				if (hitGameObject.tag.Equals("Destructible")) {
-					Destroy (hitGameObject);
-				}
-			}
-		}
-	}
+        ParticleSystem explosion = explosionObject.GetComponent<ParticleSystem>();
+        explosion.Play();
+        Destroy(explosionObject, explosion.duration);
+    }
+
+    private void PlayExplosionSound()
+    {
+        AudioSource.PlayClipAtPoint(explosionSound, this.transform.position, EXPLOSION_SOUND_VOLUME);
+    }
+
+    private void DestroyBoxes()
+    {
+        RaycastHit[] hitBoxes = Physics.SphereCastAll(this.transform.position, explosionRadius, Vector3.down);
+        if (hitBoxes != null)
+        {
+            foreach (RaycastHit hit in hitBoxes)
+            {
+                GameObject hitGameObject = hit.collider.gameObject;
+                if (hitGameObject.tag.Equals(DESTRUCTIBLE_TAG))
+                {
+                    Destroy(hitGameObject);
+                }
+            }
+        }
+    }
 }
