@@ -59,7 +59,7 @@ public class Bomb : MonoBehaviour
             foreach (RaycastHit hit in hitBoxes)
             {
                 GameObject hitGameObject = hit.collider.gameObject;
-                if (hitGameObject.tag.Equals(DESTRUCTIBLE_TAG))
+                if (hitGameObject.tag != null && hitGameObject.tag.Equals(DESTRUCTIBLE_TAG))
                 {
                     Destroy(hitGameObject);
                 }
