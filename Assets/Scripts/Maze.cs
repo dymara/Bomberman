@@ -28,7 +28,6 @@ public class Maze : MonoBehaviour
 
     public void Generate(int width, int length)
     {
-
         Vector3 cubeSize = indestructibleCube.transform.localScale;
 
         int allXCell = (int)(width / cubeSize.x);
@@ -87,7 +86,7 @@ public class Maze : MonoBehaviour
                     float posZ = (z * 2 + 1) * cubeSize.z / 2;
                     CreateGameObject(posX, cubeSize.y / 2, posZ, destructibleCube, "destructibleCube");
                     //to avoid place exit in rows near walls
-                    if(posX < cubeSize.x*2 || posZ < cubeSize.z * 2 || posX > width - cubeSize.x * 2 || posZ > length - cubeSize.z * 2)
+                    if (posX < cubeSize.x * 2 || posZ < cubeSize.z * 2 || posX > width - cubeSize.x * 2 || posZ > length - cubeSize.z * 2)
                     {
                         continue;
                     }
@@ -111,8 +110,7 @@ public class Maze : MonoBehaviour
         GameObject newCell = Instantiate(cubePrefab);
         newCell.name = name + " " + x + ", " + z;
         newCell.transform.parent = transform;
-        newCell.transform.localPosition =
-            new Vector3(x, y, z);
+        newCell.transform.localPosition = new Vector3(x, y, z);
     }
 
     private float countDistance(Vector2 p1, Vector2 p2)
