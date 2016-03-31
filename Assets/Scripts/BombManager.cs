@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections;
+using Assets.Scripts.Model;
 
 public class BombManager : MonoBehaviour {
 
