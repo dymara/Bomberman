@@ -145,7 +145,7 @@ public class Maze : MonoBehaviour
         int index = new System.Random().Next(0, availableExits.Count);
         Vector2 exitPostion = (Vector2)availableExits[index];
         mazeExit.transform.localScale = new Vector3(cubeWidth / 10, 1f, cubeWidth / 10);
-        Exit exit = CreateGameObject(exitPostion.x, 0.01f, exitPostion.y, mazeExit, "exit");
+        Exit exit = CreateGameObject(exitPostion.x, 0.01f, exitPostion.y, mazeExit, "Exit");
         Vector2 position = positionConverter.ConvertScenePositionToBoard(exit.transform.localPosition);
         cells[(int)position.x, (int)position.y].finding = exit;
     }
@@ -170,7 +170,6 @@ public class Maze : MonoBehaviour
         {
             for (int z = 0; z < allZCell; z++)
             {
-                //tmpBoard[x, z] = false;
                 board[x, z] = CellType.EMPTY;
                 cells[x, z] = new GameCell(new Vector2(x, z));
             }

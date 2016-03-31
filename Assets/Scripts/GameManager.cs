@@ -4,11 +4,13 @@ using Assets.Scripts.Board;
 using Assets.Scripts.Model;
 using Assets.Scripts.Util;
 
+public enum StartPosition { MIN, MAX}
+
 public class GameManager : MonoBehaviour {
 
-    public Maze maze;
+    public Player playerPrefab;
 
-    private Maze mazeInstance;
+    public Maze mazePrefab;
 
     public int indestructibleCubesXNumber;
 
@@ -20,9 +22,13 @@ public class GameManager : MonoBehaviour {
 
     public float wallHeight;
 
-    public float startPositionX;
+    public StartPosition startPositionX;
 
-    public float startPositionZ;
+    public StartPosition startPositionZ;
+
+    /*=================================*/
+
+    private Maze mazeInstance;
 
     private Board board;
 
@@ -41,19 +47,21 @@ public class GameManager : MonoBehaviour {
     private void BeginGame()
     {
         positionConverter = new PositionConverter(cellSize);
-        mazeInstance = Instantiate(maze);
+        mazeInstance = Instantiate(mazePrefab);
         float mazeWidth = indestructibleCubesXNumber * cellSize * 2 + cellSize;
         float mazeLength = indestructibleCubesZNumber * cellSize * 2 + cellSize;
-        board = mazeInstance.Generate(mazeWidth, mazeLength, cellSize, cubeHeight, wallHeight, startPositionX, startPositionZ, positionConverter);
+        float startX = startPositionX.Equals(StartPosition.MIN) ? 1 : mazeWidth - 1;
+        float startZ = startPositionZ.Equals(StartPosition.MIN) ? 1 : mazeLength - 1;
+        board = mazeInstance.Generate(mazeWidth, mazeLength, cellSize, cubeHeight, wallHeight, startX, startZ, positionConverter);
 
- /*       for(int i = 0; i < board.GetSize().x; i++)
+        Player player = Instantiate(playerPrefab);
+        player.transform.localPosition = new Vector3(startX, 0.5f, startZ);
+        if (startPositionZ.Equals(StartPosition.MAX))
         {
-            for(int j = 0; j < board.GetSize().y; j++)
-            {
-                GameCell cell = board.GetGameCell(i, j);
-                Debug.Log(i + " " + j + " " + cell.block + " " + cell.finding);
-            }
-        }*/
+            player.transform.Rotate(new Vector3(0, 180, 0));
+        }
+
+        board.AddPlayer(player);
     }
 
     private void RestartGame() { }

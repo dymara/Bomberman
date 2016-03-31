@@ -24,7 +24,7 @@ namespace Assets.Scripts.Util
             return new Vector2(x, y);
         }
 
-        /**Return top left corner of cell.*/
+        /**Return top left corner of cell.(minX i minZ)*/
         public Vector3 ConvertScenePositionToBoard(Vector2 position)
         {
             float x = position.x * cellSize;
