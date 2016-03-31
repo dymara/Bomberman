@@ -12,6 +12,7 @@ GameObject:
   - 114: {fileID: 11472118}
   - 54: {fileID: 5445186}
   - 82: {fileID: 8220300}
+  - 114: {fileID: 11493208}
   - 114: {fileID: 11472840}
   m_Layer: 0
   m_Name: Player
@@ -300,7 +301,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sampleCube: {fileID: 142050, guid: 1223ed3e633f30c4897d652179ca889a, type: 2}
-  bombPrefab: {fileID: 0}
+  bombPrefab: {fileID: 11461716, guid: 62dc13b3164b8457fa6fc4696643fe73, type: 2}
+--- !u!114 &11493208
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 109334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5539c88b8008a74da2151c7682d254a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!143 &14375452
 CharacterController:
   m_ObjectHideFlags: 1
