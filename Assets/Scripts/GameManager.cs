@@ -12,18 +12,25 @@ public class GameManager : MonoBehaviour {
 
     public Maze mazePrefab;
 
+    /**Number of indestructible cubes in x axis*/
     public int indestructibleCubesXNumber;
 
+    /**Number of indestructible cubes in z axis*/
     public int indestructibleCubesZNumber;
 
+    /**Cell size -> cube length and width*/
     public float cellSize;
 
+    /**Cube height.*/
     public float cubeHeight;
 
+    /**Wall height.*/
     public float wallHeight;
 
+    /** Player start position in x axis - MIN -> 1, MAX -> width - 1*/
     public StartPosition startPositionX;
 
+    /** Player start position in z axis - MIN -> 1, MAX -> length - 1*/
     public StartPosition startPositionZ;
 
     /*=================================*/
