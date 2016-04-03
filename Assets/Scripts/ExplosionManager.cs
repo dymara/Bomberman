@@ -18,20 +18,20 @@ public class ExplosionManager : MonoBehaviour {
 
     public void PutBomb(Bomb bomb, Vector2 position)
     {
-        GameCell cell = gameManager.getBoard().GetGameCell((int)position.x, (int)position.y);
+        GameCell cell = gameManager.GetBoard().GetGameCell((int)position.x, (int)position.y);
         if (cell != null && cell.block == null && cell.bomb == null)
         {
             doPutBomb(bomb, cell);
         } else
         {
             Debug.Log(DateTime.Now + " You can't place a bomb here!");
-            // display "Cannot place bomb here message"
+            gameManager.GetUIController().ShowTimedMessage("You can't place a bomb here!");
         }
     }
 
     private void doPutBomb(Bomb bombPrefab, GameCell gameCell)
     {
-        Vector3 bombPosition = gameManager.getPositionConverter().ConvertBoardPositionToScene(gameCell.GetCoordinates(), true);
+        Vector3 bombPosition = gameManager.GetPositionConverter().ConvertBoardPositionToScene(gameCell.GetCoordinates(), true);
         bombPosition.y = bombPrefab.transform.localScale.y / 1.5f;
 
         Bomb bomb = GameObject.Instantiate(bombPrefab, bombPosition, Quaternion.identity) as Bomb;
@@ -66,7 +66,7 @@ public class ExplosionManager : MonoBehaviour {
     public void PlayExplosionEffect(Vector2 gameCellCoordinates, float height)
     {
         int explosionIndex = UnityEngine.Random.Range(0, explosions.Length);
-        Vector3 explosionPosition = gameManager.getPositionConverter().ConvertBoardPositionToScene(gameCellCoordinates, true);
+        Vector3 explosionPosition = gameManager.GetPositionConverter().ConvertBoardPositionToScene(gameCellCoordinates, true);
         explosionPosition.y = height;
 
         GameObject explosionObject = Instantiate(explosions[explosionIndex], explosionPosition, Quaternion.identity) as GameObject;
@@ -102,7 +102,7 @@ public class ExplosionManager : MonoBehaviour {
     {
         if (rangeLeft > 0)
         {
-            GameCell cell = gameManager.getBoard().GetGameCell(cellX, cellY);
+            GameCell cell = gameManager.GetBoard().GetGameCell(cellX, cellY);
             if (isGameCellDestructible(cell))
             {
                 resultCells.Add(cell);

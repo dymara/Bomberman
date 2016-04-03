@@ -44,6 +44,8 @@ public class GameManager : MonoBehaviour {
 
     private ExplosionManager explosionManager;
 
+    private UIController uiController;
+
     // Use this for initialization
     void Start() {
         BeginGame();
@@ -79,19 +81,26 @@ public class GameManager : MonoBehaviour {
 
         explosionManager = GameObject.Find("ExplosionManager").GetComponent<ExplosionManager>();
         explosionManager.setGameManager(this);
+
+        uiController = GameObject.Find("UIController").GetComponent<UIController>();
     }
 
     private void RestartGame() { }
 
     /* GETTER METHODS */
 
-    public PositionConverter getPositionConverter()
+    public PositionConverter GetPositionConverter()
     {
         return positionConverter;
     }
 
-    public Board getBoard()
+    public Board GetBoard()
     {
         return board;
+    }
+
+    public UIController GetUIController()
+    {
+        return uiController;
     }
 }
