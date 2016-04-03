@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace Assets.Scripts.Model
+﻿namespace Assets.Scripts.Model
 {
     public class Finding : StaticGameObject
     {
         public override void OnExplode()
         {
+            Destroy(this.gameObject);
         }
     }
 }

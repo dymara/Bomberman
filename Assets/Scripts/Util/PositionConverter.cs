@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Assets.Scripts.Util
 {
@@ -24,13 +20,13 @@ namespace Assets.Scripts.Util
             return new Vector2(x, y);
         }
 
-        /**Return top left corner of cell.(minX i minZ)*/
-        public Vector3 ConvertScenePositionToBoard(Vector2 position)
+        /** Returns top left corner of cell (minX and minZ). */
+        public Vector3 ConvertBoardPositionToScene(Vector2 position, bool center=false)
         {
             float x = position.x * cellSize;
             float z = position.y * cellSize;
 
-            return new Vector3(x, 0.0f, z);
+            return center ? new Vector3(x + cellSize / 2, 0.0f, z + cellSize / 2) : new Vector3(x, 0.0f, z);
         }
     }
 }

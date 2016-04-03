@@ -1,10 +1,9 @@
 ﻿using UnityEngine;
-using System.Collections;
 using Assets.Scripts.Board;
 using Assets.Scripts.Model;
 using Assets.Scripts.Util;
 
-public enum StartPosition { MIN, MAX}
+public enum StartPosition { MIN, MAX }
 
 public class GameManager : MonoBehaviour {
 
@@ -12,25 +11,27 @@ public class GameManager : MonoBehaviour {
 
     public Maze mazePrefab;
 
-    /**Number of indestructible cubes in x axis*/
+    public Bomb bombPrefab;
+
+    /** Number of indestructible cubes in x axis */
     public int indestructibleCubesXNumber;
 
-    /**Number of indestructible cubes in z axis*/
+    /** Number of indestructible cubes in z axis */
     public int indestructibleCubesZNumber;
 
-    /**Cell size -> cube length and width*/
+    /** Cell size -> cube length and width */
     public float cellSize;
 
-    /**Cube height.*/
+    /** Cube height. */
     public float cubeHeight;
 
-    /**Wall height.*/
+    /** Wall height.*/
     public float wallHeight;
 
-    /** Player start position in x axis - MIN -> 1, MAX -> width - 1*/
+    /** Player start position in x axis - MIN -> 1, MAX -> width - 1 */
     public StartPosition startPositionX;
 
-    /** Player start position in z axis - MIN -> 1, MAX -> length - 1*/
+    /** Player start position in z axis - MIN -> 1, MAX -> length - 1 */
     public StartPosition startPositionZ;
 
     /*=================================*/
@@ -41,15 +42,21 @@ public class GameManager : MonoBehaviour {
 
     private PositionConverter positionConverter;
 
+    private ExplosionManager explosionManager;
+
     // Use this for initialization
-    void Start () {
+    void Start() {
         BeginGame();
     }
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+
+    // Update is called once per frame
+    void Update() {
+        if (Input.GetKeyDown("f")) {
+            Vector3 sceneBombPosition = board.GetPlayers()[0].transform.position + board.GetPlayers()[0].transform.forward;
+            Vector2 boardBombPosition = positionConverter.ConvertScenePositionToBoard(sceneBombPosition);
+            explosionManager.PutBomb(bombPrefab, boardBombPosition);
+        }
+    }
 
     private void BeginGame()
     {
@@ -69,7 +76,22 @@ public class GameManager : MonoBehaviour {
         }
 
         board.AddPlayer(player);
+
+        explosionManager = GameObject.Find("ExplosionManager").GetComponent<ExplosionManager>();
+        explosionManager.setGameManager(this);
     }
 
     private void RestartGame() { }
+
+    /* GETTER METHODS */
+
+    public PositionConverter getPositionConverter()
+    {
+        return positionConverter;
+    }
+
+    public Board getBoard()
+    {
+        return board;
+    }
 }

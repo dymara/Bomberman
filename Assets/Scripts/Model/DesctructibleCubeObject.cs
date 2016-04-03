@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using UnityEngine;
 
 namespace Assets.Scripts.Model
@@ -10,6 +7,7 @@ namespace Assets.Scripts.Model
     {
         public override void OnExplode()
         {
+            Destroy(this.gameObject);
         }
 
         public static explicit operator DesctructibleCubeObject(GameObject v)

@@ -1,11 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using UnityEngine;
+using System;
 
 namespace Assets.Scripts.Model
 {
     public class Exit : Finding
     {
+        public override void OnExplode()
+        {
+            Debug.Log(DateTime.Now + " EXIT DESTROYED!!!");
+        }
     }
 }

@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using UnityEngine;
+﻿using UnityEngine;
 using Assets.Scripts.Model;
+using System.Collections.Generic;
 
 namespace Assets.Scripts.Board
 {
@@ -62,9 +59,16 @@ namespace Assets.Scripts.Board
             return cells;
         }
 
-        public GameCell GetGameCell(int x, int z)
+        public GameCell GetGameCell(int x, int y)
         {
-            return cells[x, z];
+            if (x >= 0 && x < size.x && y >= 0 && y < size.y)
+            {
+                return cells[x, y];
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }

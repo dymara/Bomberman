@@ -8,9 +8,8 @@ public enum CellType { EMPTY, DESTRUCTIBLE, INDESTRUCTIBLE, PLAYER, BOMB };
 
 public class Maze : MonoBehaviour
 {
-
-    //minimal distance from start postion to exit multiply width of borad
-    private const float minExitDistance = 0.7f;
+    // Minimal distance from start to exit postion (from 0.0 to 1.0)
+    private const float MIN_EXIT_DISTANCE = 0.7f;
 
     public IndesctructibleCubeObject indestructibleCube;
 
@@ -21,6 +20,8 @@ public class Maze : MonoBehaviour
     public Component wall;
 
     public Component floor;
+
+    public GameObject[] explosions;
 
     private const float wallThickness = 0.5f;
 
@@ -129,7 +130,7 @@ public class Maze : MonoBehaviour
                     {
                         continue;
                     }
-                    if (CountDistance(new Vector2(posX, posZ), new Vector2(startPositionX, startPositionZ)) > minExitDistance * boardWidth)
+                    if (CountDistance(new Vector2(posX, posZ), new Vector2(startPositionX, startPositionZ)) > MIN_EXIT_DISTANCE * boardWidth)
                     {
                         availableExits.Add(new Vector2(posX, posZ));
                     }

@@ -143,7 +143,7 @@ TextMesh:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 120046}
-  m_Text: 4
+  m_Text: 
   m_OffsetZ: 0
   m_CharacterSize: 1
   m_LineSpacing: 1
@@ -169,8 +169,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   detonateDelay: 3
-  explosionRadius: 4
-  explosions: []
+  explosionRange: 1
   explosionSound: {fileID: 8300000, guid: 4df42c41bf6025a4d8bf72ebc4d7d15b, type: 3}
 --- !u!135 &13597304
 SphereCollider:
