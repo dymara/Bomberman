@@ -42,7 +42,7 @@ MonoBehaviour:
   indestructibleCube: {fileID: 11406056, guid: 735eb51fd4efeaf46ba6f408495637fb, type: 2}
   destructibleCube: {fileID: 11442796, guid: 1223ed3e633f30c4897d652179ca889a, type: 2}
   mazeExit: {fileID: 11423772, guid: 998967a7c58b4c44189d9e25f7964dd7, type: 2}
-  wall: {fileID: 495200, guid: 286f5508c0b2cab44af9cc7dc52a4f0a, type: 2}
+  wall: {fileID: 400000, guid: 4123398f836859c41906b0f05f696090, type: 3}
   floor: {fileID: 461014, guid: fd77bb678f3a49b4fa33938f9df7fbd8, type: 2}
 --- !u!1001 &100100000
 Prefab:

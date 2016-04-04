@@ -11,6 +11,10 @@ public class Maze : MonoBehaviour
     // Minimal distance from start to exit postion (from 0.0 to 1.0)
     private const float MIN_EXIT_DISTANCE = 0.7f;
 
+    private const float WALL_THICKNESS = 0.5f;
+
+    private const float WALL_TEXTURE_HTAILING = 9.0f;
+
     public IndesctructibleCubeObject indestructibleCube;
 
     public DesctructibleCubeObject destructibleCube;
@@ -20,8 +24,6 @@ public class Maze : MonoBehaviour
     public Component wall;
 
     public Component floor;
-
-    private const float wallThickness = 0.5f;
 
     public Board Generate(float boardWidth, float boardLength, float cubeWidth, float cubeHeight, float wallHeight, float startPositionX, float startPositionZ, PositionConverter positionConverter)
     {
@@ -81,12 +83,24 @@ public class Maze : MonoBehaviour
 
     private void CreateWalls(float boardWidth, float boardLength, float wallHeight)
     {
-        wall.transform.localScale = new Vector3(boardWidth + wallThickness, wallHeight, wallThickness);
-        CreateGameObject(boardWidth / 2, wallHeight / 2, boardLength + wallThickness / 2, wall, "Wall1");
-        CreateGameObject(boardWidth / 2, wallHeight / 2, -(wallThickness / 2), wall, "Wall2");
-        wall.transform.localScale = new Vector3(wallThickness, wallHeight, boardLength + wallThickness);
-        CreateGameObject(-(wallThickness / 2), wallHeight / 2, boardLength / 2, wall, "Wall3");
-        CreateGameObject(boardWidth + wallThickness / 2, wallHeight / 2, boardLength / 2, wall, "Wall4");
+        ApplyWallTextures(boardWidth);
+        wall.transform.localScale = new Vector3(boardWidth + WALL_THICKNESS, wallHeight, WALL_THICKNESS);
+        CreateGameObject(boardWidth / 2, wallHeight / 2, boardLength + WALL_THICKNESS / 2, wall, "Wall1");
+        CreateGameObject(boardWidth / 2, wallHeight / 2, -(WALL_THICKNESS / 2), wall, "Wall2");
+        wall.transform.localScale = new Vector3(WALL_THICKNESS, wallHeight, boardLength + WALL_THICKNESS);
+        CreateGameObject(-(WALL_THICKNESS / 2), wallHeight / 2, boardLength / 2, wall, "Wall3");
+        CreateGameObject(boardWidth + WALL_THICKNESS / 2, wallHeight / 2, boardLength / 2, wall, "Wall4");
+    }
+
+    private void ApplyWallTextures(float boardWidth)
+    {
+        GameObject gWall = wall.gameObject;
+        MeshRenderer[] renderers = gWall.GetComponentsInChildren<MeshRenderer>(true);
+
+        foreach (var renderer in renderers)
+        {
+            renderer.sharedMaterial.mainTextureScale = new Vector2(boardWidth / WALL_TEXTURE_HTAILING, 1.0f);
+        }
     }
 
     private void CreateIndestructibleCubes(Vector3 cubeSize, int count_x, int count_z, CellType[,] board, GameCell[,] cells)

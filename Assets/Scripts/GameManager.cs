@@ -80,7 +80,6 @@ public class GameManager : MonoBehaviour {
         board.AddPlayer(player);
 
         explosionManager = GameObject.Find("ExplosionManager").GetComponent<ExplosionManager>();
-
         uiController = GameObject.Find("UIController").GetComponent<UIController>();
     }
 
