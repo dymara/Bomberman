@@ -15,6 +15,8 @@ public class Maze : MonoBehaviour
 
     private const float WALL_TEXTURE_HTAILING = 8.5f;
 
+    private const float FLOOR_TEXTURE_TAILING = 3.5f;
+
     public IndesctructibleCubeObject indestructibleCube;
 
     public DesctructibleCubeObject destructibleCube;
@@ -77,30 +79,20 @@ public class Maze : MonoBehaviour
 
     private void CreateFloor(float boardWidth, float boardLength)
     {
+        ApplyTextures(floor, boardWidth, boardWidth / FLOOR_TEXTURE_TAILING, boardWidth / FLOOR_TEXTURE_TAILING);
         floor.transform.localScale = new Vector3(boardWidth / 10, 1f, boardLength / 10);
         CreateGameObject(boardWidth / 2, 0, boardLength / 2, floor, "Floor");
     }
 
     private void CreateWalls(float boardWidth, float boardLength, float wallHeight)
     {
-        ApplyWallTextures(boardWidth);
+        ApplyTextures(wall, boardWidth, boardWidth / WALL_TEXTURE_HTAILING, 1.0f);
         wall.transform.localScale = new Vector3(boardWidth + WALL_THICKNESS, wallHeight, WALL_THICKNESS);
         CreateGameObject(boardWidth / 2, wallHeight / 2, boardLength + WALL_THICKNESS / 2, wall, "Wall1");
         CreateGameObject(boardWidth / 2, wallHeight / 2, -(WALL_THICKNESS / 2), wall, "Wall2");
         wall.transform.localScale = new Vector3(WALL_THICKNESS, wallHeight, boardLength + WALL_THICKNESS);
         CreateGameObject(-(WALL_THICKNESS / 2), wallHeight / 2, boardLength / 2, wall, "Wall3");
         CreateGameObject(boardWidth + WALL_THICKNESS / 2, wallHeight / 2, boardLength / 2, wall, "Wall4");
-    }
-
-    private void ApplyWallTextures(float boardWidth)
-    {
-        GameObject gWall = wall.gameObject;
-        MeshRenderer[] renderers = gWall.GetComponentsInChildren<MeshRenderer>(true);
-
-        foreach (var renderer in renderers)
-        {
-            renderer.sharedMaterial.mainTextureScale = new Vector2(boardWidth / WALL_TEXTURE_HTAILING, 1.0f);
-        }
     }
 
     private void CreateIndestructibleCubes(Vector3 cubeSize, int count_x, int count_z, CellType[,] board, GameCell[,] cells)
@@ -197,6 +189,20 @@ public class Maze : MonoBehaviour
             {
                 board[x, z] = CellType.BOMB;
             }
+        }
+    }
+
+    /* TEXTURING METHODS */
+
+    private void ApplyTextures(Component component, float boardWidth, float tailingXValue, float tailingYValue)
+    {
+        GameObject gObject = component.gameObject;
+        MeshRenderer[] renderers = gObject.GetComponentsInChildren<MeshRenderer>(true);
+
+        foreach (var renderer in renderers)
+        {
+            renderer.sharedMaterial.SetTextureScale("_MainTex", new Vector2(tailingXValue, tailingYValue));
+            renderer.sharedMaterial.SetTextureScale("_BumpMap", new Vector2(tailingXValue, tailingYValue));
         }
     }
 }
