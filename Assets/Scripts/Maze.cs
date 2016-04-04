@@ -13,7 +13,7 @@ public class Maze : MonoBehaviour
 
     private const float WALL_THICKNESS = 0.5f;
 
-    private const float WALL_TEXTURE_HTAILING = 9.0f;
+    private const float WALL_TEXTURE_HTAILING = 8.5f;
 
     public IndesctructibleCubeObject indestructibleCube;
 

@@ -355,7 +355,7 @@ MonoBehaviour:
   cellSize: 3
   cubeHeight: 3
   wallHeight: 5
-  startPositionX: 1
+  startPositionX: 0
   startPositionZ: 0
 --- !u!4 &1711594432
 Transform:
