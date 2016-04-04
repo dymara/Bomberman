@@ -21,8 +21,6 @@ public class Maze : MonoBehaviour
 
     public Component floor;
 
-    public GameObject[] explosions;
-
     private const float wallThickness = 0.5f;
 
     public Board Generate(float boardWidth, float boardLength, float cubeWidth, float cubeHeight, float wallHeight, float startPositionX, float startPositionZ, PositionConverter positionConverter)

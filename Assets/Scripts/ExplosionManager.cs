@@ -9,16 +9,11 @@ public class ExplosionManager : MonoBehaviour {
 
     public GameObject[] explosions;
 
-    private GameManager gameManager;
-
-    public void setGameManager(GameManager gameManager)
-    {
-        this.gameManager = gameManager;
-    }
+    public GameManager gameManager;
 
     public void PutBomb(Bomb bomb, Vector2 position)
     {
-        GameCell cell = gameManager.GetBoard().GetGameCell((int)position.x, (int)position.y);
+        GameCell cell = gameManager.GetBoard().GetGameCell(position);
         if (cell != null && cell.block == null && cell.bomb == null)
         {
             doPutBomb(bomb, cell);
@@ -34,7 +29,7 @@ public class ExplosionManager : MonoBehaviour {
         Vector3 bombPosition = gameManager.GetPositionConverter().ConvertBoardPositionToScene(gameCell.GetCoordinates(), true);
         bombPosition.y = bombPrefab.transform.localScale.y / 1.5f;
 
-        Bomb bomb = GameObject.Instantiate(bombPrefab, bombPosition, Quaternion.identity) as Bomb;
+        Bomb bomb = Instantiate(bombPrefab, bombPosition, Quaternion.identity) as Bomb;
         gameCell.bomb = bomb;
 
         StartCoroutine(handleBombPlaced(bomb, gameCell));

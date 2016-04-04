@@ -59,6 +59,11 @@ namespace Assets.Scripts.Board
             return cells;
         }
 
+        public GameCell GetGameCell(Vector2 position)
+        {
+            return GetGameCell((int)position.x, (int)position.y);
+        }
+
         public GameCell GetGameCell(int x, int y)
         {
             if (x >= 0 && x < size.x && y >= 0 && y < size.y)
