@@ -27,8 +27,8 @@ GameObject:
   - 4: {fileID: 450182}
   - 33: {fileID: 3344132}
   - 135: {fileID: 13597304}
+  - 114: {fileID: 11461716}
   - 23: {fileID: 2306158}
-  - 114: {fileID: 11407646}
   - 54: {fileID: 5476538}
   m_Layer: 0
   m_Name: Bomb
@@ -143,7 +143,7 @@ TextMesh:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 120046}
-  m_Text: 4
+  m_Text: 
   m_OffsetZ: 0
   m_CharacterSize: 1
   m_LineSpacing: 1
@@ -157,7 +157,7 @@ TextMesh:
   m_Color:
     serializedVersion: 2
     rgba: 4278190080
---- !u!114 &11407646
+--- !u!114 &11461716
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -165,27 +165,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 182106}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2288572c0da644295a2766636e727271, type: 3}
+  m_Script: {fileID: 11500000, guid: 3b46bb78b3e35b74bb9b9b81f2991c8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   detonateDelay: 3
-  explosionRadius: 4
-  explosions:
-  - {fileID: 100000, guid: 07725ad1d903f4ea891afbc5b4a253f8, type: 2}
-  - {fileID: 100000, guid: 0f28c0d6e5f4c46428854ca9390ebbdc, type: 2}
-  - {fileID: 100000, guid: 1e47e1a2302b340578c901da5181c6f1, type: 2}
-  - {fileID: 100000, guid: 2cccb0aff0bec41229698d0012efce5b, type: 2}
-  - {fileID: 100000, guid: 4813da6bfa5e94ac682f6d270a12d4b5, type: 2}
-  - {fileID: 100000, guid: 6ea62d4e8979f4cb8ad6c56646a6af9f, type: 2}
-  - {fileID: 100002, guid: 748eb41b584bb49b99a42da7420e5d1e, type: 2}
-  - {fileID: 100002, guid: 93a60ba8e409947b1a0334537c8b38c8, type: 2}
-  - {fileID: 100002, guid: 97a1d7f3a73b04feca9e61ea6cc1a3f7, type: 2}
-  - {fileID: 100000, guid: bf3f387d006f0414b80b25ba2b9cdf38, type: 2}
-  - {fileID: 100000, guid: d33904b3aaa63498c9be5ef9d2e80a6b, type: 2}
-  - {fileID: 100000, guid: e245491c3f96d49ff99b96bcdd7da7a3, type: 2}
-  - {fileID: 100000, guid: e6ab56e4714ff4154ac034cf28db78b2, type: 2}
-  - {fileID: 100000, guid: ebd39b50df8574fb88f15e5d023ef3a7, type: 2}
-  - {fileID: 100000, guid: f75468363e2394440a081e9c175e6c93, type: 2}
+  explosionRange: 1
   explosionSound: {fileID: 8300000, guid: 4df42c41bf6025a4d8bf72ebc4d7d15b, type: 3}
 --- !u!135 &13597304
 SphereCollider:
