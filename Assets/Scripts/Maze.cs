@@ -17,9 +17,9 @@ public class Maze : MonoBehaviour
 
     public Exit mazeExit;
 
-    public Component wall;
+    public GameObject wall;
 
-    public Component floor;
+    public GameObject floor;
 
     private const float wallThickness = 0.5f;
 
@@ -99,7 +99,7 @@ public class Maze : MonoBehaviour
                 int x = 2 * i + 1;
                 int z = 2 * j + 1;
                 board[x, z] = CellType.INDESTRUCTIBLE;
-                IndesctructibleCubeObject cube = CreateGameObject((i * 4 + offset) * cubeSize.x / 2, cubeSize.y / 2, (j * 4 + offset) * cubeSize.z / 2, indestructibleCube, "IndestructibleCube");
+                IndesctructibleCubeObject cube = CreateGameObject((i * 4 + offset) * cubeSize.x / 2, cubeSize.y / 2, (j * 4 + offset) * cubeSize.z / 2, indestructibleCube.gameObject, "IndestructibleCube").GetComponent<IndesctructibleCubeObject>();
                 cells[x, z].block = cube;
             }
         }
@@ -120,7 +120,7 @@ public class Maze : MonoBehaviour
                     float posX = (x * 2 + 1) * cubeSize.x / 2;
                     float posZ = (z * 2 + 1) * cubeSize.z / 2;
                     board[x, z] = CellType.DESTRUCTIBLE;
-                    DesctructibleCubeObject cube = CreateGameObject(posX, cubeSize.y / 2, posZ, destructibleCube, "DestructibleCube");
+                    DesctructibleCubeObject cube = CreateGameObject(posX, cubeSize.y / 2, posZ, destructibleCube.gameObject, "DestructibleCube").GetComponent<DesctructibleCubeObject>();
                     cells[x, z].block = cube;
 
                     //to avoid place exit in rows near walls
@@ -144,14 +144,14 @@ public class Maze : MonoBehaviour
         int index = new System.Random().Next(0, availableExits.Count);
         Vector2 exitPostion = (Vector2)availableExits[index];
         mazeExit.transform.localScale = new Vector3(cubeWidth / 10, 1f, cubeWidth / 10);
-        Exit exit = CreateGameObject(exitPostion.x, 0.01f, exitPostion.y, mazeExit, "Exit");
+        Exit exit = CreateGameObject(exitPostion.x, 0.01f, exitPostion.y, mazeExit.gameObject, "Exit").GetComponent<Exit>();
         Vector2 position = positionConverter.ConvertScenePositionToBoard(exit.transform.localPosition);
         cells[(int)position.x, (int)position.y].finding = exit;
     }
 
-    private T CreateGameObject<T>(float x, float y, float z, T prefab, string name) where T : Component
+    private GameObject CreateGameObject(float x, float y, float z, GameObject prefab, string name)
     {
-        T newGameObject = Instantiate(prefab) as T;
+        GameObject newGameObject = Instantiate(prefab);
         newGameObject.name = name + " " + x + ", " + z;
         newGameObject.transform.parent = transform;
         newGameObject.transform.localPosition = new Vector3(x, y, z);
