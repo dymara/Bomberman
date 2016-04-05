@@ -41,6 +41,8 @@ public class GameManager : MonoBehaviour {
     private Maze mazeInstance;
 
     private Board board;
+    
+    private Player player;
 
     private PositionConverter positionConverter;
 
@@ -58,7 +60,7 @@ public class GameManager : MonoBehaviour {
         if (Input.GetKeyDown("f")) {
             Vector3 sceneBombPosition = board.GetPlayers()[0].transform.position + board.GetPlayers()[0].transform.forward;
             Vector2 boardBombPosition = positionConverter.ConvertScenePositionToBoard(sceneBombPosition);
-            explosionManager.PutBomb(bombPrefab, boardBombPosition);
+            explosionManager.PutBomb(player.gameObject, bombPrefab, boardBombPosition);
         }
     }
 
@@ -72,7 +74,7 @@ public class GameManager : MonoBehaviour {
         float startZ = startPositionZ.Equals(StartPosition.MIN) ? 1 : mazeLength - 1;
         board = mazeInstance.Generate(mazeWidth, mazeLength, cellSize, cubeHeight, wallHeight, startX, startZ, positionConverter);
 
-        Player player = Instantiate(playerPrefab);
+        player = Instantiate(playerPrefab);
         player.transform.localPosition = new Vector3(startX, 0.5f, startZ);
         if (startPositionZ.Equals(StartPosition.MAX))
         {
