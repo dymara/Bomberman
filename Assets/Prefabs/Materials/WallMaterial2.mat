@@ -6,7 +6,7 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: FloorMaterial
+  m_Name: WallMaterial2
   m_Shader: {fileID: 2, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: 
   m_LightmapFlags: 5
@@ -19,15 +19,15 @@ Material:
         first:
           name: _MainTex
         second:
-          m_Texture: {fileID: 2800000, guid: cfe7fb04e6a7d8042a6cdd552ccbc506, type: 3}
-          m_Scale: {x: 8.8, y: 8.8}
+          m_Texture: {fileID: 2800000, guid: 152b861a00d09424c9d10c8ccd4611a8, type: 3}
+          m_Scale: {x: 3.8823528, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
         first:
           name: _BumpMap
         second:
-          m_Texture: {fileID: 2800000, guid: f2287e71f4ac9a440a4990c7b4390927, type: 3}
-          m_Scale: {x: 8.8, y: 8.8}
+          m_Texture: {fileID: 2800000, guid: 0ae54c19dbd73e4468d6d18d9b0c8a65, type: 3}
+          m_Scale: {x: 3.8823528, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
         first:
@@ -135,4 +135,4 @@ Material:
       data:
         first:
           name: _Color
-        second: {r: 1, g: 1, b: 1, a: 1}
+        second: {r: 0.8, g: 0.8, b: 0.8, a: 1}

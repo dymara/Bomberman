@@ -13,9 +13,11 @@ public class Maze : MonoBehaviour
 
     private const float WALL_THICKNESS = 0.5f;
 
-    private const float WALL_TEXTURE_HTAILING = 8.5f;
+    /* TEXTURE TAILING CONSTANTS */
 
-    private const float FLOOR_TEXTURE_TAILING = 3.5f;
+    private const float WALL_TEXTURE_WIDTH = 8.5f;
+
+    private const float FLOOR_TEXTURE_SIZE = 3.75f;
 
     public IndesctructibleCubeObject indestructibleCube;
 
@@ -23,7 +25,9 @@ public class Maze : MonoBehaviour
 
     public Exit mazeExit;
 
-    public Component wall;
+    public Component wallA;
+
+    public Component wallB;
 
     public Component floor;
 
@@ -79,20 +83,22 @@ public class Maze : MonoBehaviour
 
     private void CreateFloor(float boardWidth, float boardLength)
     {
-        ApplyTextures(floor, boardWidth, boardWidth / FLOOR_TEXTURE_TAILING, boardWidth / FLOOR_TEXTURE_TAILING);
+        TailTexture(floor, boardWidth / FLOOR_TEXTURE_SIZE, boardLength / FLOOR_TEXTURE_SIZE);
         floor.transform.localScale = new Vector3(boardWidth / 10, 1f, boardLength / 10);
         CreateGameObject(boardWidth / 2, 0, boardLength / 2, floor, "Floor");
     }
 
     private void CreateWalls(float boardWidth, float boardLength, float wallHeight)
     {
-        ApplyTextures(wall, boardWidth, boardWidth / WALL_TEXTURE_HTAILING, 1.0f);
-        wall.transform.localScale = new Vector3(boardWidth + WALL_THICKNESS, wallHeight, WALL_THICKNESS);
-        CreateGameObject(boardWidth / 2, wallHeight / 2, boardLength + WALL_THICKNESS / 2, wall, "Wall1");
-        CreateGameObject(boardWidth / 2, wallHeight / 2, -(WALL_THICKNESS / 2), wall, "Wall2");
-        wall.transform.localScale = new Vector3(WALL_THICKNESS, wallHeight, boardLength + WALL_THICKNESS);
-        CreateGameObject(-(WALL_THICKNESS / 2), wallHeight / 2, boardLength / 2, wall, "Wall3");
-        CreateGameObject(boardWidth + WALL_THICKNESS / 2, wallHeight / 2, boardLength / 2, wall, "Wall4");
+        TailTexture(wallA, boardWidth / WALL_TEXTURE_WIDTH, 1.0f);
+        wallA.transform.localScale = new Vector3(boardWidth + WALL_THICKNESS, wallHeight, WALL_THICKNESS);
+        CreateGameObject(boardWidth / 2, wallHeight / 2, boardLength + WALL_THICKNESS / 2, wallA, "Wall1");
+        CreateGameObject(boardWidth / 2, wallHeight / 2, -(WALL_THICKNESS / 2), wallA, "Wall2");
+
+        TailTexture(wallB, boardLength / WALL_TEXTURE_WIDTH, 1.0f);
+        wallB.transform.localScale = new Vector3(WALL_THICKNESS, wallHeight, boardLength + WALL_THICKNESS);
+        CreateGameObject(-(WALL_THICKNESS / 2), wallHeight / 2, boardLength / 2, wallB, "Wall3");
+        CreateGameObject(boardWidth + WALL_THICKNESS / 2, wallHeight / 2, boardLength / 2, wallB, "Wall4");
     }
 
     private void CreateIndestructibleCubes(Vector3 cubeSize, int count_x, int count_z, CellType[,] board, GameCell[,] cells)
@@ -194,7 +200,7 @@ public class Maze : MonoBehaviour
 
     /* TEXTURING METHODS */
 
-    private void ApplyTextures(Component component, float boardWidth, float tailingXValue, float tailingYValue)
+    private void TailTexture(Component component, float tailingXValue, float tailingYValue)
     {
         GameObject gObject = component.gameObject;
         MeshRenderer[] renderers = gObject.GetComponentsInChildren<MeshRenderer>(true);
