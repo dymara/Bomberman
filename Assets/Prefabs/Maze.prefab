@@ -39,10 +39,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84a76e938dac6bc40b88935a0bab2f94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  indestructibleCube: {fileID: 11406056, guid: 735eb51fd4efeaf46ba6f408495637fb, type: 2}
-  destructibleCube: {fileID: 11442796, guid: 1223ed3e633f30c4897d652179ca889a, type: 2}
+  indestructibleCube: {fileID: 11468434, guid: 02ff0ae3b2b964f4c88f1903f86a2927, type: 2}
+  destructibleCube: {fileID: 11419582, guid: c328450039a723045957e9441f15b3a9, type: 2}
   mazeExit: {fileID: 11423772, guid: 998967a7c58b4c44189d9e25f7964dd7, type: 2}
-  wall: {fileID: 495200, guid: 286f5508c0b2cab44af9cc7dc52a4f0a, type: 2}
+  wallA: {fileID: 411830, guid: 71625952fbadcc244ac8f2b0eeffbf8d, type: 2}
+  wallB: {fileID: 411830, guid: c3d240cc3f8d51f4984b0d55b458e010, type: 2}
   floor: {fileID: 461014, guid: fd77bb678f3a49b4fa33938f9df7fbd8, type: 2}
 --- !u!1001 &100100000
 Prefab:
