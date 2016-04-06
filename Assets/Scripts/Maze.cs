@@ -31,6 +31,10 @@ public class Maze : MonoBehaviour
 
     public Component floor;
 
+    private System.Random rnd = new System.Random();
+
+    private readonly float[] ROTATIONS = { 0, 90 };
+
     public Board Generate(float boardWidth, float boardLength, float cubeWidth, float cubeHeight, float wallHeight, float startPositionX, float startPositionZ, PositionConverter positionConverter)
     {
         Vector3 cubeSize = new Vector3(cubeWidth, cubeHeight, cubeWidth);
@@ -40,11 +44,9 @@ public class Maze : MonoBehaviour
         destructibleCube.transform.localScale = cubeSize;
 
         int allXCell = (int)(boardWidth / cubeSize.x);
-
         int allZCell = (int)(boardLength / cubeSize.z);
 
         int count_x = (allXCell - 1) / 2;
-
         int count_z = (allZCell - 1) / 2;
 
         //arraylist for places with destructible cubes for exit
@@ -64,10 +66,8 @@ public class Maze : MonoBehaviour
         //create indestructible cubes
         CreateIndestructibleCubes(cubeSize, count_x, count_z, tmpBoard, cells);
 
-        int[] startAreaX = new int[] { 0, 1, allXCell - 1, allXCell - 2};
-
+        int[] startAreaX = new int[] { 0, 1, allXCell - 1, allXCell - 2 };
         int[] startAreaZ = new int[] { 0, 1, allZCell - 1, allZCell - 2 };
-
 
         //reserve start area
         ReserveStartArea(tmpBoard, startAreaX, startAreaZ);
@@ -78,7 +78,6 @@ public class Maze : MonoBehaviour
         CreateExit(availableExits, cubeWidth, cells, positionConverter);
 
         return new Board(cells, new Vector2(allXCell, allZCell));
-
     }
 
     private void CreateFloor(float boardWidth, float boardLength)
@@ -120,22 +119,23 @@ public class Maze : MonoBehaviour
     private ArrayList CreateDestructibleCubes(Vector3 cubeSize, int allXCell, int allZCell, CellType[,] board, float boardWidth, float boardLength, float startPositionX, float startPositionZ, GameCell[,] cells)
     {
         ArrayList availableExits = new ArrayList();
-        System.Random rnd = new System.Random();
-        //create destructible cubes
+
+        // create destructible cubes
         for (int x = 0; x < allXCell; x++)
         {
             for (int z = 0; z < allZCell; z++)
             {
-                //if position is empty && random
+                // if position is empty && random
                 if (board[x, z] == CellType.EMPTY && rnd.Next(0, 2) % 2 == 0)
                 {
                     float posX = (x * 2 + 1) * cubeSize.x / 2;
                     float posZ = (z * 2 + 1) * cubeSize.z / 2;
                     board[x, z] = CellType.DESTRUCTIBLE;
                     DesctructibleCubeObject cube = CreateGameObject(posX, cubeSize.y / 2, posZ, destructibleCube, "DestructibleCube");
+                    ApplyRandomRotation(cube.gameObject);
                     cells[x, z].block = cube;
 
-                    //to avoid place exit in rows near walls
+                    // avoid placing exit in rows near walls
                     if (posX < cubeSize.x * 2 || posZ < cubeSize.z * 2 || posX > boardWidth - cubeSize.x * 2 || posZ > boardLength - cubeSize.z * 2)
                     {
                         continue;
@@ -210,5 +210,10 @@ public class Maze : MonoBehaviour
             renderer.sharedMaterial.SetTextureScale("_MainTex", new Vector2(tailingXValue, tailingYValue));
             renderer.sharedMaterial.SetTextureScale("_BumpMap", new Vector2(tailingXValue, tailingYValue));
         }
+    }
+
+    private void ApplyRandomRotation(GameObject gObject)
+    {
+        gObject.transform.Rotate(Vector3.up, ROTATIONS[rnd.Next(ROTATIONS.Length)]);
     }
 }
