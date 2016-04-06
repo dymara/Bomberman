@@ -14,11 +14,11 @@ public class GameManager : MonoBehaviour {
     public Bomb bombPrefab;
 
     /** Number of indestructible cubes in x axis */
-    [Range(3, 100)]
+    [Range(4, 128)]
     public int indestructibleCubesXNumber;
 
     /** Number of indestructible cubes in z axis */
-    [Range(3, 100)]
+    [Range(4, 128)]
     public int indestructibleCubesZNumber;
 
     /** Cell size -> cube length and width */
