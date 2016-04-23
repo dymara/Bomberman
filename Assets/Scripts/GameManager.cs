@@ -95,13 +95,11 @@ public class GameManager : MonoBehaviour {
     private void InitAI() 
     {
         Vector2 playerPosition = positionConverter.ConvertScenePositionToBoard(player.transform.position);
-        Debug.Log(playerPosition);
         List<GameCell> freeCells = board.GetFreeCellsAtMinDistance(playerPosition, 8);
-        foreach (GameCell gameCell in freeCells) 
-        {
-            Debug.Log(gameCell.GetCoordinates());
-            Instantiate(monsterPrefab, positionConverter.ConvertBoardPositionToScene(gameCell.GetCoordinates(), true), Quaternion.identity);
-        }
+        GameCell monsterCell = board.GetGameCell(new Vector2(board.GetSize().x - 1, board.GetSize().y - 1));
+        Vector3 monsterPosition = positionConverter.ConvertBoardPositionToScene(monsterCell.GetCoordinates(), true);
+        GameObject monster = Instantiate(monsterPrefab, monsterPosition, Quaternion.identity) as GameObject;
+        monster.AddComponent<RandomAI>();
     }
 
     private void RestartGame() { }

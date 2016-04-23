@@ -243,6 +243,7 @@ Canvas:
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -357,6 +358,7 @@ MonoBehaviour:
   wallHeight: 5
   startPositionX: 0
   startPositionZ: 0
+  monsterPrefab: {fileID: 132228, guid: be52c1412023b4689a61a1afb7ecb098, type: 2}
 --- !u!4 &1711594432
 Transform:
   m_ObjectHideFlags: 0

@@ -103,5 +103,21 @@ namespace Assets.Scripts.Board
                 return null;
             }
         }
+        
+        public List<GameCell> GetAdjacentCells(Vector2 position) 
+        {
+            return GetAdjacentCells((int)position.x, (int)position.y);    
+        }
+        
+        public List<GameCell> GetAdjacentCells(int x, int y) 
+        {
+            List<GameCell> adjacentCells = new List<GameCell>();
+            adjacentCells.Add(GetGameCell(x, y + 1));
+            adjacentCells.Add(GetGameCell(x, y - 1));
+            adjacentCells.Add(GetGameCell(x + 1, y));
+            adjacentCells.Add(GetGameCell(x - 1, y));
+            
+            return adjacentCells.FindAll(gameCell => gameCell != null && gameCell.IsEmpty());
+        }
     }
 }
