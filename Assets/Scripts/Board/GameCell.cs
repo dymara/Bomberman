@@ -19,6 +19,20 @@ namespace Assets.Scripts.Board
         {
             return coordinates;
         }
+        
+        public float EuclideanDistanceTo(Vector2 position) 
+        {
+            return Mathf.Sqrt(Mathf.Pow(coordinates.x - position.x, 2) + Mathf.Pow(coordinates.y - position.y, 2));
+        }
+        
+        public int ManhattanDistanceTo(Vector2 position) {
+            return (int)(Mathf.Abs(coordinates.x - position.x) + Mathf.Abs(coordinates.y - position.y));
+        }
+        
+        public bool IsEmpty() 
+        {
+            return this.block == null && this.finding == null && this.bomb == null;    
+        }
 
         public void Explode()
         {

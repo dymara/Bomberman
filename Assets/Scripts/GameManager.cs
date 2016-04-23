@@ -2,6 +2,7 @@
 using Assets.Scripts.Board;
 using Assets.Scripts.Model;
 using Assets.Scripts.Util;
+using System.Collections.Generic;
 
 public enum StartPosition { MIN, MAX }
 
@@ -47,7 +48,11 @@ public class GameManager : MonoBehaviour {
     private ExplosionManager explosionManager;
 
     private UIController uiController;
-
+    
+    private Player player;
+    
+    public GameObject monsterPrefab;
+   
     // Use this for initialization
     void Start() {
         BeginGame();
@@ -72,7 +77,7 @@ public class GameManager : MonoBehaviour {
         float startZ = startPositionZ.Equals(StartPosition.MIN) ? 1 : mazeLength - 1;
         board = mazeInstance.Generate(mazeWidth, mazeLength, cellSize, cubeHeight, wallHeight, startX, startZ, positionConverter);
 
-        Player player = Instantiate(playerPrefab);
+        player = Instantiate(playerPrefab);
         player.transform.localPosition = new Vector3(startX, 0.5f, startZ);
         if (startPositionZ.Equals(StartPosition.MAX))
         {
@@ -80,9 +85,23 @@ public class GameManager : MonoBehaviour {
         }
 
         board.AddPlayer(player);
+        
+        InitAI();
 
         explosionManager = GameObject.Find("ExplosionManager").GetComponent<ExplosionManager>();
         uiController = GameObject.Find("UIController").GetComponent<UIController>();
+    }
+    
+    private void InitAI() 
+    {
+        Vector2 playerPosition = positionConverter.ConvertScenePositionToBoard(player.transform.position);
+        Debug.Log(playerPosition);
+        List<GameCell> freeCells = board.GetFreeCellsAtMinDistance(playerPosition, 8);
+        foreach (GameCell gameCell in freeCells) 
+        {
+            Debug.Log(gameCell.GetCoordinates());
+            Instantiate(monsterPrefab, positionConverter.ConvertBoardPositionToScene(gameCell.GetCoordinates(), true), Quaternion.identity);
+        }
     }
 
     private void RestartGame() { }

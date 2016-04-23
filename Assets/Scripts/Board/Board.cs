@@ -58,6 +58,34 @@ namespace Assets.Scripts.Board
         {
             return cells;
         }
+        
+        public List<GameCell> GetFreeGameCells() 
+        {
+            List<GameCell> freeCells = new List<GameCell>();
+            for (int i = 0; i < size.y; i++) 
+            {
+                for (int j = 0; j < size.x; j++) 
+                {
+                    GameCell gameCell = GetGameCell(j, i);
+                    if (gameCell.IsEmpty()) {
+                        freeCells.Add(gameCell);
+                    }    
+                }
+            }
+            return freeCells;
+        }
+        
+        public List<GameCell> GetFreeCellsAtMinDistance(Vector2 currentPos, int minDistance) 
+        {
+            List<GameCell> freeCells = GetFreeGameCells();
+            List<GameCell> minDistanceCells = new List<GameCell>();
+            foreach (GameCell gameCell in freeCells) {
+                if (gameCell.ManhattanDistanceTo(currentPos) >= minDistance) {
+                    minDistanceCells.Add(gameCell);
+                }
+            }
+            return minDistanceCells;
+        }
 
         public GameCell GetGameCell(Vector2 position)
         {
