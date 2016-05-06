@@ -18,8 +18,8 @@ namespace Assets.Scripts.Model
         private TextMesh textMesh;
 
         private bool detonated = false;
-        
-        public GameObject player {get; set;}
+
+        public GameObject player { get; set; }
 
         public override void OnExplode()
         {
@@ -31,7 +31,7 @@ namespace Assets.Scripts.Model
         {
             textMesh = GetComponentInChildren<TextMesh>();
         }
-        
+
         void Update()
         {
             this.textMesh.transform.LookAt(player.gameObject.transform);

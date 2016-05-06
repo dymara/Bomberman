@@ -27,7 +27,7 @@ public class ExplosionManager : MonoBehaviour {
     private void doPutBomb(GameObject player, Bomb bombPrefab, GameCell gameCell)
     {
         Vector3 bombPosition = gameManager.GetPositionConverter().ConvertBoardPositionToScene(gameCell.GetCoordinates(), true);
-        bombPosition.y = bombPrefab.transform.localScale.y / 1.5f;
+        bombPosition.y = bombPrefab.transform.localScale.y / 1.25f;
 
         Bomb bomb = Instantiate(bombPrefab, bombPosition, Quaternion.identity) as Bomb;
         bomb.player = player;
