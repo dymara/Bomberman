@@ -19,6 +19,8 @@ namespace Assets.Scripts.Model
 
         private bool detonated = false;
 
+        public GameObject player { get; set; }
+
         public override void OnExplode()
         {
             PlayExplosionSound();
@@ -28,6 +30,12 @@ namespace Assets.Scripts.Model
         void Awake()
         {
             textMesh = GetComponentInChildren<TextMesh>();
+        }
+
+        void Update()
+        {
+            this.textMesh.transform.LookAt(player.gameObject.transform);
+            this.textMesh.transform.Rotate(new Vector3(0f, 180f, 0f));
         }
 
         public void SetCountValue(int value)

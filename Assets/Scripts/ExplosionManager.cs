@@ -11,12 +11,12 @@ public class ExplosionManager : MonoBehaviour {
 
     public GameManager gameManager;
 
-    public void PutBomb(Bomb bomb, Vector2 position)
+    public void PutBomb(GameObject player, Bomb bomb, Vector2 position)
     {
         GameCell cell = gameManager.GetBoard().GetGameCell(position);
         if (cell != null && cell.block == null && cell.bomb == null)
         {
-            doPutBomb(bomb, cell);
+            doPutBomb(player, bomb, cell);
         } else
         {
             Debug.Log(DateTime.Now + " You can't place a bomb here!");
@@ -24,12 +24,13 @@ public class ExplosionManager : MonoBehaviour {
         }
     }
 
-    private void doPutBomb(Bomb bombPrefab, GameCell gameCell)
+    private void doPutBomb(GameObject player, Bomb bombPrefab, GameCell gameCell)
     {
         Vector3 bombPosition = gameManager.GetPositionConverter().ConvertBoardPositionToScene(gameCell.GetCoordinates(), true);
-        bombPosition.y = bombPrefab.transform.localScale.y / 1.5f;
+        bombPosition.y = bombPrefab.transform.localScale.y / 1.25f;
 
         Bomb bomb = Instantiate(bombPrefab, bombPosition, Quaternion.identity) as Bomb;
+        bomb.player = player;
         gameCell.bomb = bomb;
 
         StartCoroutine(handleBombPlaced(bomb, gameCell));
