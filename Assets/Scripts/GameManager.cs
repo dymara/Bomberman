@@ -52,6 +52,8 @@ public class GameManager : MonoBehaviour {
     private Player player;
     
     public GameObject monsterPrefab;
+
+    public AISpawner aiSpawner;
    
     // Use this for initialization
     void Start() {
@@ -95,11 +97,7 @@ public class GameManager : MonoBehaviour {
     private void InitAI() 
     {
         Vector2 playerPosition = positionConverter.ConvertScenePositionToBoard(player.transform.position);
-        List<GameCell> freeCells = board.GetFreeCellsAtMinDistance(playerPosition, 8);
-        GameCell monsterCell = board.GetGameCell(new Vector2(board.GetSize().x - 1, board.GetSize().y - 1));
-        Vector3 monsterPosition = positionConverter.ConvertBoardPositionToScene(monsterCell.GetCoordinates(), true);
-        GameObject monster = Instantiate(monsterPrefab, monsterPosition, Quaternion.identity) as GameObject;
-        monster.AddComponent<RandomAI>();
+        aiSpawner.SpawnEnemies(board, positionConverter, 2, 8, playerPosition, monsterPrefab);
     }
 
     private void RestartGame() { }
