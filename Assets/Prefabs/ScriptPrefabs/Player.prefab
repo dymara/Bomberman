@@ -208,6 +208,7 @@ MonoBehaviour:
   m_RunSpeed: 10
   m_RunstepLenghten: 0.7
   m_IsJumpingEnabled: 0
+  m_IsRunningEnabled: 0
   m_JumpSpeed: 10
   m_StickToGroundForce: 100
   m_GravityMultiplier: 2

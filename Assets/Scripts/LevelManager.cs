@@ -6,7 +6,7 @@ using Assets.Scripts.Postion;
 
 public enum StartPosition { MIN, MAX }
 
-public class GameManager : MonoBehaviour {
+public class LevelManager : MonoBehaviour {
 
     public Player playerPrefab;
 

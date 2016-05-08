@@ -9,7 +9,7 @@ public class ExplosionManager : MonoBehaviour {
 
     public GameObject[] explosions;
 
-    public GameManager gameManager;
+    public LevelManager levelManager;
 
     private Dictionary<Bomb, GameCell> bombMap = new Dictionary<Bomb, GameCell>();
 
@@ -17,20 +17,20 @@ public class ExplosionManager : MonoBehaviour {
 
     public void PutBomb(GameObject player, Bomb bomb, Vector2 position)
     {
-        GameCell cell = gameManager.GetBoard().GetGameCell(position);
+        GameCell cell = levelManager.GetBoard().GetGameCell(position);
         if (cell != null && cell.block == null && cell.bomb == null)
         {
             DoPutBomb(player, bomb, cell);
         } else
         {
             Debug.Log(DateTime.Now + " You can't place a bomb here!");
-            gameManager.GetUIController().ShowTimedMessage("You can't place a bomb here!");
+            levelManager.GetUIController().ShowTimedMessage("You can't place a bomb here!");
         }
     }
 
     private void DoPutBomb(GameObject player, Bomb bombPrefab, GameCell gameCell)
     {
-        Vector3 bombPosition = gameManager.GetPositionConverter().ConvertBoardPositionToScene(gameCell.GetCoordinates(), true);
+        Vector3 bombPosition = levelManager.GetPositionConverter().ConvertBoardPositionToScene(gameCell.GetCoordinates(), true);
         bombPosition.y = bombPrefab.transform.localScale.y / 1.25f;
 
         Bomb bomb = Instantiate(bombPrefab, bombPosition, Quaternion.identity) as Bomb;
@@ -107,7 +107,7 @@ public class ExplosionManager : MonoBehaviour {
     public void PlayExplosionEffect(Vector2 gameCellCoordinates, float height)
     {
         int explosionIndex = UnityEngine.Random.Range(0, explosions.Length);
-        Vector3 explosionPosition = gameManager.GetPositionConverter().ConvertBoardPositionToScene(gameCellCoordinates, true);
+        Vector3 explosionPosition = levelManager.GetPositionConverter().ConvertBoardPositionToScene(gameCellCoordinates, true);
         explosionPosition.y = height;
 
         GameObject explosionObject = Instantiate(explosions[explosionIndex], explosionPosition, Quaternion.identity) as GameObject;
@@ -143,7 +143,7 @@ public class ExplosionManager : MonoBehaviour {
     {
         if (rangeLeft > 0)
         {
-            GameCell cell = gameManager.GetBoard().GetGameCell(cellX, cellY);
+            GameCell cell = levelManager.GetBoard().GetGameCell(cellX, cellY);
             if (isGameCellDestructible(cell))
             {
                 resultCells.Add(cell);

@@ -69,7 +69,7 @@ namespace Assets.Scripts.Model
             }
                 EditorUtility.DisplayDialog("Bomberman3D", "You are dead.", "Repeat level");
                 Debug.Log(DateTime.Now + " Repeat level");
-                SceneManager.LoadScene("Main");
+                GameManager.instance.SwitchGameState(GameState.GAMEPLAY);
         }
 
         private IEnumerator EndGameCoroutine()
@@ -92,7 +92,7 @@ namespace Assets.Scripts.Model
             if (answer)
             {
                 Debug.Log(DateTime.Now + " Loading next level");
-                SceneManager.LoadScene("Main");
+                GameManager.instance.SwitchGameState(GameState.GAMEPLAY);
             }
             else {
                 Debug.Log("EXIT GAME");
