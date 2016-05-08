@@ -73,7 +73,6 @@ public class ExplosionManager : MonoBehaviour {
     private void AddToBombMap(Bomb bomb, GameCell gameCell)
     {
         lock (bombMapLock) {        
-            HashSet<GameCell> cellsToExplode = GetCellsToExplode(gameCell, bomb.explosionRange);
             bombMap.Add(bomb, gameCell);
             HighlightCellsToExplode(bomb, true);
         }

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using Assets.Scripts.Model;
+using System.Collections.Generic;
 
 namespace Assets.Scripts.Board
 {
@@ -9,11 +10,13 @@ namespace Assets.Scripts.Board
         public AbstractCubeObject block { get; set; }
         public Finding finding { get; set; }
         public Bomb bomb { get; set; }
+        private HashSet<AbstractPlayer> players;
         public GameObject highlight { get; set; }
 
         public GameCell(Vector2 coordinates)
         {
             this.coordinates = coordinates;
+            players = new HashSet<AbstractPlayer>();
         }
 
         public Vector2 GetCoordinates()
@@ -40,6 +43,9 @@ namespace Assets.Scripts.Board
             ExplodeFinding();
             ExplodeBlock();
             ExplodeBomb();
+            foreach(Player player in players){
+                player.OnExplode();
+            }
         }
 
         private void ExplodeBlock()
@@ -72,6 +78,17 @@ namespace Assets.Scripts.Board
                 bomb.OnExplode();
                 bomb = null;
             }
+        }
+
+        public bool AddPlayer(AbstractPlayer player)
+        {
+            return players.Add(player);
+        }
+
+
+        public bool RemovePlayer(AbstractPlayer player)
+        {
+            return players.Remove(player);
         }
     }
 }

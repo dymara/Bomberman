@@ -3,6 +3,7 @@ using Assets.Scripts.Board;
 using Assets.Scripts.Model;
 using Assets.Scripts.Util;
 using System.Collections.Generic;
+using Assets.Scripts.Postion;
 
 public enum StartPosition { MIN, MAX }
 
@@ -53,6 +54,8 @@ public class GameManager : MonoBehaviour {
     
     public GameObject monsterPrefab;
 
+    private PlayerPositionManager positionManager;
+
     public AISpawner aiSpawner;
    
     // Use this for initialization
@@ -79,7 +82,11 @@ public class GameManager : MonoBehaviour {
         float startZ = startPositionZ.Equals(StartPosition.MIN) ? 1 : mazeLength - 1;
         board = mazeInstance.Generate(mazeWidth, mazeLength, cellSize, cubeHeight, wallHeight, startX, startZ, positionConverter);
 
+        positionManager = new PlayerPositionManager(board, positionConverter);
+
         player = Instantiate(playerPrefab);
+        player.name = "Czesiek";
+        player.SetRemainingLives(3);
         player.transform.localPosition = new Vector3(startX, 0.5f, startZ);
         if (startPositionZ.Equals(StartPosition.MAX))
         {
@@ -89,6 +96,8 @@ public class GameManager : MonoBehaviour {
         board.AddPlayer(player);
         
         InitAI();
+
+        positionManager.AddPlayer(player);
 
         explosionManager = GameObject.Find("ExplosionManager").GetComponent<ExplosionManager>();
         uiController = GameObject.Find("UIController").GetComponent<UIController>();
