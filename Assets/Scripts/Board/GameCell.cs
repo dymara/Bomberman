@@ -43,7 +43,7 @@ namespace Assets.Scripts.Board
             ExplodeFinding();
             ExplodeBlock();
             ExplodeBomb();
-            foreach(Player player in players){
+            foreach(AbstractPlayer player in players){
                 player.OnExplode();
             }
         }

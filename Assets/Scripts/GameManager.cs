@@ -105,6 +105,7 @@ public class GameManager : MonoBehaviour {
     
     private void InitAI() 
     {
+        aiSpawner.SetPostitionManager(positionManager);
         Vector2 playerPosition = positionConverter.ConvertScenePositionToBoard(player.transform.position);
         aiSpawner.SpawnEnemies(board, positionConverter, playerPosition);
     }
