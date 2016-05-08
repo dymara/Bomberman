@@ -45,7 +45,7 @@ MonoBehaviour:
   wallA: {fileID: 411830, guid: 71625952fbadcc244ac8f2b0eeffbf8d, type: 2}
   wallB: {fileID: 411830, guid: c3d240cc3f8d51f4984b0d55b458e010, type: 2}
   floor: {fileID: 461014, guid: fd77bb678f3a49b4fa33938f9df7fbd8, type: 2}
-  cellHighlight: {fileID: 484234, guid: 79b747557808df54990ae7769fe6435c, type: 2}
+  cellHighlight: {fileID: 446552, guid: 52ba60f250cc69146833ef20b0b5a191, type: 2}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
