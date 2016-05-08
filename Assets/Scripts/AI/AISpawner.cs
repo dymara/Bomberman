@@ -6,7 +6,13 @@ using Assets.Scripts.Util;
 
 public class AISpawner : MonoBehaviour
 {
-    public void SpawnEnemies(Board board, PositionConverter positionConverter, int enemiesCount, int minDistance, Vector2 originPoint, GameObject monsterPrefab)
+    public int enemiesCount;
+
+    public int minDistance;
+
+    public GameObject monsterPrefab;
+
+    public void SpawnEnemies(Board board, PositionConverter positionConverter, Vector2 originPoint)
     {
         List<GameCell> freeCells = board.GetFreeCellsAtMinDistance(originPoint, minDistance);
         freeCells.Shuffle();
