@@ -40,7 +40,7 @@ namespace Assets.Scripts.Model
 
         public void SetCountValue(int value)
         {
-            if (!hasBeenDetonated())
+            if (!HasBeenDetonated())
             {
                 textMesh.text = value.ToString();
             }
@@ -51,7 +51,7 @@ namespace Assets.Scripts.Model
             AudioSource.PlayClipAtPoint(explosionSound, this.transform.position, EXPLOSION_SOUND_VOLUME);
         }
 
-        public bool hasBeenDetonated()
+        public bool HasBeenDetonated()
         {
             return detonated;
         }

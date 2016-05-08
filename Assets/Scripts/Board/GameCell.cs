@@ -9,6 +9,7 @@ namespace Assets.Scripts.Board
         public AbstractCubeObject block { get; set; }
         public Finding finding { get; set; }
         public Bomb bomb { get; set; }
+        public GameObject highlight { get; set; }
 
         public GameCell(Vector2 coordinates)
         {
@@ -22,12 +23,12 @@ namespace Assets.Scripts.Board
 
         public void Explode()
         {
-            explodeFinding();
-            explodeBlock();
-            explodeBomb();
+            ExplodeFinding();
+            ExplodeBlock();
+            ExplodeBomb();
         }
 
-        private void explodeBlock()
+        private void ExplodeBlock()
         {
             if (block != null)
             {
@@ -36,7 +37,7 @@ namespace Assets.Scripts.Board
             }
         }
 
-        private void explodeFinding()
+        private void ExplodeFinding()
         {
             // Findings should be blown up only if no block covers them at the moment of explosion
             if (finding != null && block == null)
@@ -50,7 +51,7 @@ namespace Assets.Scripts.Board
             }
         }
 
-        private void explodeBomb()
+        private void ExplodeBomb()
         {
             if (bomb != null)
             {
