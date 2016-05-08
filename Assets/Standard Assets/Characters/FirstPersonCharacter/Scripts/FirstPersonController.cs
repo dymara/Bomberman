@@ -43,6 +43,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private float m_NextStep;
         private bool m_Jumping;
         private AudioSource m_AudioSource;
+        private float prevWalkSpeed;
+        private float prevRunSpeed;
 
         // Use this for initialization
         private void Start()
@@ -259,6 +261,23 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 return;
             }
             body.AddForceAtPosition(m_CharacterController.velocity*0.1f, hit.point, ForceMode.Impulse);
+        }
+
+        public void DisableMoving()
+        {
+            prevWalkSpeed = m_WalkSpeed;
+            prevRunSpeed = m_RunSpeed;
+
+            m_WalkSpeed = 0;
+            m_RunSpeed = 0;
+            FixedUpdate();
+        }
+
+        public void EnableMoving()
+        {
+            m_WalkSpeed = prevWalkSpeed;
+            m_RunSpeed = prevRunSpeed;
+            FixedUpdate();
         }
     }
 }
