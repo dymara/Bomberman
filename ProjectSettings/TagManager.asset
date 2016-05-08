@@ -8,6 +8,7 @@ TagManager:
   - Destructible
   - Indestructible
   - Bomb
+  - Exit
   layers:
   - Default
   - TransparentFX
