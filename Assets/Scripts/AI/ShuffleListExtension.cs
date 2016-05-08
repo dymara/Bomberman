@@ -4,15 +4,13 @@ using UnityEngine;
 public static class ShuffleListExtension
 {
     public static void Shuffle<T>(this IList<T> list)
-    {  
-        int n = list.Count;  
-        while (n > 1)
-        {  
-            n--;  
-            int k = Random.Range(0, n + 1);  
-            T value = list[k];
-            list[k] = list[n];  
-            list[n] = value;
+    {
+        for (int i = list.Count - 1; i > 0; i--)
+        {
+            int index = Random.Range(0, i - 1);
+            T tmp = list[index];
+            list[index] = list[i];
+            list[i] = tmp;
         }  
     }
 }
