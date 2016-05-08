@@ -16,7 +16,6 @@ public class AISpawner : MonoBehaviour
     {
         List<GameCell> freeCells = board.GetFreeCellsAtMinDistance(originPoint, minDistance);
         freeCells.Shuffle();
-        Debug.Log("Free cells: " + freeCells.Count);
         for (int i = 0; i < enemiesCount; i++)
         {
             if (i >= freeCells.Count)

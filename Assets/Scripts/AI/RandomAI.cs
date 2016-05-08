@@ -14,7 +14,14 @@ public class RandomAI : AIBehavior
     {
         Vector2 currentPosition = positionConverter.ConvertScenePositionToBoard(this.transform.position);
         List<GameCell> adjacentCells = board.GetAdjacentCells(currentPosition);
-        GameCell nextCell = adjacentCells[Random.Range(0, adjacentCells.Count)];
-        return nextCell;
+        if (adjacentCells.Count != 0)
+        {
+            GameCell nextCell = adjacentCells[Random.Range(0, adjacentCells.Count)];
+            return nextCell;
+        }
+        else
+        {
+            return null;
+        }
     }
 }

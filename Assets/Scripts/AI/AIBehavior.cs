@@ -9,6 +9,8 @@ public abstract class AIBehavior : MonoBehaviour
 
     protected PositionConverter positionConverter;
 
+    private bool isMoving;
+
     // Use this for initialization
     public virtual void Start()
     {
@@ -16,23 +18,39 @@ public abstract class AIBehavior : MonoBehaviour
             .GetComponent<GameManager>().GetBoard();
         positionConverter = GameObject.Find(Constants.GAME_MANAGER_NAME)
             .GetComponent<GameManager>().GetPositionConverter();
-        Move();
+        TryMove();
+    }
+
+    void Update()
+    {
+        if (!isMoving)
+        {
+            TryMove();
+        }
     }
 
     protected abstract GameCell GetNextMove();
 
-    private void Move()
+    private void TryMove()
     {
         GameCell nextCell = GetNextMove();
-        MakeMove(nextCell);
+        if (nextCell != null)
+        {
+            isMoving = true;
+            MakeMove(nextCell);
+        }
+        else
+        {
+            isMoving = false;
+        }
     }
 
     void MakeMove(GameCell targetCell)
     {
         iTween.MoveTo(this.gameObject, iTween.Hash(
-            "position", positionConverter.ConvertBoardPositionToScene(targetCell.GetCoordinates(), true),
-            "oncomplete", "Move",
-            "time", 3,
-            "easetype", "linear"));
+                "position", positionConverter.ConvertBoardPositionToScene(targetCell.GetCoordinates(), true),
+                "oncomplete", "TryMove",
+                "time", 3,
+                "easetype", "linear"));
     }
 }
