@@ -11,12 +11,16 @@ public class ExplosionManager : MonoBehaviour {
 
     public GameManager gameManager;
 
-    public void PutBomb(Bomb bomb, Vector2 position)
+    private Dictionary<Bomb, GameCell> bombMap = new Dictionary<Bomb, GameCell>();
+
+    private readonly object bombMapLock = new object();
+
+    public void PutBomb(GameObject player, Bomb bomb, Vector2 position)
     {
         GameCell cell = gameManager.GetBoard().GetGameCell(position);
         if (cell != null && cell.block == null && cell.bomb == null)
         {
-            doPutBomb(bomb, cell);
+            DoPutBomb(player, bomb, cell);
         } else
         {
             Debug.Log(DateTime.Now + " You can't place a bomb here!");
@@ -24,18 +28,20 @@ public class ExplosionManager : MonoBehaviour {
         }
     }
 
-    private void doPutBomb(Bomb bombPrefab, GameCell gameCell)
+    private void DoPutBomb(GameObject player, Bomb bombPrefab, GameCell gameCell)
     {
         Vector3 bombPosition = gameManager.GetPositionConverter().ConvertBoardPositionToScene(gameCell.GetCoordinates(), true);
-        bombPosition.y = bombPrefab.transform.localScale.y / 1.5f;
+        bombPosition.y = bombPrefab.transform.localScale.y / 1.25f;
 
         Bomb bomb = Instantiate(bombPrefab, bombPosition, Quaternion.identity) as Bomb;
+        bomb.player = player;
         gameCell.bomb = bomb;
 
-        StartCoroutine(handleBombPlaced(bomb, gameCell));
+        AddToBombMap(bomb, gameCell);
+        StartCoroutine(HandleBombPlaced(bomb, gameCell));
     }
 
-    private IEnumerator handleBombPlaced(Bomb bomb, GameCell gameCell)
+    private IEnumerator HandleBombPlaced(Bomb bomb, GameCell gameCell)
     {
         // decrement counter value
         int timeLeft = bomb.detonateDelay;
@@ -47,14 +53,54 @@ public class ExplosionManager : MonoBehaviour {
         }
 
         // handle explosion
-        if (!bomb.hasBeenDetonated())
+        if (!bomb.HasBeenDetonated())
         {
             HashSet<GameCell> cellsToExplode = GetCellsToExplode(gameCell, bomb.explosionRange);
+            List<Bomb> explodedBombs = new List<Bomb>();
             foreach (GameCell cell in cellsToExplode)
             {
                 PlayExplosionEffect(cell.GetCoordinates(), bomb.transform.localScale.y);
+                if (cell.bomb != null)
+                {
+                    explodedBombs.Add(cell.bomb);
+                }
                 cell.Explode();
             }
+            RemoveFromBombMap(explodedBombs);
+        }
+    }
+
+    private void AddToBombMap(Bomb bomb, GameCell gameCell)
+    {
+        lock (bombMapLock) {        
+            bombMap.Add(bomb, gameCell);
+            HighlightCellsToExplode(bomb, true);
+        }
+    }
+
+    private void RemoveFromBombMap(List<Bomb> bombs)
+    {
+        lock (bombMapLock)
+        {
+            foreach (Bomb bomb in bombs)
+            {
+                HighlightCellsToExplode(bomb, false);
+                bombMap.Remove(bomb);
+            }
+            foreach (Bomb remainingBomb in bombMap.Keys) {
+                HighlightCellsToExplode(remainingBomb, true);
+            }
+        }
+    }
+
+    private void HighlightCellsToExplode(Bomb bomb, bool shouldBeHighlighted)
+    {
+        GameCell gameCell = bombMap[bomb];
+        HashSet<GameCell> cellsToExplode = GetCellsToExplode(gameCell, bomb.explosionRange);
+       
+        foreach (GameCell cell in cellsToExplode)
+        {
+            cell.highlight.SetActive(shouldBeHighlighted);
         }
     }
 

@@ -28,3 +28,9 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
+launch.json
+VSCode.meta
+Assets/VSCode/Plugins.meta
+Assets/VSCode/Plugins/Editor.meta
+Assets/VSCode/Plugins/Editor/VSCode.cs
+Assets/VSCode/Plugins/Editor/VSCode.cs.meta

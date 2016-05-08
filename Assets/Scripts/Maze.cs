@@ -31,6 +31,8 @@ public class Maze : MonoBehaviour
 
     public Component floor;
 
+    public Component cellHighlight;
+
     private System.Random rnd = new System.Random();
 
     private readonly float[] ROTATIONS = { 0, 90 };
@@ -40,8 +42,8 @@ public class Maze : MonoBehaviour
         Vector3 cubeSize = new Vector3(cubeWidth, cubeHeight, cubeWidth);
 
         indestructibleCube.transform.localScale = cubeSize;
-
         destructibleCube.transform.localScale = cubeSize;
+        cellHighlight.transform.localScale = cubeSize;
 
         int allXCell = (int)(boardWidth / cubeSize.x);
         int allZCell = (int)(boardLength / cubeSize.z);
@@ -57,7 +59,7 @@ public class Maze : MonoBehaviour
 
         GameCell[,] cells = new GameCell[allXCell, allZCell];
 
-        PrepareBoard(allXCell, allZCell, tmpBoard, cells);
+        PrepareBoard(cubeSize, allXCell, allZCell, tmpBoard, cells);
 
         CreateFloor(boardWidth, boardLength);
 
@@ -151,6 +153,15 @@ public class Maze : MonoBehaviour
         return availableExits;
     }
 
+    private void CreateCellHighlight(GameCell[,] cells, Vector3 cubeSize, int x, int z)
+    {
+        float posX = (x * 2 + 1) * cubeSize.x / 2;
+        float posZ = (z * 2 + 1) * cubeSize.z / 2;
+        Component highlight = CreateGameObject(posX, 0.01f, posZ, cellHighlight, "Cell Highlight");
+        cells[x, z].highlight = highlight.gameObject;
+        cells[x, z].highlight.SetActive(false);
+    }
+
     private void CreateExit(ArrayList availableExits, float cubeWidth, GameCell[,] cells, PositionConverter positionConverter)
     {
         int index = new System.Random().Next(0, availableExits.Count);
@@ -175,7 +186,7 @@ public class Maze : MonoBehaviour
         return Mathf.Sqrt(Mathf.Pow(p1.x - p2.x, 2) + Mathf.Pow(p1.y - p2.y, 2));
     }
 
-    private static void PrepareBoard(int allXCell, int allZCell, CellType[,] board, GameCell[,] cells)
+    private void PrepareBoard(Vector3 cubeSize, int allXCell, int allZCell, CellType[,] board, GameCell[,] cells)
     {
         for (int x = 0; x < allXCell; x++)
         {
@@ -183,11 +194,12 @@ public class Maze : MonoBehaviour
             {
                 board[x, z] = CellType.EMPTY;
                 cells[x, z] = new GameCell(new Vector2(x, z));
+                CreateCellHighlight(cells, cubeSize, x, z);
             }
         }
     }
 
-    private static void ReserveStartArea(CellType[,] board, int[] startAreaX, int[] startAreaZ)
+    private void ReserveStartArea(CellType[,] board, int[] startAreaX, int[] startAreaZ)
     {
         foreach (int x in startAreaX)
         {
