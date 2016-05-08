@@ -14,7 +14,9 @@ public class AISpawner : MonoBehaviour
         for (int i = 0; i < enemiesCount; i++)
         {
             if (i >= freeCells.Count)
+            {
                 break;
+            }
             GameCell monsterCell = freeCells[i];
             Vector3 monsterPosition = positionConverter.ConvertBoardPositionToScene(monsterCell.GetCoordinates(), true);
             GameObject monster = Instantiate(monsterPrefab, monsterPosition, Quaternion.identity) as GameObject;
