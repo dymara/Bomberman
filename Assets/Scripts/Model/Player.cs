@@ -1,9 +1,8 @@
-﻿using Assets.Scripts.Board;
 using System;
-using System.Collections;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections;
 using UnityStandardAssets.Characters.FirstPerson;
 
 
@@ -11,9 +10,14 @@ namespace Assets.Scripts.Model
 {
     public class Player : AbstractPlayer
     {
+        private const String EXIT_TAG = "Exit";
+
         private long score;
 
+        private Boolean exitReached = false;
+
         private bool wait;
+
 
         public Player(String name, int lives) : base(lives)
         {
@@ -30,6 +34,15 @@ namespace Assets.Scripts.Model
         {
             score += bonus;
         }
+
+        private void OnControllerColliderHit(ControllerColliderHit hit)
+        {
+            if (!exitReached && hit.gameObject.tag.Equals(EXIT_TAG))
+            {
+                OnExitReached();
+            }
+        }
+
 
         protected override void Kill()
         {
@@ -69,6 +82,23 @@ namespace Assets.Scripts.Model
             EditorUtility.DisplayDialog("Bomberman3D", ":(:(:( You lose.", "Exit to main menu");
             Debug.Log(DateTime.Now + " Exit to main menu");
             Application.Quit();
+        }
+
+        private void OnExitReached()
+        {
+            exitReached = true;
+            Debug.Log(DateTime.Now + " Maze exit reached");
+            Boolean answer = EditorUtility.DisplayDialog("Bomberman3D", "Congratulation!. You win.", "Next level", "Exit");
+            if (answer)
+            {
+                Debug.Log(DateTime.Now + " Loading next level");
+                SceneManager.LoadScene("Main");
+            }
+            else {
+                Debug.Log("EXIT GAME");
+                Application.Quit();
+                exitReached = false;
+            }
         }
     }
 }
