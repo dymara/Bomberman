@@ -19,6 +19,8 @@ namespace Assets.Scripts.Model
 
         private bool detonated = false;
 
+        public GameObject player { get; set; }
+
         public override void OnExplode()
         {
             PlayExplosionSound();
@@ -30,9 +32,15 @@ namespace Assets.Scripts.Model
             textMesh = GetComponentInChildren<TextMesh>();
         }
 
+        void Update()
+        {
+            this.textMesh.transform.LookAt(player.gameObject.transform);
+            this.textMesh.transform.Rotate(new Vector3(0f, 180f, 0f));
+        }
+
         public void SetCountValue(int value)
         {
-            if (!hasBeenDetonated())
+            if (!HasBeenDetonated())
             {
                 textMesh.text = value.ToString();
             }
@@ -43,7 +51,7 @@ namespace Assets.Scripts.Model
             AudioSource.PlayClipAtPoint(explosionSound, this.transform.position, EXPLOSION_SOUND_VOLUME);
         }
 
-        public bool hasBeenDetonated()
+        public bool HasBeenDetonated()
         {
             return detonated;
         }
