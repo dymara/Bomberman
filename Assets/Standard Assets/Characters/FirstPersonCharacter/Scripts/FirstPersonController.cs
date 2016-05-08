@@ -15,6 +15,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         [SerializeField] private float m_RunSpeed;
         [SerializeField] [Range(0f, 1f)] private float m_RunstepLenghten;
         [SerializeField] private bool m_IsJumpingEnabled = true;         // disable jumping from inspector
+        [SerializeField] private bool m_IsRunningEnabled = false;        // disable running
         [SerializeField] private float m_JumpSpeed;
         [SerializeField] private float m_StickToGroundForce;
         [SerializeField] private float m_GravityMultiplier;
@@ -215,7 +216,10 @@ namespace UnityStandardAssets.Characters.FirstPerson
 #if !MOBILE_INPUT
             // On standalone builds, walk/run speed is modified by a key press.
             // keep track of whether or not the character is walking or running
-            m_IsWalking = !Input.GetKey(KeyCode.LeftShift);
+            m_IsWalking = true;
+            if (m_IsRunningEnabled) {
+                m_IsWalking = !Input.GetKey(KeyCode.LeftShift);
+            }
 #endif
             // set the desired speed to be walking or running
             speed = m_IsWalking ? m_WalkSpeed : m_RunSpeed;
