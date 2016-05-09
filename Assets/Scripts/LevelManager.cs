@@ -72,6 +72,10 @@ public class LevelManager : MonoBehaviour {
     // Update is called once per frame
     void Update() {
         if (Input.GetKeyDown("f")) {
+            if(explosionManager.GetPlacedBombCount() == player.bombs)
+            {
+                return;
+            }
             Vector3 sceneBombPosition = board.GetPlayers()[0].transform.position + board.GetPlayers()[0].transform.forward;
             Vector2 boardBombPosition = positionConverter.ConvertScenePositionToBoard(sceneBombPosition);
             explosionManager.PutBomb(player.gameObject, bombPrefab, boardBombPosition);

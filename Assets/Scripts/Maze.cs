@@ -25,6 +25,8 @@ public class Maze : MonoBehaviour
 
     public Exit mazeExit;
 
+    public Finding findingPrefab;
+
     public Component wallA;
 
     public Component wallB;
@@ -52,6 +54,7 @@ public class Maze : MonoBehaviour
         int count_z = (allZCell - 1) / 2;
 
         // arraylist for places with destructible cubes for exit
+        ArrayList destructibleCubes = new ArrayList();
         ArrayList availableExits;
 
         // array for minimap
@@ -74,10 +77,13 @@ public class Maze : MonoBehaviour
         // reserve start area
         ReserveStartArea(tmpBoard, startAreaX, startAreaZ);
 
-        availableExits = CreateDestructibleCubes(cubeSize, allXCell, allZCell, tmpBoard, boardWidth, boardLength, startPositionX, startPositionZ, cells);
+        availableExits = CreateDestructibleCubes(cubeSize, allXCell, allZCell, tmpBoard, boardWidth, boardLength, startPositionX, startPositionZ, cells, destructibleCubes);
 
         // create exit position
-        CreateExit(availableExits, cubeWidth, cells, positionConverter);
+        CreateExit(availableExits, destructibleCubes, cubeWidth, cells, positionConverter);
+
+        //create findings
+        CreateFindings(destructibleCubes, cubeWidth, cells, positionConverter);
 
         return new Board(cells, new Vector2(allXCell, allZCell));
     }
@@ -118,7 +124,8 @@ public class Maze : MonoBehaviour
         }
     }
 
-    private ArrayList CreateDestructibleCubes(Vector3 cubeSize, int allXCell, int allZCell, CellType[,] board, float boardWidth, float boardLength, float startPositionX, float startPositionZ, GameCell[,] cells)
+    private ArrayList CreateDestructibleCubes(Vector3 cubeSize, int allXCell, int allZCell, CellType[,] board, float boardWidth, float boardLength, 
+                                              float startPositionX, float startPositionZ, GameCell[,] cells, ArrayList destructibleCubes)
     {
         ArrayList availableExits = new ArrayList();
 
@@ -136,6 +143,8 @@ public class Maze : MonoBehaviour
                     DesctructibleCubeObject cube = CreateGameObject(posX, cubeSize.y / 2, posZ, destructibleCube, "DestructibleCube");
                     ApplyRandomRotation(cube.gameObject);
                     cells[x, z].block = cube;
+
+                    destructibleCubes.Add(new Vector2(posX, posZ));
 
                     // avoid placing exit in rows near walls
                     if (posX < cubeSize.x * 2 || posZ < cubeSize.z * 2 || posX > boardWidth - cubeSize.x * 2 || posZ > boardLength - cubeSize.z * 2)
@@ -162,16 +171,37 @@ public class Maze : MonoBehaviour
         cells[x, z].highlight.SetActive(false);
     }
 
-    private Exit CreateExit(ArrayList availableExits, float cubeWidth, GameCell[,] cells, PositionConverter positionConverter)
+    private Exit CreateExit(ArrayList availableExits, ArrayList destructibleCubes, float cubeWidth, GameCell[,] cells, PositionConverter positionConverter)
     {
-        int index = new System.Random().Next(0, availableExits.Count);
+        int index = rnd.Next(0, availableExits.Count);
         Vector2 exitPostion = (Vector2)availableExits[index];
+        destructibleCubes.Remove(exitPostion);
         mazeExit.transform.localScale = new Vector3(cubeWidth / 10, 1f, cubeWidth / 10);
         Exit exit = CreateGameObject(exitPostion.x, 0.01f, exitPostion.y, mazeExit, "Exit");
+        exit.gameObject.GetComponent<Spin>().SetSpeed(GameManager.instance.GetExitSpinSpeed());
         Vector2 position = positionConverter.ConvertScenePositionToBoard(exit.transform.localPosition);
         cells[(int)position.x, (int)position.y].finding = exit;
 
         return exit;
+    }
+
+    private void CreateFindings(ArrayList destructibleCubes, float cubeWidth, GameCell[,] cells, PositionConverter positionConverter)
+    {
+        Vector2 position;
+        int index;
+        findingPrefab.transform.localScale = new Vector3(cubeWidth / 4, cubeWidth / 4, cubeWidth / 4);
+        for (int i = 0; i < GameManager.instance.GetFindingtCount(); i++)
+        {
+            index = rnd.Next(0, destructibleCubes.Count);
+            Vector2 findingPostion = (Vector2)destructibleCubes[index];
+            destructibleCubes.Remove(findingPostion);
+            Finding finding = CreateGameObject(findingPostion.x, cubeWidth / 4 + 0.5f, findingPostion.y, findingPrefab, "Fiding " + (i + 1));
+            finding.GetComponent<SphereCollider>().radius = cubeWidth / 4;
+
+            finding.gameObject.GetComponent<Spin>().SetSpeed(GameManager.instance.GetFindingtSpinSpeed());
+            position = positionConverter.ConvertScenePositionToBoard(finding.transform.localPosition);
+            cells[(int)position.x, (int)position.y].finding = finding;
+        }
     }
 
     private T CreateGameObject<T>(float x, float y, float z, T prefab, string name) where T : Component

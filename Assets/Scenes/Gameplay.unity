@@ -581,6 +581,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 11402826, guid: b7828e9b10118314999c14f9a4bb114e, type: 2}
+      propertyPath: findingPrefab
+      value: 
+      objectReference: {fileID: 11457722, guid: a77e828f2136e5e458b5ab01c1f2e99d,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b7828e9b10118314999c14f9a4bb114e, type: 2}
   m_IsPrefabParent: 0
@@ -1359,6 +1364,7 @@ MonoBehaviour:
   indestructibleCube: {fileID: 11468434, guid: 02ff0ae3b2b964f4c88f1903f86a2927, type: 2}
   destructibleCube: {fileID: 11419582, guid: c328450039a723045957e9441f15b3a9, type: 2}
   mazeExit: {fileID: 11423772, guid: 998967a7c58b4c44189d9e25f7964dd7, type: 2}
+  findingPrefab: {fileID: 11457722, guid: a77e828f2136e5e458b5ab01c1f2e99d, type: 2}
   wallA: {fileID: 411830, guid: 71625952fbadcc244ac8f2b0eeffbf8d, type: 2}
   wallB: {fileID: 411830, guid: c3d240cc3f8d51f4984b0d55b458e010, type: 2}
   floor: {fileID: 461014, guid: fd77bb678f3a49b4fa33938f9df7fbd8, type: 2}

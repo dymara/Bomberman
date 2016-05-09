@@ -107,6 +107,16 @@ public class GameManager : MonoBehaviour {
         return configurator.exitSpinSpeed;
     }
 
+    public float GetFindingtSpinSpeed()
+    {
+        return configurator.findingSpinSpeed;
+    }
+
+    public float GetFindingtCount()
+    {
+        return configurator.findingCount;
+    }
+
     public int GetBombDetonateDelay()
     {
         return configurator.bombDetonateDelay;

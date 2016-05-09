@@ -52,6 +52,8 @@ MonoBehaviour:
   level1EnemiesCount: 3
   exitExplosionEnemiesCount: 3
   enemiesMinDistance: 8
+  findingCount: 7
+  findingSpinSpeed: 80
   exitSpinSpeed: 10
   bombDetonateDelay: 4
   cellSize: 3
