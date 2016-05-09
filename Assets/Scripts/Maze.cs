@@ -179,7 +179,8 @@ public class Maze : MonoBehaviour
         mazeExit.transform.localScale = new Vector3(cubeWidth / 10, 1f, cubeWidth / 10);
         Exit exit = CreateGameObject(exitPostion.x, 0.01f, exitPostion.y, mazeExit, "Exit");
         exit.gameObject.GetComponent<Spin>().SetSpeed(GameManager.instance.GetExitSpinSpeed());
-        Vector2 position = positionConverter.ConvertScenePositionToBoard(exit.transform.localPosition);
+        exit.gameObject.GetComponent<SphereCollider>().radius = cubeWidth / 10;
+       Vector2 position = positionConverter.ConvertScenePositionToBoard(exit.transform.localPosition);
         cells[(int)position.x, (int)position.y].finding = exit;
 
         return exit;
