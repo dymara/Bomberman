@@ -4,9 +4,9 @@ public class Spin : MonoBehaviour {
 
     private float speed;
 
-    void Awake()
+    public void SetSpeed(float speed)
     {
-        this.speed = GameManager.instance.GetExitSpinSpeed();
+        this.speed = speed;
     }
 
     void Update () {

@@ -37,5 +37,10 @@ namespace Assets.Scripts.Postion
             currentCell = gameCell;
             gameCell.AddPlayer(player);
         }
+
+        public void RemovePlayerFromCurrentCell()
+        {
+            currentCell.RemovePlayer(player);
+        }
     }
 }

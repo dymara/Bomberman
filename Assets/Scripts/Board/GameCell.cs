@@ -48,7 +48,7 @@ namespace Assets.Scripts.Board
             ExplodeFinding();
             ExplodeBlock();
             ExplodeBomb();
-            foreach(AbstractPlayer player in players){
+            foreach(AbstractPlayer player in new HashSet<AbstractPlayer>(players)){
                 player.OnExplode();
             }
         }
@@ -64,6 +64,7 @@ namespace Assets.Scripts.Board
 
         private void ExplodeFinding()
         {
+
             // Findings should be blown up only if no block covers them at the moment of explosion
             if (finding != null && block == null)
             {

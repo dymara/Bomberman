@@ -59,9 +59,15 @@ namespace Assets.Scripts.Model
 
         private void OnControllerColliderHit(ControllerColliderHit hit)
         {
-            if (!exitReached && hit.gameObject.tag.Equals(Constants.EXIT_TAG))
+            if (hit.gameObject.tag.Equals(Constants.EXIT_TAG))
             {
-                OnExitReached();
+                if (!exitReached)
+                {
+                    OnExitReached();
+                }
+            }else if (hit.gameObject.tag.Equals(Constants.FINDING_TAG))
+            {
+                hit.gameObject.GetComponent<Finding>().pickUp(this);
             }
         }
 
@@ -114,6 +120,7 @@ namespace Assets.Scripts.Model
             Boolean answer = EditorUtility.DisplayDialog("Bomberman3D", "Congratulations! You win!", "Next level", "Exit");
             if (answer)
             {
+                exitReached = false;
                 Debug.Log(DateTime.Now + " Loading next level");
                 GameManager.instance.SwitchGameState(GameState.GAMEPLAY);
             }

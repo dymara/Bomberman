@@ -15,6 +15,8 @@ public class ExplosionManager : MonoBehaviour {
 
     private readonly object bombMapLock = new object();
 
+    private int placedBombCount = 0;
+
     public void PutBomb(GameObject player, Bomb bomb, Vector2 position)
     {
         GameCell cell = levelManager.GetBoard().GetGameCell(position);
@@ -77,6 +79,7 @@ public class ExplosionManager : MonoBehaviour {
         lock (bombMapLock) {        
             bombMap.Add(bomb, gameCell);
             HighlightCellsToExplode(bomb, true);
+            placedBombCount++;
         }
     }
 
@@ -88,6 +91,7 @@ public class ExplosionManager : MonoBehaviour {
             {
                 HighlightCellsToExplode(bomb, false);
                 bombMap.Remove(bomb);
+                placedBombCount--;
             }
             foreach (Bomb remainingBomb in bombMap.Keys) {
                 HighlightCellsToExplode(remainingBomb, true);
@@ -133,20 +137,20 @@ public class ExplosionManager : MonoBehaviour {
         HashSet<Bomb> bombs = new HashSet<Bomb>();
         bombs.Add(bombGameCell.bomb);
 
-        inspectCell(cells, bombs, initialX - 1, initialY, RayDirection.LEFT, bombRange);
-        inspectCell(cells, bombs, initialX, initialY - 1, RayDirection.UP, bombRange);
-        inspectCell(cells, bombs, initialX + 1, initialY, RayDirection.RIGHT, bombRange);
-        inspectCell(cells, bombs, initialX, initialY + 1, RayDirection.BOTTOM, bombRange);
+        InspectCell(cells, bombs, initialX - 1, initialY, RayDirection.LEFT, bombRange);
+        InspectCell(cells, bombs, initialX, initialY - 1, RayDirection.UP, bombRange);
+        InspectCell(cells, bombs, initialX + 1, initialY, RayDirection.RIGHT, bombRange);
+        InspectCell(cells, bombs, initialX, initialY + 1, RayDirection.BOTTOM, bombRange);
 
         return cells;
     }
 
-    private void inspectCell(HashSet<GameCell> resultCells, HashSet<Bomb> bombs, int cellX, int cellY, RayDirection direction, int rangeLeft)
+    private void InspectCell(HashSet<GameCell> resultCells, HashSet<Bomb> bombs, int cellX, int cellY, RayDirection direction, int rangeLeft)
     {
         if (rangeLeft > 0)
         {
             GameCell cell = levelManager.GetBoard().GetGameCell(cellX, cellY);
-            if (isGameCellDestructible(cell))
+            if (IsGameCellDestructible(cell))
             {
                 resultCells.Add(cell);
 
@@ -155,36 +159,41 @@ public class ExplosionManager : MonoBehaviour {
                 {                    
                     bombs.Add(cell.bomb);
                     int bombRange = cell.bomb.explosionRange;
-                    inspectCell(resultCells, bombs, cellX - 1, cellY, RayDirection.LEFT, bombRange);
-                    inspectCell(resultCells, bombs, cellX, cellY - 1, RayDirection.UP, bombRange);
-                    inspectCell(resultCells, bombs, cellX + 1, cellY, RayDirection.RIGHT, bombRange);
-                    inspectCell(resultCells, bombs, cellX, cellY + 1, RayDirection.BOTTOM, bombRange);
+                    InspectCell(resultCells, bombs, cellX - 1, cellY, RayDirection.LEFT, bombRange);
+                    InspectCell(resultCells, bombs, cellX, cellY - 1, RayDirection.UP, bombRange);
+                    InspectCell(resultCells, bombs, cellX + 1, cellY, RayDirection.RIGHT, bombRange);
+                    InspectCell(resultCells, bombs, cellX, cellY + 1, RayDirection.BOTTOM, bombRange);
                 }
 
                 switch (direction)
                 {
                     case RayDirection.LEFT:
-                        inspectCell(resultCells, bombs, cellX - 1, cellY, direction, rangeLeft - 1);
+                        InspectCell(resultCells, bombs, cellX - 1, cellY, direction, rangeLeft - 1);
                         break;
                     case RayDirection.UP:
-                        inspectCell(resultCells, bombs, cellX, cellY - 1, direction, rangeLeft - 1);
+                        InspectCell(resultCells, bombs, cellX, cellY - 1, direction, rangeLeft - 1);
                         break;
                     case RayDirection.RIGHT:
-                        inspectCell(resultCells, bombs, cellX + 1, cellY, direction, rangeLeft - 1);
+                        InspectCell(resultCells, bombs, cellX + 1, cellY, direction, rangeLeft - 1);
                         break;
                     case RayDirection.BOTTOM:
-                        inspectCell(resultCells, bombs, cellX, cellY + 1, direction, rangeLeft - 1);
+                        InspectCell(resultCells, bombs, cellX, cellY + 1, direction, rangeLeft - 1);
                         break;
                 }
             }
         }
     }
 
-    private bool isGameCellDestructible(GameCell gameCell)
+    private bool IsGameCellDestructible(GameCell gameCell)
     {
         return gameCell != null && (gameCell.block == null || gameCell.block.GetType() != typeof(IndesctructibleCubeObject));
     }
 
     private enum RayDirection { LEFT, UP, RIGHT, BOTTOM }
+
+    public int GetPlacedBombCount()
+    {
+        return placedBombCount;
+    }
 
 }

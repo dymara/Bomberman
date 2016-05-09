@@ -40,6 +40,17 @@ public class Configurator : MonoBehaviour {
 
     public int enemiesMinDistance;
 
+    public int findingCount;
+
+    [Range(0, 100)]
+    public float findingSpinSpeed;
+
+    [Range(0.1f, 5)]
+    public float findingFloatSpeed;
+
+    [Range(0.1f, 1)]
+    public float findingFloatDist;
+
     [Range(0, 100)]
     public float exitSpinSpeed;
 

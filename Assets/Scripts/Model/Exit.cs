@@ -7,7 +7,6 @@ namespace Assets.Scripts.Model
     {
         public override void OnExplode()
         {
-            // TODO - change to proper implementation
             Debug.Log(DateTime.Now + " EXIT DESTROYED!!!");
             AISpawner spawner = GameObject.Find(Constants.AI_SPAWNER_NAME).GetComponent<AISpawner>();
             spawner.SpawnEnemiesAfterExitExploded(gameObject.transform.position);
