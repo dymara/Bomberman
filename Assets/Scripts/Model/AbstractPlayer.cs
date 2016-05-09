@@ -47,6 +47,7 @@ namespace Assets.Scripts.Model
 
         protected virtual void EndGame()
         {
+            postionLisener.RemovePlayerFromCurrentCell();
             positionManager.RemovePlayer(this);
             Destroy(this.gameObject);
         }

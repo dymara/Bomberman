@@ -112,6 +112,16 @@ public class GameManager : MonoBehaviour {
         return configurator.findingSpinSpeed;
     }
 
+    public float GetFindingtFloatSpeed()
+    {
+        return configurator.findingFloatSpeed;
+    }
+
+    public float GetFindingtFloatDistance()
+    {
+        return configurator.findingFloatDist;
+    }
+
     public float GetFindingtCount()
     {
         return configurator.findingCount;

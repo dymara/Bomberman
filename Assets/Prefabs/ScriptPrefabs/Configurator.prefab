@@ -54,6 +54,8 @@ MonoBehaviour:
   enemiesMinDistance: 8
   findingCount: 7
   findingSpinSpeed: 80
+  findingFloatSpeed: 0.3
+  findingFloatDist: 0.25
   exitSpinSpeed: 10
   bombDetonateDelay: 4
   cellSize: 3

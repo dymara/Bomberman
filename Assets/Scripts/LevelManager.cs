@@ -3,6 +3,7 @@ using Assets.Scripts.Board;
 using Assets.Scripts.Model;
 using Assets.Scripts.Util;
 using Assets.Scripts.Postion;
+using System;
 
 public class LevelManager : MonoBehaviour {
 
@@ -74,6 +75,9 @@ public class LevelManager : MonoBehaviour {
         if (Input.GetKeyDown("f")) {
             if(explosionManager.GetPlacedBombCount() == player.bombs)
             {
+                String bombString = player.bombs > 1 ? " bombs" : " bomb";
+                Debug.Log(DateTime.Now + " You can put only " + player.bombs + bombString);
+                GetUIController().ShowTimedMessage("You can put only " + player.bombs + bombString);
                 return;
             }
             Vector3 sceneBombPosition = board.GetPlayers()[0].transform.position + board.GetPlayers()[0].transform.forward;

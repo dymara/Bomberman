@@ -3,6 +3,7 @@ using System.Collections;
 using Assets.Scripts.Board;
 using Assets.Scripts.Model;
 using Assets.Scripts.Util;
+using Assets.Scripts.Effects;
 
 public enum CellType { EMPTY, DESTRUCTIBLE, INDESTRUCTIBLE, PLAYER, BOMB };
 
@@ -180,7 +181,7 @@ public class Maze : MonoBehaviour
         Exit exit = CreateGameObject(exitPostion.x, 0.01f, exitPostion.y, mazeExit, "Exit");
         exit.gameObject.GetComponent<Spin>().SetSpeed(GameManager.instance.GetExitSpinSpeed());
         exit.gameObject.GetComponent<SphereCollider>().radius = cubeWidth / 10;
-       Vector2 position = positionConverter.ConvertScenePositionToBoard(exit.transform.localPosition);
+        Vector2 position = positionConverter.ConvertScenePositionToBoard(exit.transform.localPosition);
         cells[(int)position.x, (int)position.y].finding = exit;
 
         return exit;
@@ -200,6 +201,9 @@ public class Maze : MonoBehaviour
             finding.GetComponent<SphereCollider>().radius = cubeWidth / 4;
 
             finding.gameObject.GetComponent<Spin>().SetSpeed(GameManager.instance.GetFindingtSpinSpeed());
+            FloatEffect floatEffect = finding.gameObject.GetComponent<FloatEffect>();
+            floatEffect.SetSpeed(GameManager.instance.GetFindingtFloatSpeed());
+            floatEffect.SetDistance(GameManager.instance.GetFindingtFloatDistance());
             position = positionConverter.ConvertScenePositionToBoard(finding.transform.localPosition);
             cells[(int)position.x, (int)position.y].finding = finding;
         }
