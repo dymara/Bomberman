@@ -61,10 +61,28 @@ namespace UnityStandardAssets.Characters.FirstPerson
 			m_MouseLook.Init(transform , m_Camera.transform);
         }
 
+        private void RefreshCameraReference()
+        {
+            m_Camera = Camera.main;
+            m_FovKick.Setup(m_Camera);
+            m_HeadBob.Setup(m_Camera, m_StepInterval);
+            m_MouseLook.Init(transform, m_Camera.transform);
+        }
+
+        public void SetCameraRotation(Vector3 rotation)
+        {
+            m_Camera.transform.localRotation = Quaternion.Euler(0, 0, 0);
+            transform.localRotation = Quaternion.Euler(rotation);
+            m_MouseLook.Init(transform, m_Camera.transform);
+        }
 
         // Update is called once per frame
         private void Update()
         {
+            if (m_Camera == null)
+            {
+                RefreshCameraReference();
+            }
             RotateView();
             // the jump state needs to read here to make sure it is not missed
             if (!m_Jump && m_IsJumpingEnabled)
@@ -243,7 +261,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         private void RotateView()
         {
-            m_MouseLook.LookRotation (transform, m_Camera.transform);
+            m_MouseLook.LookRotation(transform, m_Camera.transform);           
         }
 
 

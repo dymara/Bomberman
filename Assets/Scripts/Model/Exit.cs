@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System;
-using Assets.Scripts.Util;
 
 namespace Assets.Scripts.Model
 {
@@ -8,8 +7,9 @@ namespace Assets.Scripts.Model
     {
         public override void OnExplode()
         {
+            // TODO - change to proper implementation
             Debug.Log(DateTime.Now + " EXIT DESTROYED!!!");
-            AISpawner spawner = GameObject.FindGameObjectsWithTag("AISpawner")[0].GetComponent<AISpawner>();
+            AISpawner spawner = GameObject.Find(Constants.AI_SPAWNER_NAME).GetComponent<AISpawner>();
             spawner.SpawnEnemiesAfterExitExploded(gameObject.transform.position);
         }
     }

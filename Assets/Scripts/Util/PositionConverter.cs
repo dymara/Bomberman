@@ -4,7 +4,6 @@ namespace Assets.Scripts.Util
 {
     public class PositionConverter
     {
-
         private float cellSize;
 
         public PositionConverter(float cellSize)

@@ -51,10 +51,10 @@ public class Maze : MonoBehaviour
         int count_x = (allXCell - 1) / 2;
         int count_z = (allZCell - 1) / 2;
 
-        //arraylist for places with destructible cubes for exit
+        // arraylist for places with destructible cubes for exit
         ArrayList availableExits;
 
-        //array for minimap
+        // array for minimap
         CellType[,] tmpBoard = new CellType[allXCell, allZCell];
 
         GameCell[,] cells = new GameCell[allXCell, allZCell];
@@ -65,18 +65,18 @@ public class Maze : MonoBehaviour
 
         CreateWalls(boardWidth, boardLength, wallHeight);
 
-        //create indestructible cubes
+        // create indestructible cubes
         CreateIndestructibleCubes(cubeSize, count_x, count_z, tmpBoard, cells);
 
         int[] startAreaX = new int[] { 0, 1, allXCell - 1, allXCell - 2 };
         int[] startAreaZ = new int[] { 0, 1, allZCell - 1, allZCell - 2 };
 
-        //reserve start area
+        // reserve start area
         ReserveStartArea(tmpBoard, startAreaX, startAreaZ);
 
         availableExits = CreateDestructibleCubes(cubeSize, allXCell, allZCell, tmpBoard, boardWidth, boardLength, startPositionX, startPositionZ, cells);
 
-        //create exit position
+        // create exit position
         CreateExit(availableExits, cubeWidth, cells, positionConverter);
 
         return new Board(cells, new Vector2(allXCell, allZCell));

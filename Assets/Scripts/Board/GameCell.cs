@@ -6,12 +6,17 @@ namespace Assets.Scripts.Board
 {
     public class GameCell
     {
-        private Vector2 coordinates;
         public AbstractCubeObject block { get; set; }
+
         public Finding finding { get; set; }
+
         public Bomb bomb { get; set; }
-        private HashSet<AbstractPlayer> players;
+
         public GameObject highlight { get; set; }
+
+        private Vector2 coordinates;
+
+        private HashSet<AbstractPlayer> players;
 
         public GameCell(Vector2 coordinates)
         {
@@ -84,7 +89,6 @@ namespace Assets.Scripts.Board
         {
             return players.Add(player);
         }
-
 
         public bool RemovePlayer(AbstractPlayer player)
         {

@@ -1,43 +1,65 @@
 using System;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using System.Collections;
 using UnityStandardAssets.Characters.FirstPerson;
-
 
 namespace Assets.Scripts.Model
 {
     public class Player : AbstractPlayer
     {
-        private const String EXIT_TAG = "Exit";
+        private int _bombs;
+        public int bombs {
+            get { return _bombs; }
+            set { _bombs = value; GameManager.instance.OnPlayerBombsChanged(value); }
+        }
 
-        private long score;
+        private int _bombRange;
+        public int bombRange {
+            get { return _bombRange; }
+            set { _bombRange = value;  GameManager.instance.OnPlayerBombRangeChanged(value); }
+        }
 
-        private Boolean exitReached = false;
+        private float _speed;
+        public float speed {
+            get { return _speed; }
+            set { _speed = value; GameManager.instance.OnPlayerSpeedChanged(value); }
+        }
+
+        private bool _remoteDetonationBonus;
+        public bool remoteDetonationBonus {
+            get { return _remoteDetonationBonus; }
+            set { _remoteDetonationBonus = value; GameManager.instance.OnPlayerRemoteDetonationBonusChanged(value); }
+        }
+
+        private long _score;
+        public long score {
+            get { return _score; }
+            set { _score = value; GameManager.instance.OnPlayerScoreChanged(value); }
+        }
+
+        private bool exitReached = false;
 
         private bool wait;
 
+        private FirstPersonController controller;
 
-        public Player(String name, int lives) : base(lives)
+        public Player(int lives) : base(lives)
         {
-            this.name = name;
-            this.score = 0;
+
         }
 
-        public long GetScore()
+        void Awake()
         {
-            return score;
+            this.controller = gameObject.GetComponent<FirstPersonController>();
+            DontDestroyOnLoad(gameObject);  // Sets this to not be destroyed when reloading scene
         }
 
-        public void AddToScoreLong(long bonus)
-        {
-            score += bonus;
-        }
+        /***********************************************************************/
 
         private void OnControllerColliderHit(ControllerColliderHit hit)
         {
-            if (!exitReached && hit.gameObject.tag.Equals(EXIT_TAG))
+            if (!exitReached && hit.gameObject.tag.Equals(Constants.EXIT_TAG))
             {
                 OnExitReached();
             }
@@ -45,7 +67,6 @@ namespace Assets.Scripts.Model
 
         protected override void Kill()
         {
-            FirstPersonController controller = gameObject.GetComponent<FirstPersonController>();
             controller.DisableMoving();
             wait = true;
             StartCoroutine(KillCoroutine());
@@ -53,7 +74,6 @@ namespace Assets.Scripts.Model
 
         protected override void EndGame()
         {
-            FirstPersonController controller = gameObject.GetComponent<FirstPersonController>();
             controller.DisableMoving();
             wait = true;
             StartCoroutine(EndGameCoroutine());
@@ -61,18 +81,21 @@ namespace Assets.Scripts.Model
 
         private IEnumerator KillCoroutine()
         {
+            // TODO - change to proper implementation
             if (wait)
             {
                 wait = false;
                 yield return new WaitForSeconds(1);
             }
-                EditorUtility.DisplayDialog("Bomberman3D", "You are dead.", "Repeat level");
-                Debug.Log(DateTime.Now + " Repeat level");
-                SceneManager.LoadScene("Main");
+            EditorUtility.DisplayDialog("Bomberman3D", "You are dead.", "Repeat level");
+            Debug.Log(DateTime.Now + " Repeat level");
+            controller.EnableMoving();
+            GameManager.instance.SwitchGameState(GameState.GAMEPLAY);
         }
 
         private IEnumerator EndGameCoroutine()
         {
+            // TODO - change to proper implementation
             if (wait)
             {
                 wait = false;
@@ -85,13 +108,14 @@ namespace Assets.Scripts.Model
 
         private void OnExitReached()
         {
+            // TODO - change to proper implementation
             exitReached = true;
             Debug.Log(DateTime.Now + " Maze exit reached");
-            Boolean answer = EditorUtility.DisplayDialog("Bomberman3D", "Congratulation!. You win.", "Next level", "Exit");
+            Boolean answer = EditorUtility.DisplayDialog("Bomberman3D", "Congratulations! You win!", "Next level", "Exit");
             if (answer)
             {
                 Debug.Log(DateTime.Now + " Loading next level");
-                SceneManager.LoadScene("Main");
+                GameManager.instance.SwitchGameState(GameState.GAMEPLAY);
             }
             else {
                 Debug.Log("EXIT GAME");
