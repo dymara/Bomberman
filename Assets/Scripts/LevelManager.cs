@@ -2,6 +2,7 @@
 using Assets.Scripts.Board;
 using Assets.Scripts.Model;
 using Assets.Scripts.Util;
+using System.Collections.Generic;
 using Assets.Scripts.Postion;
 
 public enum StartPosition { MIN, MAX }
@@ -50,9 +51,13 @@ public class LevelManager : MonoBehaviour {
     private ExplosionManager explosionManager;
 
     private UIController uiController;
+    
+    public GameObject monsterPrefab;
 
     private PlayerPositionManager positionManager;
 
+    public AISpawner aiSpawner;
+   
     // Use this for initialization
     void Start() {
         BeginGame();
@@ -89,11 +94,20 @@ public class LevelManager : MonoBehaviour {
         }
 
         board.AddPlayer(player);
+        
+        InitAI();
 
         positionManager.AddPlayer(player);
 
         explosionManager = GameObject.Find("ExplosionManager").GetComponent<ExplosionManager>();
         uiController = GameObject.Find("UIController").GetComponent<UIController>();
+    }
+    
+    private void InitAI() 
+    {
+        aiSpawner.SetPostitionManager(positionManager);
+        Vector2 playerPosition = positionConverter.ConvertScenePositionToBoard(player.transform.position);
+        aiSpawner.SpawnEnemies(board, positionConverter, playerPosition);
     }
 
     private void RestartGame() { }
