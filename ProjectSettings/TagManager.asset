@@ -9,6 +9,7 @@ TagManager:
   - Indestructible
   - Bomb
   - Exit
+  - AISpawner
   layers:
   - Default
   - TransparentFX

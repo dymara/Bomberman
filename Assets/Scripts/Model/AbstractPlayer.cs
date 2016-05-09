@@ -13,6 +13,8 @@ namespace Assets.Scripts.Model
 
         public PostionListener postionLisener { set; get; }
 
+        public PlayerPositionManager positionManager { set; get; }
+
         public AbstractPlayer(int lives)
         {
             remainingLives = lives;
@@ -57,6 +59,7 @@ namespace Assets.Scripts.Model
 
         protected virtual void EndGame()
         {
+            positionManager.RemovePlayer(this);
             Destroy(this.gameObject);
         }
     }
