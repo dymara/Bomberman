@@ -43,7 +43,6 @@ namespace Assets.Scripts.Model
             }
         }
 
-
         protected override void Kill()
         {
             FirstPersonController controller = gameObject.GetComponent<FirstPersonController>();
