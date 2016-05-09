@@ -1712,6 +1712,8 @@ MonoBehaviour:
   wallHeight: 5
   startPositionX: 0
   startPositionZ: 0
+  monsterPrefab: {fileID: 132228, guid: be52c1412023b4689a61a1afb7ecb098, type: 2}
+  aiSpawner: {fileID: 11464212, guid: b3da61fb7e4f62743a63554ed5319aa6, type: 2}
 --- !u!1001 &1743850977
 Prefab:
   m_ObjectHideFlags: 0
@@ -1755,6 +1757,15 @@ Prefab:
       propertyPath: m_Name
       value: LevelManager
       objectReference: {fileID: 0}
+    - target: {fileID: 11485402, guid: 63d9e611713683e49ba20f9e8695e46b, type: 2}
+      propertyPath: monsterPrefab
+      value: 
+      objectReference: {fileID: 132228, guid: be52c1412023b4689a61a1afb7ecb098, type: 2}
+    - target: {fileID: 11485402, guid: 63d9e611713683e49ba20f9e8695e46b, type: 2}
+      propertyPath: aiSpawner
+      value: 
+      objectReference: {fileID: 11464212, guid: b3da61fb7e4f62743a63554ed5319aa6,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 63d9e611713683e49ba20f9e8695e46b, type: 2}
   m_IsPrefabParent: 0

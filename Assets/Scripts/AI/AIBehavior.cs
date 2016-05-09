@@ -14,10 +14,10 @@ public abstract class AIBehavior : MonoBehaviour
     // Use this for initialization
     public virtual void Start()
     {
-        board = GameObject.Find(Constants.GAME_MANAGER_NAME)
-            .GetComponent<GameManager>().GetBoard();
-        positionConverter = GameObject.Find(Constants.GAME_MANAGER_NAME)
-            .GetComponent<GameManager>().GetPositionConverter();
+        board = GameObject.Find(Constants.LEVEL_MANAGER_NAME)
+            .GetComponent<LevelManager>().GetBoard();
+        positionConverter = GameObject.Find(Constants.LEVEL_MANAGER_NAME)
+            .GetComponent<LevelManager>().GetPositionConverter();
         TryMove();
     }
 
