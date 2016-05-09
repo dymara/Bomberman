@@ -8,15 +8,35 @@ namespace Assets.Scripts.Model
 {
     public class Player : AbstractPlayer
     {
-        public int bombs { get; set; }
+        private int _bombs;
+        public int bombs {
+            get { return _bombs; }
+            set { _bombs = value; GameManager.instance.OnPlayerBombsChanged(value); }
+        }
 
-        public int bombRange { get; set; }
+        private int _bombRange;
+        public int bombRange {
+            get { return _bombRange; }
+            set { _bombRange = value;  GameManager.instance.OnPlayerBombRangeChanged(value); }
+        }
 
-        public float speed { get; set; }
+        private float _speed;
+        public float speed {
+            get { return _speed; }
+            set { _speed = value; GameManager.instance.OnPlayerSpeedChanged(value); }
+        }
 
-        public bool remoteDetonationBonus { get; set; }
+        private bool _remoteDetonationBonus;
+        public bool remoteDetonationBonus {
+            get { return _remoteDetonationBonus; }
+            set { _remoteDetonationBonus = value; GameManager.instance.OnPlayerRemoteDetonationBonusChanged(value); }
+        }
 
-        public long score { get; set; }
+        private long _score;
+        public long score {
+            get { return _score; }
+            set { _score = value; GameManager.instance.OnPlayerScoreChanged(value); }
+        }
 
         private bool exitReached = false;
 

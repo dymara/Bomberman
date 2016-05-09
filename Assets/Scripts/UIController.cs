@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using Assets.Scripts.Model;
 
 public class UIController : MonoBehaviour
 {
@@ -53,6 +54,17 @@ public class UIController : MonoBehaviour
         this.remoteDetonation = GameObject.Find("Remote Detonation Bonus").GetComponent<Image>();
     }
 
+    public void InitializeHUD()
+    {
+        Player player = GameManager.instance.GetPlayer();
+        SetLivesCount(player.remainingLives);
+        SetBombsCount(player.bombs);
+        SetScoreValue(player.score);
+        SetRangeBonusValue(player.bombRange);
+        SetSpeedBonusValue(player.speed);
+        SetRemoteDetonationBonusAvailable(player.remoteDetonationBonus);
+    }
+
     public void ShowTimedMessage(string text)
     {
         if (messageCorutine != null)
@@ -61,17 +73,6 @@ public class UIController : MonoBehaviour
         }
         messageCorutine = DoShowMessage(text);
         StartCoroutine(messageCorutine);
-
-        /* DEMO CODE */
-        System.Random rand = new System.Random();
-        int r = rand.Next(0, 7);
-        SetLivesCount(r);
-        SetBombsCount(r);
-        SetScoreValue(rand.Next(0, 10000000));
-        SetRangeBonusValue(r);
-        SetSpeedBonusValue(rand.Next(100, 1000) / 100.0);
-        SetRemoteDetonationBonusAvailable(rand.Next(0, 2) == 1);
-        Debug.Log(r);
     }
 
     public void SetLivesCount(int count)
@@ -114,9 +115,9 @@ public class UIController : MonoBehaviour
         }
     }
 
-    public void SetScoreValue(double score)
+    public void SetScoreValue(long score)
     {
-        scoreValue.text = ((int)score).ToString();
+        scoreValue.text = score.ToString();
     }
 
     public void SetRangeBonusValue(int value)

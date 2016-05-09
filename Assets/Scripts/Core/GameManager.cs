@@ -39,6 +39,7 @@ public class GameManager : MonoBehaviour {
         levelNumber = configurator.initialLevelNumber;
         player = Instantiate(playerPrefab) as Player;
         player.name = "Player";
+        player.tag = Constants.HUMAN_PLAYER_TAG;
         player.remainingLives = configurator.initialPlayerLives;
         player.bombs = configurator.initialPlayerBombs;
         player.bombRange = configurator.initialPlayerBombRange;
@@ -176,5 +177,71 @@ public class GameManager : MonoBehaviour {
     {
         return configurator.startPositionZ;
     }
+
+    /* HUD AUTO-UPDATE METHODS */
+
+    private UIController GetUIController()
+    {
+        GameObject controllerObject = GameObject.Find(Constants.UI_CONTROLLER_NAME);
+        if (controllerObject != null)
+        {
+            return controllerObject.GetComponent<UIController>();
+        }
+        return null;
+    }
+
+    public void OnPlayerBombsChanged(int bombs)
+    {
+        UIController uiController = GetUIController();
+        if (uiController != null) {
+            uiController.SetBombsCount(bombs);
+        }
+    }
+
+    public void OnPlayerBombRangeChanged(int bombRange)
+    {
+        UIController uiController = GetUIController();
+        if (uiController != null)
+        {
+            uiController.SetRangeBonusValue(bombRange);
+        }
+    }
+
+    public void OnPlayerSpeedChanged(float speed)
+    {
+        UIController uiController = GetUIController();
+        if (uiController != null)
+        {
+            uiController.SetSpeedBonusValue(speed);
+        }
+    }
+
+    public void OnPlayerRemoteDetonationBonusChanged(bool available)
+    {
+        UIController uiController = GetUIController();
+        if (uiController != null)
+        {
+            uiController.SetRemoteDetonationBonusAvailable(available);
+        }
+    }
+
+    public void OnPlayerScoreChanged(long score)
+    {
+        UIController uiController = GetUIController();
+        if (uiController != null)
+        {
+            uiController.SetScoreValue(score);
+        }
+    }
+
+    public void OnPlayerLivesChanged(int lives)
+    {
+        UIController uiController = GetUIController();
+        if (uiController != null)
+        {
+            uiController.SetLivesCount(lives);
+        }
+    }
+
 
 }

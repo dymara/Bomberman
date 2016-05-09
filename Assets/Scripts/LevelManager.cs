@@ -102,6 +102,7 @@ public class LevelManager : MonoBehaviour {
 
         explosionManager = GameObject.Find(Constants.EXPLOSION_MANAGER_NAME).GetComponent<ExplosionManager>();
         uiController = GameObject.Find(Constants.UI_CONTROLLER_NAME).GetComponent<UIController>();
+        uiController.InitializeHUD();
 
         StartCoroutine(StartLevelCountdown());
     }

@@ -10,4 +10,6 @@
 
     public const string UI_CONTROLLER_NAME = "UIController";
 
+    public const string HUMAN_PLAYER_TAG = "Player";
+
 }
