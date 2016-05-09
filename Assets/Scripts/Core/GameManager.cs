@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.Model;
 using UnityEngine;
+using UnityStandardAssets.Characters.FirstPerson;
 
 public class GameManager : MonoBehaviour {
 
@@ -81,6 +82,12 @@ public class GameManager : MonoBehaviour {
     public Player GetPlayer()
     {
         return player;
+    }
+
+    public void SetCameraRotation(Vector3 rotation)
+    {
+        FirstPersonController fpsController = player.GetComponent<FirstPersonController>();
+        fpsController.SetCameraRotation(rotation);
     }
 
     public void AdvanceToNextLevel()

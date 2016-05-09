@@ -91,10 +91,7 @@ public class LevelManager : MonoBehaviour {
         positionManager = new PlayerPositionManager(board, positionConverter);
 
         player.gameObject.transform.localPosition = new Vector3(startX, 0.5f, startZ);
-        if (startPositionZ.Equals(StartPosition.MAX))
-        {
-            player.gameObject.transform.Rotate(new Vector3(0, 180, 0));
-        }
+        SetInitialCameraRotation();
 
         board.AddPlayer(player);
         
@@ -113,7 +110,25 @@ public class LevelManager : MonoBehaviour {
         aiSpawner.SpawnEnemies(board, positionConverter, playerPosition);
     }
 
-    private void RestartGame() { }
+    private void SetInitialCameraRotation()
+    {
+        if (startPositionX == StartPosition.MIN && startPositionZ == StartPosition.MIN)
+        {
+            GameManager.instance.SetCameraRotation(new Vector3(0, 0, 0));
+        }
+        else if (startPositionX == StartPosition.MIN && startPositionZ == StartPosition.MAX)
+        {
+            GameManager.instance.SetCameraRotation(new Vector3(0, 90, 0));
+        }
+        else if (startPositionX == StartPosition.MAX && startPositionZ == StartPosition.MIN)
+        {
+            GameManager.instance.SetCameraRotation(new Vector3(0, 0, 0));
+        }
+        else if (startPositionX == StartPosition.MAX && startPositionZ == StartPosition.MAX)
+        {
+            GameManager.instance.SetCameraRotation(new Vector3(0, 270, 0));
+        }
+    }
 
     /* GETTER METHODS */
 
