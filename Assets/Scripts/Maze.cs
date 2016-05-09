@@ -162,7 +162,7 @@ public class Maze : MonoBehaviour
         cells[x, z].highlight.SetActive(false);
     }
 
-    private void CreateExit(ArrayList availableExits, float cubeWidth, GameCell[,] cells, PositionConverter positionConverter)
+    private Exit CreateExit(ArrayList availableExits, float cubeWidth, GameCell[,] cells, PositionConverter positionConverter)
     {
         int index = new System.Random().Next(0, availableExits.Count);
         Vector2 exitPostion = (Vector2)availableExits[index];
@@ -170,6 +170,8 @@ public class Maze : MonoBehaviour
         Exit exit = CreateGameObject(exitPostion.x, 0.01f, exitPostion.y, mazeExit, "Exit");
         Vector2 position = positionConverter.ConvertScenePositionToBoard(exit.transform.localPosition);
         cells[(int)position.x, (int)position.y].finding = exit;
+
+        return exit;
     }
 
     private T CreateGameObject<T>(float x, float y, float z, T prefab, string name) where T : Component
