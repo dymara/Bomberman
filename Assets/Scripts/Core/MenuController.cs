@@ -4,7 +4,7 @@ public class MenuController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        // THIS IS A TEMPORARY SOLUTION BEFORE A MAIN MENU SCENE GETS IMPLEMENTED
+        // TODO - THIS IS A TEMPORARY SOLUTION BEFORE A MAIN MENU SCENE GETS IMPLEMENTED
         GameManager.instance.SwitchGameState(GameState.GAMEPLAY);
 	}
 	

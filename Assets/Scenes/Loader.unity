@@ -221,7 +221,6 @@ GameObject:
   - 20: {fileID: 1782844395}
   - 92: {fileID: 1782844394}
   - 124: {fileID: 1782844393}
-  - 81: {fileID: 1782844392}
   - 222: {fileID: 1782844398}
   - 114: {fileID: 1782844397}
   m_Layer: 0
@@ -231,13 +230,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &1782844392
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1782844391}
-  m_Enabled: 1
 --- !u!124 &1782844393
 Behaviour:
   m_ObjectHideFlags: 0

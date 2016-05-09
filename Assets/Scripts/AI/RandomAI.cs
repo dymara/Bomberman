@@ -4,7 +4,6 @@ using System.Collections.Generic;
 
 public class RandomAI : AIBehavior
 {
-
     public override void Start()
     {
         base.Start();

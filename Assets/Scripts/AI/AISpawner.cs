@@ -8,15 +8,22 @@ using System.Collections;
 
 public class AISpawner : MonoBehaviour
 {
-    public int enemiesCount;
-
-    public int enemiesCountAfterExitExploded;
-
-    public int minDistance;
-
     public GameObject monsterPrefab;
 
+    private int enemiesCount;
+
+    private int enemiesCountAfterExitExploded;
+
+    private int minDistance;    
+
     private PlayerPositionManager positionManager;
+
+    void Awake()
+    {
+        this.enemiesCount = GameManager.instance.GetEnemiesCount();
+        this.enemiesCountAfterExitExploded = GameManager.instance.GetExitExplosionEnemiesCount();
+        this.minDistance = GameManager.instance.GetEnemiesMinimumDistance();
+    }
 
     public void SetPostitionManager(PlayerPositionManager positionManager)
     {
@@ -61,4 +68,5 @@ public class AISpawner : MonoBehaviour
             yield return new WaitForSeconds(interval);
          }
     }
+
 }

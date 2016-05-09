@@ -4,22 +4,19 @@ namespace Assets.Scripts.Model
 {
     public class Bomb : StaticGameObject
     {
-
         private const float EXPLOSION_SOUND_VOLUME = 0.4f;
 
-        [Range(1, 10)]
-        public int detonateDelay;
+        public int detonateDelay { get; set; }
 
-        [Range(1, 10)]
-        public int explosionRange;
+        public int explosionRange { get; set; }
 
         public AudioClip explosionSound;
 
+        public GameObject player { get; set; }
+
         private TextMesh textMesh;
 
-        private bool detonated = false;
-
-        public GameObject player { get; set; }
+        private bool detonated = false;        
 
         public override void OnExplode()
         {
@@ -29,7 +26,7 @@ namespace Assets.Scripts.Model
 
         void Awake()
         {
-            textMesh = GetComponentInChildren<TextMesh>();
+            this.textMesh = GetComponentInChildren<TextMesh>();
         }
 
         void Update()

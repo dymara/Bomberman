@@ -7,8 +7,11 @@ namespace Assets.Scripts.Board
     public class Board
     {
         private GameCell[,] cells;
+
         private Vector2 size;
+
         private List<Player> players;
+
         private List<Monster> monsters;
 
         public Board(GameCell[,] cells, Vector2 size)

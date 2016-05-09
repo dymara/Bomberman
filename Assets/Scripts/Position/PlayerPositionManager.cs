@@ -6,7 +6,6 @@ namespace Assets.Scripts.Postion
 {
     public class PlayerPositionManager
     {
-
         private Dictionary<AbstractPlayer, PostionListener> players;
 
         private Board.Board board;
@@ -15,7 +14,7 @@ namespace Assets.Scripts.Postion
 
         public PlayerPositionManager(Board.Board board, PositionConverter positonConverter)
         {
-            players = new Dictionary<AbstractPlayer, PostionListener>();
+            this.players = new Dictionary<AbstractPlayer, PostionListener>();
             this.board = board;
             this.positonConverter = positonConverter;
         }

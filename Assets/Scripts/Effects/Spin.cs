@@ -2,9 +2,14 @@
 
 public class Spin : MonoBehaviour {
 
-    public float speed = 10f;
-	
-	void Update () {
+    private float speed;
+
+    void Awake()
+    {
+        this.speed = GameManager.instance.GetExitSpinSpeed();
+    }
+
+    void Update () {
         transform.Rotate(Vector3.up, speed * Time.deltaTime);
 	}
 }

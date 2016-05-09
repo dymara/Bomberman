@@ -1,52 +1,52 @@
 using System;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using System.Collections;
 using UnityStandardAssets.Characters.FirstPerson;
-
 
 namespace Assets.Scripts.Model
 {
     public class Player : AbstractPlayer
     {
-        private const String EXIT_TAG = "Exit";
+        public int bombs { get; set; }
 
-        private long score;
+        public int bombRange { get; set; }
 
-        private Boolean exitReached = false;
+        public float speed { get; set; }
+
+        public bool remoteDetonationBonus { get; set; }
+
+        public long score { get; set; }
+
+        private bool exitReached = false;
 
         private bool wait;
 
+        private FirstPersonController controller;
 
-        public Player(String name, int lives) : base(lives)
+        public Player(int lives) : base(lives)
         {
-            this.name = name;
-            this.score = 0;
+
         }
 
-        public long GetScore()
+        void Awake()
         {
-            return score;
+            this.controller = gameObject.GetComponent<FirstPersonController>();
+            DontDestroyOnLoad(gameObject);  // Sets this to not be destroyed when reloading scene
         }
 
-        public void AddToScoreLong(long bonus)
-        {
-            score += bonus;
-        }
+        /***********************************************************************/
 
         private void OnControllerColliderHit(ControllerColliderHit hit)
         {
-            if (!exitReached && hit.gameObject.tag.Equals(EXIT_TAG))
+            if (!exitReached && hit.gameObject.tag.Equals(Constants.EXIT_TAG))
             {
                 OnExitReached();
             }
         }
 
-
         protected override void Kill()
         {
-            FirstPersonController controller = gameObject.GetComponent<FirstPersonController>();
             controller.DisableMoving();
             wait = true;
             StartCoroutine(KillCoroutine());
@@ -54,7 +54,6 @@ namespace Assets.Scripts.Model
 
         protected override void EndGame()
         {
-            FirstPersonController controller = gameObject.GetComponent<FirstPersonController>();
             controller.DisableMoving();
             wait = true;
             StartCoroutine(EndGameCoroutine());
@@ -62,18 +61,21 @@ namespace Assets.Scripts.Model
 
         private IEnumerator KillCoroutine()
         {
+            // TODO - change to proper implementation
             if (wait)
             {
                 wait = false;
                 yield return new WaitForSeconds(1);
             }
-                EditorUtility.DisplayDialog("Bomberman3D", "You are dead.", "Repeat level");
-                Debug.Log(DateTime.Now + " Repeat level");
-                GameManager.instance.SwitchGameState(GameState.GAMEPLAY);
+            EditorUtility.DisplayDialog("Bomberman3D", "You are dead.", "Repeat level");
+            Debug.Log(DateTime.Now + " Repeat level");
+            controller.EnableMoving();
+            GameManager.instance.SwitchGameState(GameState.GAMEPLAY);
         }
 
         private IEnumerator EndGameCoroutine()
         {
+            // TODO - change to proper implementation
             if (wait)
             {
                 wait = false;
@@ -86,9 +88,10 @@ namespace Assets.Scripts.Model
 
         private void OnExitReached()
         {
+            // TODO - change to proper implementation
             exitReached = true;
             Debug.Log(DateTime.Now + " Maze exit reached");
-            Boolean answer = EditorUtility.DisplayDialog("Bomberman3D", "Congratulation!. You win.", "Next level", "Exit");
+            Boolean answer = EditorUtility.DisplayDialog("Bomberman3D", "Congratulations! You win!", "Next level", "Exit");
             if (answer)
             {
                 Debug.Log(DateTime.Now + " Loading next level");

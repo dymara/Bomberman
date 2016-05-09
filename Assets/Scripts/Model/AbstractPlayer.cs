@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Assets.Scripts.Postion;
 using UnityEngine;
 
@@ -9,7 +6,7 @@ namespace Assets.Scripts.Model
 {
     public abstract class AbstractPlayer : DynamicGameObject
     {
-        private int remainingLives;
+        public int remainingLives { set; get; }
 
         public PostionListener postionLisener { set; get; }
 
@@ -20,21 +17,12 @@ namespace Assets.Scripts.Model
             remainingLives = lives;
         }
 
-        public void SetRemainingLives(int lives)
-        {
-            remainingLives = lives;
-        }
-
-        public int GetRemainingLives()
-        {
-            return remainingLives;
-        }
-
         public override void OnExplode()
         {
+            // TODO - change to proper implementation
             Debug.Log(DateTime.Now + " Player expoloded");
             remainingLives--;
-            if(remainingLives == 0)
+            if (remainingLives == 0)
             {
                 EndGame();
             }

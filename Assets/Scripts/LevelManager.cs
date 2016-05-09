@@ -2,41 +2,40 @@
 using Assets.Scripts.Board;
 using Assets.Scripts.Model;
 using Assets.Scripts.Util;
-using System.Collections.Generic;
 using Assets.Scripts.Postion;
 
-public enum StartPosition { MIN, MAX }
-
 public class LevelManager : MonoBehaviour {
-
-    public Player playerPrefab;
 
     public Maze mazePrefab;
 
     public Bomb bombPrefab;
 
+    public GameObject monsterPrefab;
+
+    public AISpawner aiSpawner;
+
+    /*=================================*/
+
     /** Number of indestructible cubes in x axis */
-    [Range(4, 128)]
-    public int indestructibleCubesXNumber;
+    private int indestructibleCubesXNumber;
 
     /** Number of indestructible cubes in z axis */
-    [Range(4, 128)]
-    public int indestructibleCubesZNumber;
+    private int indestructibleCubesZNumber;
 
     /** Cell size -> cube length and width */
-    public float cellSize;
+    private float cellSize;
 
     /** Cube height. */
-    public float cubeHeight;
+    private float cubeHeight;
 
     /** Wall height.*/
-    public float wallHeight;
+    private float wallHeight;
 
     /** Player start position in x axis - MIN -> 1, MAX -> width - 1 */
-    public StartPosition startPositionX;
+    private StartPosition startPositionX;
 
     /** Player start position in z axis - MIN -> 1, MAX -> length - 1 */
-    public StartPosition startPositionZ;
+    private StartPosition startPositionZ;
 
     /*=================================*/
 
@@ -51,12 +50,19 @@ public class LevelManager : MonoBehaviour {
     private ExplosionManager explosionManager;
 
     private UIController uiController;
-    
-    public GameObject monsterPrefab;
 
     private PlayerPositionManager positionManager;
 
-    public AISpawner aiSpawner;
+    void Awake() {
+        this.indestructibleCubesXNumber = GameManager.instance.GetCubesXCount();
+        this.indestructibleCubesZNumber = GameManager.instance.GetCubesZCount();
+        this.cellSize = GameManager.instance.GetCellSize();
+        this.cubeHeight = GameManager.instance.GetCubeHeight();
+        this.wallHeight = GameManager.instance.GetWallHeight();
+        this.startPositionX = GameManager.instance.GetStartXPosition();
+        this.startPositionZ = GameManager.instance.GetStartZPosition();
+        this.player = GameManager.instance.GetPlayer();
+    }
    
     // Use this for initialization
     void Start() {
@@ -84,13 +90,10 @@ public class LevelManager : MonoBehaviour {
 
         positionManager = new PlayerPositionManager(board, positionConverter);
 
-        player = Instantiate(playerPrefab);
-        player.name = "Czesiek";
-        player.SetRemainingLives(3);
-        player.transform.localPosition = new Vector3(startX, 0.5f, startZ);
+        player.gameObject.transform.localPosition = new Vector3(startX, 0.5f, startZ);
         if (startPositionZ.Equals(StartPosition.MAX))
         {
-            player.transform.Rotate(new Vector3(0, 180, 0));
+            player.gameObject.transform.Rotate(new Vector3(0, 180, 0));
         }
 
         board.AddPlayer(player);
@@ -99,14 +102,14 @@ public class LevelManager : MonoBehaviour {
 
         positionManager.AddPlayer(player);
 
-        explosionManager = GameObject.Find("ExplosionManager").GetComponent<ExplosionManager>();
-        uiController = GameObject.Find("UIController").GetComponent<UIController>();
+        explosionManager = GameObject.Find(Constants.EXPLOSION_MANAGER_NAME).GetComponent<ExplosionManager>();
+        uiController = GameObject.Find(Constants.UI_CONTROLLER_NAME).GetComponent<UIController>();
     }
     
     private void InitAI() 
     {
         aiSpawner.SetPostitionManager(positionManager);
-        Vector2 playerPosition = positionConverter.ConvertScenePositionToBoard(player.transform.position);
+        Vector2 playerPosition = positionConverter.ConvertScenePositionToBoard(player.gameObject.transform.position);
         aiSpawner.SpawnEnemies(board, positionConverter, playerPosition);
     }
 

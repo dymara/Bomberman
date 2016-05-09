@@ -1,48 +1,64 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &191796
+--- !u!1 &124396
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 4
   m_Component:
-  - 4: {fileID: 432526}
-  - 114: {fileID: 11464212}
+  - 4: {fileID: 497982}
+  - 114: {fileID: 11406900}
   m_Layer: 0
-  m_Name: AISpawner
+  m_Name: Configurator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &432526
+--- !u!4 &497982
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 191796}
+  m_GameObject: {fileID: 124396}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 582.21216, y: 268.17426, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!114 &11464212
+--- !u!114 &11406900
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 191796}
+  m_GameObject: {fileID: 124396}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36316d08593684eb8b2886ea4d283c07, type: 3}
+  m_Script: {fileID: 11500000, guid: ebbeaa6c2ece72f4abbc7bd4b7d16c78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemiesCount: 3
-  enemiesCountAfterExitExploded: 3
-  minDistance: 8
-  monsterPrefab: {fileID: 132228, guid: be52c1412023b4689a61a1afb7ecb098, type: 2}
+  initialApplicationState: 0
+  splashDuration: 2
+  initialLevelNumber: 1
+  initialPlayerLives: 3
+  initialPlayerBombs: 1
+  initialPlayerBombRange: 1
+  initialPlayerSpeed: 1
+  initialPlayerRemoteDetonationBonus: 0
+  level1CubesXCount: 5
+  level1CubesZCount: 5
+  level1EnemiesCount: 3
+  exitExplosionEnemiesCount: 3
+  enemiesMinDistance: 8
+  exitSpinSpeed: 10
+  bombDetonateDelay: 4
+  cellSize: 3
+  cubeHeight: 3
+  wallHeight: 5
+  startPositionX: 0
+  startPositionZ: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -52,5 +68,5 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 191796}
+  m_RootGameObject: {fileID: 124396}
   m_IsPrefabParent: 1

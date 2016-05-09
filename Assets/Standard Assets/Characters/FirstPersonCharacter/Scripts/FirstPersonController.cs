@@ -61,10 +61,23 @@ namespace UnityStandardAssets.Characters.FirstPerson
 			m_MouseLook.Init(transform , m_Camera.transform);
         }
 
+        private void RefreshCameraReference()
+        {
+            m_Camera = Camera.main;
+            transform.rotation = new Quaternion(0, 0, 0, 0);
+            m_Camera.transform.rotation = new Quaternion(0, 0, 0, 0);
+            m_FovKick.Setup(m_Camera);
+            m_HeadBob.Setup(m_Camera, m_StepInterval);
+            m_MouseLook.Init(transform, m_Camera.transform);
+        }
 
         // Update is called once per frame
         private void Update()
         {
+            if (m_Camera == null)
+            {
+                RefreshCameraReference();
+            }
             RotateView();
             // the jump state needs to read here to make sure it is not missed
             if (!m_Jump && m_IsJumpingEnabled)

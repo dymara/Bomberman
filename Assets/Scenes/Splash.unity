@@ -96,7 +96,6 @@ GameObject:
   - 20: {fileID: 505554411}
   - 92: {fileID: 505554410}
   - 124: {fileID: 505554409}
-  - 81: {fileID: 505554408}
   - 114: {fileID: 505554413}
   m_Layer: 0
   m_Name: Main Camera
@@ -105,13 +104,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &505554408
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 505554407}
-  m_Enabled: 1
 --- !u!124 &505554409
 Behaviour:
   m_ObjectHideFlags: 0
@@ -183,7 +175,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 040e9d7e8de9a6a4cb6953735cb94131, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  duration: 3
 --- !u!1 &1561945200
 GameObject:
   m_ObjectHideFlags: 0

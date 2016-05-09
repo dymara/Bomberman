@@ -35,6 +35,8 @@ public class ExplosionManager : MonoBehaviour {
 
         Bomb bomb = Instantiate(bombPrefab, bombPosition, Quaternion.identity) as Bomb;
         bomb.player = player;
+        bomb.detonateDelay = GameManager.instance.GetBombDetonateDelay();
+        bomb.explosionRange = GameManager.instance.GetPlayer().bombRange;
         gameCell.bomb = bomb;
 
         AddToBombMap(bomb, gameCell);

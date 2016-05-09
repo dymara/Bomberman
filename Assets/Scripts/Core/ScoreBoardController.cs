@@ -6,7 +6,7 @@ public class ScoreBoardController : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        // THIS IS A TEMPORARY SOLUTION BEFORE A SCORE BOARD SCENE GETS IMPLEMENTED
+        // TODO - THIS IS A TEMPORARY SOLUTION BEFORE A SCORE BOARD SCENE GETS IMPLEMENTED
         GameManager.instance.SwitchGameState(GameState.GAMEPLAY);
     }
 
