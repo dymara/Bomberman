@@ -2,14 +2,12 @@
 
 public class Configurator : MonoBehaviour {
 
-    public const int MAXIMUM_LEVEL_NUMBER = 255;
-
     public GameState initialApplicationState;
 
     [Range(0, 10)]
     public float splashDuration;
 
-    [Range(1, MAXIMUM_LEVEL_NUMBER)]
+    [Range(1, 1000)]
     public int initialLevelNumber;
 
     [Range(1, 6)]
@@ -58,6 +56,9 @@ public class Configurator : MonoBehaviour {
 
     [Range(1, 10)]
     public int bombDetonateDelay;
+
+    [Range(1, 32)]
+    public float levelDurationPerBlock;
 
     /** Cell size -> cube length and width */
     public float cellSize;

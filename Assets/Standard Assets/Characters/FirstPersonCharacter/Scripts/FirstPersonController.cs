@@ -64,10 +64,15 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private void RefreshCameraReference()
         {
             m_Camera = Camera.main;
-            transform.rotation = new Quaternion(0, 0, 0, 0);
-            m_Camera.transform.rotation = new Quaternion(0, 0, 0, 0);
             m_FovKick.Setup(m_Camera);
             m_HeadBob.Setup(m_Camera, m_StepInterval);
+            m_MouseLook.Init(transform, m_Camera.transform);
+        }
+
+        public void SetCameraRotation(Vector3 rotation)
+        {
+            m_Camera.transform.localRotation = Quaternion.Euler(0, 0, 0);
+            transform.localRotation = Quaternion.Euler(rotation);
             m_MouseLook.Init(transform, m_Camera.transform);
         }
 
@@ -256,7 +261,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         private void RotateView()
         {
-            m_MouseLook.LookRotation (transform, m_Camera.transform);
+            m_MouseLook.LookRotation(transform, m_Camera.transform);           
         }
 
 

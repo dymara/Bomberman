@@ -12,4 +12,6 @@
 
     public const string FINDING_TAG = "Finding";
 
+    public const string HUMAN_PLAYER_TAG = "Player";
+
 }

@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.Model;
 using UnityEngine;
+using UnityStandardAssets.Characters.FirstPerson;
 
 public class GameManager : MonoBehaviour {
 
@@ -38,6 +39,7 @@ public class GameManager : MonoBehaviour {
         levelNumber = configurator.initialLevelNumber;
         player = Instantiate(playerPrefab) as Player;
         player.name = "Player";
+        player.tag = Constants.HUMAN_PLAYER_TAG;
         player.remainingLives = configurator.initialPlayerLives;
         player.bombs = configurator.initialPlayerBombs;
         player.bombRange = configurator.initialPlayerBombRange;
@@ -83,18 +85,16 @@ public class GameManager : MonoBehaviour {
         return player;
     }
 
+    public void SetCameraRotation(Vector3 rotation)
+    {
+        FirstPersonController fpsController = player.GetComponent<FirstPersonController>();
+        fpsController.SetCameraRotation(rotation);
+    }
+
     public void AdvanceToNextLevel()
     {
         levelNumber++;
-        if (levelNumber <= Configurator.MAXIMUM_LEVEL_NUMBER)
-        {
-            SwitchGameState(GameState.GAMEPLAY);
-        }
-        else
-        {
-            // WORLD EXPLODES HERE!
-            // TODO implement this extra ordinary case
-        }
+        SwitchGameState(GameState.GAMEPLAY);
     }
 
     public float GetSplashDuration()
@@ -130,6 +130,11 @@ public class GameManager : MonoBehaviour {
     public int GetBombDetonateDelay()
     {
         return configurator.bombDetonateDelay;
+    }
+
+    public float GetLevelDuration()
+    {
+        return GetCubesXCount() * GetCubesZCount() * configurator.levelDurationPerBlock;
     }
 
     public int GetEnemiesCount()
@@ -184,5 +189,71 @@ public class GameManager : MonoBehaviour {
     {
         return configurator.startPositionZ;
     }
+
+    /* HUD AUTO-UPDATE METHODS */
+
+    private UIController GetUIController()
+    {
+        GameObject controllerObject = GameObject.Find(Constants.UI_CONTROLLER_NAME);
+        if (controllerObject != null)
+        {
+            return controllerObject.GetComponent<UIController>();
+        }
+        return null;
+    }
+
+    public void OnPlayerBombsChanged(int bombs)
+    {
+        UIController uiController = GetUIController();
+        if (uiController != null) {
+            uiController.SetBombsCount(bombs);
+        }
+    }
+
+    public void OnPlayerBombRangeChanged(int bombRange)
+    {
+        UIController uiController = GetUIController();
+        if (uiController != null)
+        {
+            uiController.SetRangeBonusValue(bombRange);
+        }
+    }
+
+    public void OnPlayerSpeedChanged(float speed)
+    {
+        UIController uiController = GetUIController();
+        if (uiController != null)
+        {
+            uiController.SetSpeedBonusValue(speed);
+        }
+    }
+
+    public void OnPlayerRemoteDetonationBonusChanged(bool available)
+    {
+        UIController uiController = GetUIController();
+        if (uiController != null)
+        {
+            uiController.SetRemoteDetonationBonusAvailable(available);
+        }
+    }
+
+    public void OnPlayerScoreChanged(long score)
+    {
+        UIController uiController = GetUIController();
+        if (uiController != null)
+        {
+            uiController.SetScoreValue(score);
+        }
+    }
+
+    public void OnPlayerLivesChanged(int lives)
+    {
+        UIController uiController = GetUIController();
+        if (uiController != null)
+        {
+            uiController.SetLivesCount(lives);
+        }
+    }
+
 
 }

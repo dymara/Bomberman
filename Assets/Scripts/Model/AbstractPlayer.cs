@@ -6,7 +6,11 @@ namespace Assets.Scripts.Model
 {
     public abstract class AbstractPlayer : DynamicGameObject
     {
-        public int remainingLives { set; get; }
+        private int _remainingLives;
+        public int remainingLives {
+            get { return _remainingLives; }
+            set { _remainingLives = value; OnLivesChanged(); }
+        }
 
         public PostionListener postionLisener { set; get; }
 
@@ -14,7 +18,20 @@ namespace Assets.Scripts.Model
 
         public AbstractPlayer(int lives)
         {
-            remainingLives = lives;
+            _remainingLives = lives;
+        }
+
+        private bool isHumanPlayer()
+        {
+            return tag.Equals(Constants.HUMAN_PLAYER_TAG);
+        }
+
+        private void OnLivesChanged()
+        {
+            if (isHumanPlayer())
+            {
+                GameManager.instance.OnPlayerLivesChanged(remainingLives);
+            }
         }
 
         public override void OnExplode()

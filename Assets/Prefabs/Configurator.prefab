@@ -41,7 +41,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   initialApplicationState: 0
   splashDuration: 2
-  initialLevelNumber: 1
+  initialLevelNumber: 3
   initialPlayerLives: 3
   initialPlayerBombs: 1
   initialPlayerBombRange: 1
@@ -58,6 +58,7 @@ MonoBehaviour:
   findingFloatDist: 0.25
   exitSpinSpeed: 10
   bombDetonateDelay: 4
+  levelDurationPerBlock: 0
   cellSize: 3
   cubeHeight: 3
   wallHeight: 5

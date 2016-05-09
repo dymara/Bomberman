@@ -4,6 +4,7 @@ using Assets.Scripts.Model;
 using Assets.Scripts.Util;
 using Assets.Scripts.Postion;
 using System;
+using System.Collections;
 
 public class LevelManager : MonoBehaviour {
 
@@ -99,10 +100,7 @@ public class LevelManager : MonoBehaviour {
         positionManager = new PlayerPositionManager(board, positionConverter);
 
         player.gameObject.transform.localPosition = new Vector3(startX, 0.5f, startZ);
-        if (startPositionZ.Equals(StartPosition.MAX))
-        {
-            player.gameObject.transform.Rotate(new Vector3(0, 180, 0));
-        }
+        SetInitialCameraRotation();
 
         board.AddPlayer(player);
         
@@ -112,6 +110,9 @@ public class LevelManager : MonoBehaviour {
 
         explosionManager = GameObject.Find(Constants.EXPLOSION_MANAGER_NAME).GetComponent<ExplosionManager>();
         uiController = GameObject.Find(Constants.UI_CONTROLLER_NAME).GetComponent<UIController>();
+        uiController.InitializeHUD();
+
+        StartCoroutine(StartLevelCountdown());
     }
     
     private void InitAI() 
@@ -121,7 +122,37 @@ public class LevelManager : MonoBehaviour {
         aiSpawner.SpawnEnemies(board, positionConverter, playerPosition);
     }
 
-    private void RestartGame() { }
+    private void SetInitialCameraRotation()
+    {
+        if (startPositionX == StartPosition.MIN && startPositionZ == StartPosition.MIN)
+        {
+            GameManager.instance.SetCameraRotation(new Vector3(0, 0, 0));
+        }
+        else if (startPositionX == StartPosition.MIN && startPositionZ == StartPosition.MAX)
+        {
+            GameManager.instance.SetCameraRotation(new Vector3(0, 90, 0));
+        }
+        else if (startPositionX == StartPosition.MAX && startPositionZ == StartPosition.MIN)
+        {
+            GameManager.instance.SetCameraRotation(new Vector3(0, 0, 0));
+        }
+        else if (startPositionX == StartPosition.MAX && startPositionZ == StartPosition.MAX)
+        {
+            GameManager.instance.SetCameraRotation(new Vector3(0, 270, 0));
+        }
+    }
+
+    private IEnumerator StartLevelCountdown()
+    {
+        int levelDuration = (int)Mathf.Ceil(GameManager.instance.GetLevelDuration());
+        while (levelDuration >= 0)
+        {
+            uiController.SetTimerValue(levelDuration--);
+            yield return new WaitForSeconds(1);
+        }
+
+        // TODO Handle countdown finished before completing level.
+    }
 
     /* GETTER METHODS */
 
