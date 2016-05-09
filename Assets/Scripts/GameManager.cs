@@ -52,8 +52,6 @@ public class GameManager : MonoBehaviour {
 
     private UIController uiController;
     
-    public GameObject monsterPrefab;
-
     private PlayerPositionManager positionManager;
 
     public AISpawner aiSpawner;
