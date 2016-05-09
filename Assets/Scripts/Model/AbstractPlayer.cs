@@ -1,7 +1,6 @@
 ﻿using System;
 using Assets.Scripts.Postion;
 using UnityEngine;
-using UnityStandardAssets.Characters.FirstPerson;
 
 namespace Assets.Scripts.Model
 {

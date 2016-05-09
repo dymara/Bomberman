@@ -94,15 +94,7 @@ public class GameManager : MonoBehaviour {
     public void AdvanceToNextLevel()
     {
         levelNumber++;
-        if (levelNumber <= Configurator.MAXIMUM_LEVEL_NUMBER)
-        {
-            SwitchGameState(GameState.GAMEPLAY);
-        }
-        else
-        {
-            // WORLD EXPLODES HERE!
-            // TODO implement this extra ordinary case
-        }
+        SwitchGameState(GameState.GAMEPLAY);
     }
 
     public float GetSplashDuration()
