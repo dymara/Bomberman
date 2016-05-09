@@ -48,6 +48,9 @@ public class Configurator : MonoBehaviour {
     [Range(1, 10)]
     public int bombDetonateDelay;
 
+    [Range(1, 32)]
+    public float levelDurationPerBlock;
+
     /** Cell size -> cube length and width */
     public float cellSize;
 

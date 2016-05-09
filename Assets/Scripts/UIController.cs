@@ -67,7 +67,6 @@ public class UIController : MonoBehaviour
         int r = rand.Next(0, 7);
         SetLivesCount(r);
         SetBombsCount(r);
-        SetTimerValue(rand.Next(0, 1000));
         SetScoreValue(rand.Next(0, 10000000));
         SetRangeBonusValue(r);
         SetSpeedBonusValue(rand.Next(100, 1000) / 100.0);

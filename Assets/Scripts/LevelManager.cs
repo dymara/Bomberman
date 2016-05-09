@@ -3,6 +3,7 @@ using Assets.Scripts.Board;
 using Assets.Scripts.Model;
 using Assets.Scripts.Util;
 using Assets.Scripts.Postion;
+using System.Collections;
 
 public class LevelManager : MonoBehaviour {
 
@@ -101,6 +102,8 @@ public class LevelManager : MonoBehaviour {
 
         explosionManager = GameObject.Find(Constants.EXPLOSION_MANAGER_NAME).GetComponent<ExplosionManager>();
         uiController = GameObject.Find(Constants.UI_CONTROLLER_NAME).GetComponent<UIController>();
+
+        StartCoroutine(StartLevelCountdown());
     }
     
     private void InitAI() 
@@ -128,6 +131,18 @@ public class LevelManager : MonoBehaviour {
         {
             GameManager.instance.SetCameraRotation(new Vector3(0, 270, 0));
         }
+    }
+
+    private IEnumerator StartLevelCountdown()
+    {
+        int levelDuration = (int)Mathf.Ceil(GameManager.instance.GetLevelDuration());
+        while (levelDuration >= 0)
+        {
+            uiController.SetTimerValue(levelDuration--);
+            yield return new WaitForSeconds(1);
+        }
+
+        // TODO Handle countdown finished before completing level.
     }
 
     /* GETTER METHODS */

@@ -119,6 +119,11 @@ public class GameManager : MonoBehaviour {
         return configurator.bombDetonateDelay;
     }
 
+    public float GetLevelDuration()
+    {
+        return GetCubesXCount() * GetCubesZCount() * configurator.levelDurationPerBlock;
+    }
+
     public int GetEnemiesCount()
     {
         // TODO This method's result should be dependent on current level number value!

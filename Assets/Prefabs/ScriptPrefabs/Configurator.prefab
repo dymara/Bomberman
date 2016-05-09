@@ -54,6 +54,7 @@ MonoBehaviour:
   enemiesMinDistance: 8
   exitSpinSpeed: 10
   bombDetonateDelay: 4
+  levelDurationPerBlock: 8
   cellSize: 3
   cubeHeight: 3
   wallHeight: 5
