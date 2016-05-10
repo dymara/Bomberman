@@ -45,10 +45,10 @@ public class Configurator : MonoBehaviour {
     [Range(0, 100)]
     public float findingSpinSpeed;
 
-    [Range(0.1f, 5)]
+    [Range(0, 5)]
     public float findingFloatSpeed;
 
-    [Range(0.1f, 1)]
+    [Range(0, 1)]
     public float findingFloatDist;
 
     [Range(0, 100)]

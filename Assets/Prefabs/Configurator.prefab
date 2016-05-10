@@ -54,11 +54,11 @@ MonoBehaviour:
   enemiesMinDistance: 8
   findingCount: 7
   findingSpinSpeed: 80
-  findingFloatSpeed: 0.3
-  findingFloatDist: 0.25
+  findingFloatSpeed: 0
+  findingFloatDist: 0
   exitSpinSpeed: 10
   bombDetonateDelay: 4
-  levelDurationPerBlock: 0
+  levelDurationPerBlock: 8
   cellSize: 3
   cubeHeight: 3
   wallHeight: 5

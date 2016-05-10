@@ -48,7 +48,8 @@ namespace Assets.Scripts.Board
             ExplodeFinding();
             ExplodeBlock();
             ExplodeBomb();
-            foreach(AbstractPlayer player in new HashSet<AbstractPlayer>(players)){
+            foreach (AbstractPlayer player in new HashSet<AbstractPlayer>(players))
+            {
                 player.OnExplode();
             }
         }

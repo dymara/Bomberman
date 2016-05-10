@@ -1,10 +1,8 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System;
 
 namespace Assets.Scripts.Effects
 {
-
     public class FloatEffect : MonoBehaviour
     {
         private float speed;
@@ -38,7 +36,8 @@ namespace Assets.Scripts.Effects
                     diff = 0;
                 }
             }
-            else{
+            else
+            {
                 transform.Translate(Vector3.down * speed * Time.deltaTime);
                 diff += oldPosition - transform.position.y;
                 if (Math.Abs(diff) > floatingDistance)
