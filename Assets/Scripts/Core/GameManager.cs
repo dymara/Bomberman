@@ -30,6 +30,7 @@ public class GameManager : MonoBehaviour {
         }
         DontDestroyOnLoad(gameObject);  // Sets this to not be destroyed when reloading scene
 
+        this.player = Instantiate(playerPrefab) as Player;
         Init();
 
         SwitchGameState(configurator.initialApplicationState);
@@ -38,7 +39,6 @@ public class GameManager : MonoBehaviour {
     private void Init()
     {
         levelNumber = configurator.initialLevelNumber;
-        player = Instantiate(playerPrefab) as Player;
         player.name = "Player";
         player.tag = Constants.HUMAN_PLAYER_TAG;
         player.remainingLives = configurator.initialPlayerLives;
@@ -100,6 +100,21 @@ public class GameManager : MonoBehaviour {
     {
         levelNumber++;
         SwitchGameState(GameState.GAMEPLAY);
+    }
+
+    public void RestartLevel()
+    {
+        SwitchGameState(GameState.GAMEPLAY);
+    }
+
+    public void ResetPlayerState()
+    {
+        Init();
+    }
+
+    public int GetCurrentLevelNumber()
+    {
+        return levelNumber;
     }
 
     public float GetSplashDuration()

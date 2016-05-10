@@ -21,14 +21,14 @@ namespace Assets.Scripts.Model
             _remainingLives = lives;
         }
 
-        protected bool isHumanPlayer()
+        protected bool IsHumanPlayer()
         {
             return tag.Equals(Constants.HUMAN_PLAYER_TAG);
         }
 
         private void OnLivesChanged()
         {
-            if (isHumanPlayer())
+            if (IsHumanPlayer())
             {
                 GameManager.instance.OnPlayerLivesChanged(remainingLives);
             }
@@ -36,16 +36,25 @@ namespace Assets.Scripts.Model
 
         public override void OnExplode()
         {
-            // TODO - change to proper implementation
-            Debug.Log(DateTime.Now + " Player expoloded!");
             remainingLives--;
-            if (remainingLives == 0)
+            if (IsHumanPlayer())
             {
-                EndGame();
+                Debug.Log(DateTime.Now + " Player has blown himself up!");
             }
             else
             {
-                Kill();
+                Debug.Log(DateTime.Now + " Player killed an enemy!");
+            }
+            Kill();
+        }
+
+        protected virtual void Kill()
+        {
+            if (remainingLives == 0)
+            {
+                postionLisener.RemovePlayerFromCurrentCell();
+                positionManager.RemovePlayer(this);
+                Destroy(this.gameObject);
             }
         }
 
@@ -57,16 +66,5 @@ namespace Assets.Scripts.Model
             }
         }
 
-        protected virtual void Kill()
-        {
-
-        }
-
-        protected virtual void EndGame()
-        {
-            postionLisener.RemovePlayerFromCurrentCell();
-            positionManager.RemovePlayer(this);
-            Destroy(this.gameObject);
-        }
     }
 }

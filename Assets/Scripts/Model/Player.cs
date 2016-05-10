@@ -42,8 +42,6 @@ namespace Assets.Scripts.Model
 
         private bool exitReached = false;
 
-        private bool wait;
-
         private FirstPersonController controller;
 
         public Player(int lives) : base(lives)
@@ -65,72 +63,55 @@ namespace Assets.Scripts.Model
             {
                 if (!exitReached)
                 {
-                    OnExitReached();
+                    StartCoroutine(OnExitReached());
                 }
-            }else if (hit.gameObject.tag.Equals(Constants.FINDING_TAG))
+            }
+            else if (hit.gameObject.tag.Equals(Constants.FINDING_TAG))
             {
-                hit.gameObject.GetComponent<Finding>().pickUp(this);
+                hit.gameObject.GetComponent<Finding>().PickUp(this);
             }
         }
 
         protected override void Kill()
         {
-            controller.DisableMoving();
-            wait = true;
             StartCoroutine(KillCoroutine());
-        }
-
-        protected override void EndGame()
-        {
-            controller.DisableMoving();
-            wait = true;
-            StartCoroutine(EndGameCoroutine());
         }
 
         private IEnumerator KillCoroutine()
         {
-            // TODO - change to proper implementation
-            if (wait)
+            controller.DisableMoving();
+            yield return new WaitForSeconds(1);
+
+            if (remainingLives > 0)
             {
-                wait = false;
-                yield return new WaitForSeconds(1);
+                EditorUtility.DisplayDialog("Bomberman 3D", "Unfortunately, you are dead...", "Repeat level");
+                controller.EnableMoving();
+                GameManager.instance.RestartLevel();
             }
-            EditorUtility.DisplayDialog("Bomberman3D", "You are dead.", "Repeat level");
-            Debug.Log(DateTime.Now + " Repeat level");
-            controller.EnableMoving();
-            GameManager.instance.SwitchGameState(GameState.GAMEPLAY);
+            else
+            {
+                EditorUtility.DisplayDialog("Bomberman 3D", "GAME OVER", "Return to main menu");
+                GameManager.instance.SwitchGameState(GameState.MAIN_MENU);
+                controller.EnableMoving();
+            }
         }
 
-        private IEnumerator EndGameCoroutine()
+        private IEnumerator OnExitReached()
         {
-            // TODO - change to proper implementation
-            if (wait)
-            {
-                wait = false;
-                yield return new WaitForSeconds(1);
-            }
-            EditorUtility.DisplayDialog("Bomberman3D", ":(:(:( You lose.", "Exit to main menu");
-            Debug.Log(DateTime.Now + " Exit to main menu");
-            Application.Quit();
-        }
-
-        private void OnExitReached()
-        {
-            // TODO - change to proper implementation
             exitReached = true;
-            Debug.Log(DateTime.Now + " Maze exit reached!");
-            Boolean answer = EditorUtility.DisplayDialog("Bomberman3D", "Congratulations! You win!", "Next level", "Exit");
-            if (answer)
-            {
-                exitReached = false;
-                Debug.Log(DateTime.Now + " Advancing to next level...");
+            int currentLevel = GameManager.instance.GetCurrentLevelNumber();
+            Debug.Log(DateTime.Now + " Player has reached level " + currentLevel + " maze exit!");
+
+            bool answer = EditorUtility.DisplayDialog("Bomberman 3D", "Congratulations! Level " + currentLevel  + " cleared!", "Go to the next level", "Return to main menu");
+            if (answer) {
                 GameManager.instance.AdvanceToNextLevel();
             }
-            else {
-                Debug.Log(DateTime.Now + " GAME EXITED");
-                Application.Quit();
-                exitReached = false;
+            else
+            {
+                GameManager.instance.SwitchGameState(GameState.MAIN_MENU);
             }
+            yield return new WaitForSeconds(3); // [dymara] Hack for disabling exit events untill scene fade out animation finishes.
+            exitReached = false;
         }
     }
 }

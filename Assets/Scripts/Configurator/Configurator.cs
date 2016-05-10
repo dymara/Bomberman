@@ -24,6 +24,7 @@ public class Configurator : MonoBehaviour {
 
     public bool initialPlayerRemoteDetonationBonus;
 
+    [Range(0, 10)]
     public int initialFindingsCount;
 
     /** Number of indestructible cubes in x axis */

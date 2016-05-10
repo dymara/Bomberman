@@ -19,7 +19,7 @@ namespace Assets.Scripts.Model
             Destroy(this.gameObject);
         }
 
-        public void pickUp(Player player)
+        public void PickUp(Player player)
         {
             PlayFlashEffect();
             PlaySoundEffect();
