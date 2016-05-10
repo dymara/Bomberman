@@ -53,7 +53,7 @@ MonoBehaviour:
   exitExplosionEnemiesCount: 3
   enemiesMinDistance: 8
   findingCount: 7
-  findingSpinSpeed: 80
+  findingSpinSpeed: 50
   findingFloatSpeed: 0.2
   findingFloatDist: 0.4
   exitSpinSpeed: 10
