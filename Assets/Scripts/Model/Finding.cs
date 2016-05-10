@@ -21,16 +21,19 @@ namespace Assets.Scripts.Model
 
         public void PickUp(Player player)
         {
-            PlayFlashEffect();
-            PlaySoundEffect();
-            Destroy(this.gameObject);
+            if (this.gameObject != null)
+            {
+                PlayFlashEffect();
+                PlaySoundEffect();
+                Destroy(this.gameObject);
 
-            // TODO - Handle different finding types
-            player.bombs++;
-            player.maximumBombsCount++;
- 
-            GameManager.instance.OnFindingPickedUp();
-            Debug.Log(DateTime.Now + " Finding picked up!");
+                // TODO - Handle different finding types
+                player.bombs++;
+                player.maximumBombsCount++;
+
+                GameManager.instance.OnFindingPickedUp();
+                Debug.Log(DateTime.Now + " Finding picked up!");
+            }
         }
 
         private void PlayFlashEffect()
