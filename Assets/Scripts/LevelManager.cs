@@ -74,16 +74,9 @@ public class LevelManager : MonoBehaviour {
     // Update is called once per frame
     void Update() {
         if (Input.GetKeyDown("f")) {
-            if(explosionManager.GetPlacedBombCount() == player.bombs)
-            {
-                String bombString = player.bombs > 1 ? " bombs" : " bomb";
-                Debug.Log(DateTime.Now + " You can put only " + player.bombs + bombString);
-                GetUIController().ShowTimedMessage("You can put only " + player.bombs + bombString);
-                return;
-            }
             Vector3 sceneBombPosition = board.GetPlayers()[0].transform.position + board.GetPlayers()[0].transform.forward;
             Vector2 boardBombPosition = positionConverter.ConvertScenePositionToBoard(sceneBombPosition);
-            explosionManager.PutBomb(player.gameObject, bombPrefab, boardBombPosition);
+            explosionManager.PutBomb(player, bombPrefab, boardBombPosition);
         }
     }
 

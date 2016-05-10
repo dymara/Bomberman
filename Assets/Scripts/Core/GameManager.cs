@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Model;
+using System;
 using UnityEngine;
 using UnityStandardAssets.Characters.FirstPerson;
 
@@ -42,6 +43,7 @@ public class GameManager : MonoBehaviour {
         player.tag = Constants.HUMAN_PLAYER_TAG;
         player.remainingLives = configurator.initialPlayerLives;
         player.bombs = configurator.initialPlayerBombs;
+        player.maximumBombsCount = configurator.initialPlayerBombs;
         player.bombRange = configurator.initialPlayerBombRange;
         player.speed = configurator.initialPlayerSpeed;
         player.remoteDetonationBonus = configurator.initialPlayerRemoteDetonationBonus;
@@ -73,7 +75,10 @@ public class GameManager : MonoBehaviour {
                 SceneFader.LoadScene("ScoreBoard", 1, 0);
                 break;
             case GameState.GAMEPLAY:
+                Debug.Log(DateTime.Now + " Loading level " + levelNumber + "...");
                 SceneFader.LoadScene("Gameplay", 0, 1);
+                player.bombs = player.maximumBombsCount;
+                Debug.Log(DateTime.Now + " Level " + levelNumber + " loaded successfully!");
                 break;
             default:
                 break;
@@ -107,24 +112,25 @@ public class GameManager : MonoBehaviour {
         return configurator.exitSpinSpeed;
     }
 
-    public float GetFindingtSpinSpeed()
+    public float GetFindingSpinSpeed()
     {
         return configurator.findingSpinSpeed;
     }
 
-    public float GetFindingtFloatSpeed()
+    public float GetFindingFloatSpeed()
     {
         return configurator.findingFloatSpeed;
     }
 
-    public float GetFindingtFloatDistance()
+    public float GetFindingFloatDistance()
     {
         return configurator.findingFloatDist;
     }
 
-    public float GetFindingtCount()
+    public float GetFindingsCount()
     {
-        return configurator.findingCount;
+        // TODO This method's result should be dependent on current level number value!
+        return configurator.initialFindingsCount;
     }
 
     public int GetBombDetonateDelay()

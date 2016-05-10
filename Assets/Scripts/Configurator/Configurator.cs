@@ -24,6 +24,8 @@ public class Configurator : MonoBehaviour {
 
     public bool initialPlayerRemoteDetonationBonus;
 
+    public int initialFindingsCount;
+
     /** Number of indestructible cubes in x axis */
     [Range(4, 128)]
     public int level1CubesXCount; //indestructibleCubesXNumber;
@@ -38,9 +40,7 @@ public class Configurator : MonoBehaviour {
     [Range(1, 32)]
     public int exitExplosionEnemiesCount;
 
-    public int enemiesMinDistance;
-
-    public int findingCount;
+    public int enemiesMinDistance; 
 
     [Range(0, 100)]
     public float findingSpinSpeed;

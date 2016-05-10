@@ -15,10 +15,14 @@ public class ExplosionManager : MonoBehaviour {
 
     private readonly object bombMapLock = new object();
 
-    private int placedBombCount = 0;
-
-    public void PutBomb(GameObject player, Bomb bomb, Vector2 position)
+    public void PutBomb(Player player, Bomb bomb, Vector2 position)
     {
+        if (player.bombs == 0)
+        {
+            Debug.Log(DateTime.Now + " You don't have any bombs left to use!");
+            levelManager.GetUIController().ShowTimedMessage("You don't have any bombs\nleft to use!");
+            return;
+        }
         GameCell cell = levelManager.GetBoard().GetGameCell(position);
         if (cell != null && cell.block == null && cell.bomb == null)
         {
@@ -30,22 +34,22 @@ public class ExplosionManager : MonoBehaviour {
         }
     }
 
-    private void DoPutBomb(GameObject player, Bomb bombPrefab, GameCell gameCell)
+    private void DoPutBomb(Player player, Bomb bombPrefab, GameCell gameCell)
     {
         Vector3 bombPosition = levelManager.GetPositionConverter().ConvertBoardPositionToScene(gameCell.GetCoordinates(), true);
         bombPosition.y = bombPrefab.transform.localScale.y / 1.25f;
 
         Bomb bomb = Instantiate(bombPrefab, bombPosition, Quaternion.identity) as Bomb;
-        bomb.player = player;
+        bomb.player = player.gameObject;
         bomb.detonateDelay = GameManager.instance.GetBombDetonateDelay();
         bomb.explosionRange = GameManager.instance.GetPlayer().bombRange;
         gameCell.bomb = bomb;
 
-        AddToBombMap(bomb, gameCell);
-        StartCoroutine(HandleBombPlaced(bomb, gameCell));
+        AddToBombMap(player, bomb, gameCell);
+        StartCoroutine(HandleBombPlaced(player, bomb, gameCell));
     }
 
-    private IEnumerator HandleBombPlaced(Bomb bomb, GameCell gameCell)
+    private IEnumerator HandleBombPlaced(Player player, Bomb bomb, GameCell gameCell)
     {
         // decrement counter value
         int timeLeft = bomb.detonateDelay;
@@ -70,20 +74,20 @@ public class ExplosionManager : MonoBehaviour {
                 }
                 cell.Explode();
             }
-            RemoveFromBombMap(explodedBombs);
+            RemoveFromBombMap(player, explodedBombs);
         }
     }
 
-    private void AddToBombMap(Bomb bomb, GameCell gameCell)
+    private void AddToBombMap(Player player, Bomb bomb, GameCell gameCell)
     {
-        lock (bombMapLock) {        
+        lock (bombMapLock) {
+            player.bombs--; 
             bombMap.Add(bomb, gameCell);
             HighlightCellsToExplode(bomb, true);
-            placedBombCount++;
         }
     }
 
-    private void RemoveFromBombMap(List<Bomb> bombs)
+    private void RemoveFromBombMap(Player player, List<Bomb> bombs)
     {
         lock (bombMapLock)
         {
@@ -91,7 +95,7 @@ public class ExplosionManager : MonoBehaviour {
             {
                 HighlightCellsToExplode(bomb, false);
                 bombMap.Remove(bomb);
-                placedBombCount--;
+                player.bombs++;
             }
             foreach (Bomb remainingBomb in bombMap.Keys) {
                 HighlightCellsToExplode(remainingBomb, true);
@@ -190,10 +194,5 @@ public class ExplosionManager : MonoBehaviour {
     }
 
     private enum RayDirection { LEFT, UP, RIGHT, BOTTOM }
-
-    public int GetPlacedBombCount()
-    {
-        return placedBombCount;
-    }
 
 }

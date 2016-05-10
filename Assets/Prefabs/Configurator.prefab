@@ -41,7 +41,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   initialApplicationState: 0
   splashDuration: 2
-  initialLevelNumber: 3
+  initialLevelNumber: 1
   initialPlayerLives: 3
   initialPlayerBombs: 1
   initialPlayerBombRange: 1
@@ -50,9 +50,9 @@ MonoBehaviour:
   level1CubesXCount: 5
   level1CubesZCount: 5
   level1EnemiesCount: 3
+  initialFindingsCount: 3
   exitExplosionEnemiesCount: 3
   enemiesMinDistance: 8
-  findingCount: 7
   findingSpinSpeed: 50
   findingFloatSpeed: 0.2
   findingFloatDist: 0.4

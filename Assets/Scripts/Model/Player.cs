@@ -14,6 +14,8 @@ namespace Assets.Scripts.Model
             set { _bombs = value; GameManager.instance.OnPlayerBombsChanged(value); }
         }
 
+        public int maximumBombsCount { get; set; }
+
         private int _bombRange;
         public int bombRange {
             get { return _bombRange; }
@@ -116,16 +118,16 @@ namespace Assets.Scripts.Model
         {
             // TODO - change to proper implementation
             exitReached = true;
-            Debug.Log(DateTime.Now + " Maze exit reached");
+            Debug.Log(DateTime.Now + " Maze exit reached!");
             Boolean answer = EditorUtility.DisplayDialog("Bomberman3D", "Congratulations! You win!", "Next level", "Exit");
             if (answer)
             {
                 exitReached = false;
-                Debug.Log(DateTime.Now + " Loading next level");
-                GameManager.instance.SwitchGameState(GameState.GAMEPLAY);
+                Debug.Log(DateTime.Now + " Advancing to next level...");
+                GameManager.instance.AdvanceToNextLevel();
             }
             else {
-                Debug.Log("EXIT GAME");
+                Debug.Log(DateTime.Now + " GAME EXITED");
                 Application.Quit();
                 exitReached = false;
             }

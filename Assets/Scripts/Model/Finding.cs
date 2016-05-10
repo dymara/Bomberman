@@ -24,8 +24,10 @@ namespace Assets.Scripts.Model
             PlayFlashEffect();
             PlaySoundEffect();
             Destroy(this.gameObject);
+            // TODO - Handle different finding types
             player.bombs++;
-            Debug.Log(DateTime.Now + " Finding picked up");
+            player.maximumBombsCount++;
+            Debug.Log(DateTime.Now + " Finding picked up!");
         }
 
         private void PlayFlashEffect()

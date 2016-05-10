@@ -21,7 +21,7 @@ namespace Assets.Scripts.Model
             _remainingLives = lives;
         }
 
-        private bool isHumanPlayer()
+        protected bool isHumanPlayer()
         {
             return tag.Equals(Constants.HUMAN_PLAYER_TAG);
         }
@@ -37,7 +37,7 @@ namespace Assets.Scripts.Model
         public override void OnExplode()
         {
             // TODO - change to proper implementation
-            Debug.Log(DateTime.Now + " Player expoloded");
+            Debug.Log(DateTime.Now + " Player expoloded!");
             remainingLives--;
             if (remainingLives == 0)
             {

@@ -192,7 +192,7 @@ public class Maze : MonoBehaviour
         Vector2 position;
         int index;
         findingPrefab.transform.localScale = new Vector3(cubeWidth / 4, cubeWidth / 4, cubeWidth / 4);
-        for (int i = 0; i < GameManager.instance.GetFindingtCount(); i++)
+        for (int i = 0; i < GameManager.instance.GetFindingsCount(); i++)
         {
             index = rnd.Next(0, destructibleCubes.Count);
             Vector2 findingPostion = (Vector2)destructibleCubes[index];
@@ -200,10 +200,10 @@ public class Maze : MonoBehaviour
             Finding finding = CreateGameObject(findingPostion.x, cubeWidth / 4 + 0.5f, findingPostion.y, findingPrefab, "Fiding " + (i + 1));
             finding.GetComponent<SphereCollider>().radius = cubeWidth / 4;
 
-            finding.gameObject.GetComponent<Spin>().SetSpeed(GameManager.instance.GetFindingtSpinSpeed());
+            finding.gameObject.GetComponent<Spin>().SetSpeed(GameManager.instance.GetFindingSpinSpeed());
             FloatEffect floatEffect = finding.gameObject.GetComponent<FloatEffect>();
-            floatEffect.SetSpeed(GameManager.instance.GetFindingtFloatSpeed());
-            floatEffect.SetDistance(GameManager.instance.GetFindingtFloatDistance());
+            floatEffect.SetSpeed(GameManager.instance.GetFindingFloatSpeed());
+            floatEffect.SetDistance(GameManager.instance.GetFindingFloatDistance());
             position = positionConverter.ConvertScenePositionToBoard(finding.transform.localPosition);
             cells[(int)position.x, (int)position.y].finding = finding;
         }
