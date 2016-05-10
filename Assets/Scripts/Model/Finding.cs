@@ -24,9 +24,12 @@ namespace Assets.Scripts.Model
             PlayFlashEffect();
             PlaySoundEffect();
             Destroy(this.gameObject);
+
             // TODO - Handle different finding types
             player.bombs++;
             player.maximumBombsCount++;
+ 
+            GameManager.instance.OnFindingPickedUp();
             Debug.Log(DateTime.Now + " Finding picked up!");
         }
 

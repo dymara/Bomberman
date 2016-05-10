@@ -61,6 +61,21 @@ public class Configurator : MonoBehaviour {
     [Range(1, 32)]
     public float levelDurationPerBlock;
 
+    [Range(0, 10000)]
+    public int blockDestructionPoints;
+
+    [Range(0, 10000)]
+    public int findingPickupPoints;
+
+    [Range(0, 10000)]
+    public int enemyKillingPoints;
+
+    [Range(0, 10000)]
+    public int levelClearedPoints;
+
+    [Range(0, 10000)]
+    public int timeMultiplierPoints;
+
     /** Cell size -> cube length and width */
     public float cellSize;
 

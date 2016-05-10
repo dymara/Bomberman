@@ -52,6 +52,7 @@ namespace Assets.Scripts.Model
         {
             if (remainingLives == 0)
             {
+                GameManager.instance.OnEnemyKilled();
                 postionLisener.RemovePlayerFromCurrentCell();
                 positionManager.RemovePlayer(this);
                 Destroy(this.gameObject);

@@ -7,6 +7,7 @@ namespace Assets.Scripts.Model
     {
         public override void OnExplode()
         {
+            GameManager.instance.OnBlockDestroyed();
             Destroy(this.gameObject);
         }
 
