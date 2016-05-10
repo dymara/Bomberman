@@ -74,6 +74,11 @@ namespace Assets.Scripts.Model
             }
         }
 
+        protected override void OnLivesChanged(int newValue)
+        {
+            GameManager.instance.OnPlayerLivesChanged(newValue);
+        }
+
         public void TriggerKill()
         {
             remainingLives--;
@@ -84,6 +89,7 @@ namespace Assets.Scripts.Model
         protected override void Kill()
         {
             wait = true;
+            Debug.Log(DateTime.Now + " Player has blown himself up!");
             StartCoroutine(KillCoroutine());
         }
 
@@ -103,7 +109,7 @@ namespace Assets.Scripts.Model
             }
             else
             {
-                EditorUtility.DisplayDialog("Bomberman 3D", "GAME OVER", "Return to main menu");
+                EditorUtility.DisplayDialog("Bomberman 3D", "GAME OVER!", "Return to main menu");
                 GameManager.instance.SwitchGameState(GameState.MAIN_MENU);
                 controller.EnableMoving();
             }
