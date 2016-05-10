@@ -1,15 +1,13 @@
-﻿using System;
-using Assets.Scripts.Postion;
-using UnityEngine;
+﻿using Assets.Scripts.Postion;
 
 namespace Assets.Scripts.Model
 {
     public abstract class AbstractPlayer : DynamicGameObject
     {
-        private int _remainingLives;
+        protected int _remainingLives;
         public int remainingLives {
             get { return _remainingLives; }
-            set { _remainingLives = value; OnLivesChanged(); }
+            set { _remainingLives = value; OnLivesChanged(value); }
         }
 
         public PostionListener postionLisener { set; get; }
@@ -21,42 +19,15 @@ namespace Assets.Scripts.Model
             _remainingLives = lives;
         }
 
-        protected bool IsHumanPlayer()
-        {
-            return tag.Equals(Constants.HUMAN_PLAYER_TAG);
-        }
-
-        private void OnLivesChanged()
-        {
-            if (IsHumanPlayer())
-            {
-                GameManager.instance.OnPlayerLivesChanged(remainingLives);
-            }
-        }
+        protected abstract void OnLivesChanged(int newValue);
 
         public override void OnExplode()
         {
             remainingLives--;
-            if (IsHumanPlayer())
-            {
-                Debug.Log(DateTime.Now + " Player has blown himself up!");
-            }
-            else
-            {
-                Debug.Log(DateTime.Now + " Player killed an enemy!");
-            }
             Kill();
         }
 
-        protected virtual void Kill()
-        {
-            if (remainingLives == 0)
-            {
-                postionLisener.RemovePlayerFromCurrentCell();
-                positionManager.RemovePlayer(this);
-                Destroy(this.gameObject);
-            }
-        }
+        protected abstract void Kill();
 
         void Update()
         {

@@ -52,6 +52,16 @@ public class UIController : MonoBehaviour
         this.speedValue = GameObject.Find("Speed Bonus Value").GetComponent<Text>();
 
         this.remoteDetonation = GameObject.Find("Remote Detonation Bonus").GetComponent<Image>();
+        InitializeWatermark();
+    }
+
+    private void InitializeWatermark()
+    {
+        if (GameManager.instance.IsWatermarkEnabled())
+        {
+            Text watermark = GameObject.Find("Watermark").GetComponent<Text>();
+            watermark.text = Version.WATERMARK_TEXT;
+        }
     }
 
     public void InitializeHUD()

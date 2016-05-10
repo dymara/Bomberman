@@ -47,10 +47,10 @@ MonoBehaviour:
   initialPlayerBombRange: 1
   initialPlayerSpeed: 1
   initialPlayerRemoteDetonationBonus: 0
+  initialFindingsCount: 3
   level1CubesXCount: 5
   level1CubesZCount: 5
   level1EnemiesCount: 3
-  initialFindingsCount: 3
   exitExplosionEnemiesCount: 3
   enemiesMinDistance: 8
   findingSpinSpeed: 50
@@ -59,6 +59,11 @@ MonoBehaviour:
   exitSpinSpeed: 10
   bombDetonateDelay: 4
   levelDurationPerBlock: 8
+  blockDestructionPoints: 100
+  findingPickupPoints: 1000
+  enemyKillingPoints: 1000
+  levelClearedPoints: 1000
+  timeMultiplierPoints: 50
   cellSize: 3
   cubeHeight: 3
   wallHeight: 5

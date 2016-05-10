@@ -55,6 +55,8 @@ public class LevelManager : MonoBehaviour {
 
     private PlayerPositionManager positionManager;
 
+    private int levelTimeLeft;
+
     void Awake() {
         this.indestructibleCubesXNumber = GameManager.instance.GetCubesXCount();
         this.indestructibleCubesZNumber = GameManager.instance.GetCubesZCount();
@@ -137,17 +139,22 @@ public class LevelManager : MonoBehaviour {
 
     private IEnumerator StartLevelCountdown()
     {
-        int levelDuration = (int)Mathf.Ceil(GameManager.instance.GetLevelDuration());
-        while (levelDuration >= 0)
+        levelTimeLeft = (int)Mathf.Ceil(GameManager.instance.GetLevelDuration());
+        while (levelTimeLeft > 0)
         {
-            uiController.SetTimerValue(levelDuration--);
+            uiController.SetTimerValue(levelTimeLeft--);
             yield return new WaitForSeconds(1);
         }
-
-        // TODO Handle countdown finished before completing level.
+        Debug.Log(DateTime.Now + " Out of time! Level has not been cleared before countdown finished.");
+        player.TriggerKill();
     }
 
     /* GETTER METHODS */
+
+    public int GetCountdownValue()
+    {
+        return levelTimeLeft;
+    }
 
     public PositionConverter GetPositionConverter()
     {

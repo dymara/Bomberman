@@ -42,6 +42,8 @@ namespace Assets.Scripts.Model
 
         private bool exitReached = false;
 
+        private bool wait = false;
+
         private FirstPersonController controller;
 
         public Player(int lives) : base(lives)
@@ -72,15 +74,32 @@ namespace Assets.Scripts.Model
             }
         }
 
+        protected override void OnLivesChanged(int newValue)
+        {
+            GameManager.instance.OnPlayerLivesChanged(newValue);
+        }
+
+        public void TriggerKill()
+        {
+            remainingLives--;
+            wait = false;
+            StartCoroutine(KillCoroutine());
+        }
+
         protected override void Kill()
         {
+            wait = true;
+            Debug.Log(DateTime.Now + " Player has blown himself up!");
             StartCoroutine(KillCoroutine());
         }
 
         private IEnumerator KillCoroutine()
         {
             controller.DisableMoving();
-            yield return new WaitForSeconds(1);
+            if (wait)
+            {
+                yield return new WaitForSeconds(1);
+            }
 
             if (remainingLives > 0)
             {
@@ -90,7 +109,7 @@ namespace Assets.Scripts.Model
             }
             else
             {
-                EditorUtility.DisplayDialog("Bomberman 3D", "GAME OVER", "Return to main menu");
+                EditorUtility.DisplayDialog("Bomberman 3D", "GAME OVER!", "Return to main menu");
                 GameManager.instance.SwitchGameState(GameState.MAIN_MENU);
                 controller.EnableMoving();
             }
@@ -99,6 +118,9 @@ namespace Assets.Scripts.Model
         private IEnumerator OnExitReached()
         {
             exitReached = true;
+            LevelManager levelManager = GameObject.Find(Constants.LEVEL_MANAGER_NAME).GetComponent<LevelManager>();
+            GameManager.instance.OnLevelCleared(levelManager.GetCountdownValue());
+
             int currentLevel = GameManager.instance.GetCurrentLevelNumber();
             Debug.Log(DateTime.Now + " Player has reached level " + currentLevel + " maze exit!");
 

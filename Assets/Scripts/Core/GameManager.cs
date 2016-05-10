@@ -42,6 +42,7 @@ public class GameManager : MonoBehaviour {
         player.name = "Player";
         player.tag = Constants.HUMAN_PLAYER_TAG;
         player.remainingLives = configurator.initialPlayerLives;
+        player.score = 0;
         player.bombs = configurator.initialPlayerBombs;
         player.maximumBombsCount = configurator.initialPlayerBombs;
         player.bombRange = configurator.initialPlayerBombRange;
@@ -211,6 +212,11 @@ public class GameManager : MonoBehaviour {
         return configurator.startPositionZ;
     }
 
+    public bool IsWatermarkEnabled()
+    {
+        return configurator.displayWatermark;
+    }
+
     /* HUD AUTO-UPDATE METHODS */
 
     private UIController GetUIController()
@@ -276,5 +282,28 @@ public class GameManager : MonoBehaviour {
         }
     }
 
+    /* SCORE UPDATE METHODS */
+
+    public void OnBlockDestroyed()
+    {
+        player.score += configurator.blockDestructionPoints;
+    }
+
+    public void OnFindingPickedUp()
+    {
+        player.score += configurator.findingPickupPoints;
+    }
+
+    public void OnEnemyKilled()
+    {
+        player.score += configurator.enemyKillingPoints;
+    }
+
+    public void OnLevelCleared(int timeLeft)
+    {
+        int levelBonus = levelNumber * configurator.levelClearedPoints;
+        int timeBonus = timeLeft * configurator.timeMultiplierPoints;
+        player.score += levelBonus + timeBonus;
+    }
 
 }
