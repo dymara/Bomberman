@@ -54,8 +54,8 @@ MonoBehaviour:
   enemiesMinDistance: 8
   findingCount: 7
   findingSpinSpeed: 80
-  findingFloatSpeed: 0
-  findingFloatDist: 0
+  findingFloatSpeed: 0.2
+  findingFloatDist: 0.4
   exitSpinSpeed: 10
   bombDetonateDelay: 4
   levelDurationPerBlock: 8

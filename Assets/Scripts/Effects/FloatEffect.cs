@@ -20,7 +20,7 @@ namespace Assets.Scripts.Effects
 
         public void SetDistance(float distance)
         {
-            floatingDistance = distance;
+            this.floatingDistance = distance;
         }
 
         void Update()
