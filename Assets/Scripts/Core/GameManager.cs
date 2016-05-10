@@ -212,6 +212,11 @@ public class GameManager : MonoBehaviour {
         return configurator.startPositionZ;
     }
 
+    public bool IsWatermarkEnabled()
+    {
+        return configurator.displayWatermark;
+    }
+
     /* HUD AUTO-UPDATE METHODS */
 
     private UIController GetUIController()

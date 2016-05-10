@@ -4,6 +4,8 @@ public class Configurator : MonoBehaviour {
 
     public GameState initialApplicationState;
 
+    public bool displayWatermark;
+
     [Range(0, 10)]
     public float splashDuration;
 
