@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections;
 
 public class anims_controls : MonoBehaviour {
 
@@ -7,6 +8,7 @@ public class anims_controls : MonoBehaviour {
 	void Awake()
 	{
 		anim = GetComponent<Animator>();
+
 	}
 
 	public void Att()
