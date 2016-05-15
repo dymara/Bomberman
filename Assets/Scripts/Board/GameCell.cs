@@ -18,10 +18,13 @@ namespace Assets.Scripts.Board
 
         private HashSet<AbstractPlayer> players;
 
+        private int monstersCount;
+
         public GameCell(Vector2 coordinates)
         {
             this.coordinates = coordinates;
             players = new HashSet<AbstractPlayer>();
+            monstersCount = 0;
         }
 
         public Vector2 GetCoordinates()
@@ -89,12 +92,25 @@ namespace Assets.Scripts.Board
 
         public bool AddPlayer(AbstractPlayer player)
         {
+            if(player is Monster)
+            {
+                monstersCount++;
+            }
             return players.Add(player);
         }
 
         public bool RemovePlayer(AbstractPlayer player)
         {
+            if (player is Monster)
+            {
+                monstersCount--;
+            }
             return players.Remove(player);
+        }
+
+        public bool isThereMonster()
+        {
+            return monstersCount > 0;
         }
     }
 }
