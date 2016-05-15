@@ -4,6 +4,7 @@ using Assets.Scripts.Board;
 using Assets.Scripts.Model;
 using Assets.Scripts.Util;
 using Assets.Scripts.Effects;
+using Assets.Scripts.Model.Findings;
 
 public enum CellType { EMPTY, DESTRUCTIBLE, INDESTRUCTIBLE, PLAYER, BOMB };
 
@@ -26,7 +27,15 @@ public class Maze : MonoBehaviour
 
     public Exit mazeExit;
 
-    public Finding findingPrefab;
+    public ExtraBomb extraBombFindingPrefab;
+
+    public ExtraLive extraLiveFindingPrefab;
+
+    public ExtraRange rangeBombFindingPrefab;
+
+    public FasterMoving fasterMovingFindingPrefab;
+
+    public RemoteDetonation remoteDetonationFindingPrefab;
 
     public Component wallA;
 
@@ -189,24 +198,46 @@ public class Maze : MonoBehaviour
 
     private void CreateFindings(ArrayList destructibleCubes, float cubeWidth, GameCell[,] cells, PositionConverter positionConverter)
     {
-        Vector2 position;
-        int index;
-        findingPrefab.transform.localScale = new Vector3(cubeWidth / 4, cubeWidth / 4, cubeWidth / 4);
-        for (int i = 0; i < GameManager.instance.GetFindingsCount(); i++)
+        for (int i = 0; i < GameManager.instance.GetExtraBombFindingsCount(); i++)
         {
-            index = rnd.Next(0, destructibleCubes.Count);
-            Vector2 findingPostion = (Vector2)destructibleCubes[index];
-            destructibleCubes.Remove(findingPostion);
-            Finding finding = CreateGameObject(findingPostion.x, cubeWidth / 4 + 0.5f, findingPostion.y, findingPrefab, "Fiding " + (i + 1));
-            finding.GetComponent<SphereCollider>().radius = cubeWidth / 4;
-
-            finding.gameObject.GetComponent<Spin>().SetSpeed(GameManager.instance.GetFindingSpinSpeed());
-            FloatEffect floatEffect = finding.gameObject.GetComponent<FloatEffect>();
-            floatEffect.SetSpeed(GameManager.instance.GetFindingFloatSpeed());
-            floatEffect.SetDistance(GameManager.instance.GetFindingFloatDistance());
-            position = positionConverter.ConvertScenePositionToBoard(finding.transform.localPosition);
-            cells[(int)position.x, (int)position.y].finding = finding;
+            CreateFindingObject(destructibleCubes, cubeWidth, cells, positionConverter, extraBombFindingPrefab, i);
         }
+
+        for (int i = 0; i < GameManager.instance.GetExtraLiveFindingsCount(); i++)
+        {
+            CreateFindingObject(destructibleCubes, cubeWidth, cells, positionConverter, extraLiveFindingPrefab, i);
+        }
+
+        for (int i = 0; i < GameManager.instance.GetRangeBombFindingsCount(); i++)
+        {
+            CreateFindingObject(destructibleCubes, cubeWidth, cells, positionConverter, rangeBombFindingPrefab, i);
+        }
+
+        for (int i = 0; i < GameManager.instance.GetFasterMovingFindingsCount(); i++)
+        {
+            CreateFindingObject(destructibleCubes, cubeWidth, cells, positionConverter, fasterMovingFindingPrefab, i);
+        }
+
+        for (int i = 0; i < GameManager.instance.GetRemoteDetonationFindingsCount(); i++)
+        {
+            CreateFindingObject(destructibleCubes, cubeWidth, cells, positionConverter, remoteDetonationFindingPrefab, i);
+        }
+    }
+
+    private void CreateFindingObject(ArrayList destructibleCubes, float cubeWidth, GameCell[,] cells, PositionConverter positionConverter, Finding findingPrefab, int i)
+    {
+        int index = rnd.Next(0, destructibleCubes.Count);
+        Vector2 findingPostion = (Vector2)destructibleCubes[index];
+        destructibleCubes.Remove(findingPostion);
+        Finding finding = CreateGameObject(findingPostion.x, cubeWidth / 4 + 0.5f, findingPostion.y, findingPrefab, "Fiding " + (i + 1));
+        finding.transform.localScale = new Vector3(cubeWidth / 4, cubeWidth / 4, cubeWidth / 4);
+        finding.GetComponent<SphereCollider>().radius = cubeWidth / 4;
+        finding.gameObject.GetComponent<Spin>().SetSpeed(GameManager.instance.GetFindingSpinSpeed());
+        FloatEffect floatEffect = finding.gameObject.GetComponent<FloatEffect>();
+        floatEffect.SetSpeed(GameManager.instance.GetFindingFloatSpeed());
+        floatEffect.SetDistance(GameManager.instance.GetFindingFloatDistance());
+        Vector2 position = positionConverter.ConvertScenePositionToBoard(finding.transform.localPosition);
+        cells[(int)position.x, (int)position.y].finding = finding;
     }
 
     private T CreateGameObject<T>(float x, float y, float z, T prefab, string name) where T : Component

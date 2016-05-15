@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Postion;
+using UnityEngine;
 
 namespace Assets.Scripts.Model
 {
@@ -7,7 +8,11 @@ namespace Assets.Scripts.Model
         protected int _remainingLives;
         public int remainingLives {
             get { return _remainingLives; }
-            set { _remainingLives = value; OnLivesChanged(value); }
+            set { if (value <= Constants.MAX_LIVES_COUNT)
+                {
+                    _remainingLives = value; OnLivesChanged(value);
+                }
+            }
         }
 
         public PostionListener postionLisener { set; get; }

@@ -4,7 +4,7 @@ using System;
 
 namespace Assets.Scripts.Model
 {
-    public class Finding : StaticGameObject
+    public abstract class Finding : StaticGameObject
     {
         private const float PICKUP_SOUND_VOLUME = 0.4f;
 
@@ -14,6 +14,8 @@ namespace Assets.Scripts.Model
 
         private PositionConverter positionConverter;
 
+        private bool pickedUp = false;
+
         public override void OnExplode()
         {
             Destroy(this.gameObject);
@@ -21,15 +23,14 @@ namespace Assets.Scripts.Model
 
         public void PickUp(Player player)
         {
-            if (this.gameObject != null)
+            if (this.gameObject != null && !pickedUp)
             {
+                pickedUp = true;
                 PlayFlashEffect();
                 PlaySoundEffect();
                 Destroy(this.gameObject);
 
-                // TODO - Handle different finding types
-                player.bombs++;
-                player.maximumBombsCount++;
+                PowerUp(player);
 
                 GameManager.instance.OnFindingPickedUp();
                 Debug.Log(DateTime.Now + " Finding picked up!");
@@ -49,5 +50,8 @@ namespace Assets.Scripts.Model
         {
             AudioSource.PlayClipAtPoint(pickUpSound, this.transform.position, PICKUP_SOUND_VOLUME);
         }
+
+        protected abstract void PowerUp(Player player);
     }
+
 }

@@ -17,6 +17,16 @@ public class GameManager : MonoBehaviour {
 
     private Player player;
 
+    private int extraBombFindingsCount = -1;
+
+    private int extraLiveFindingsCount = -1;
+
+    private int rangeBombFindingsCount = -1;
+
+    private int fasterMovingFindingsCount = -1;
+
+    private int remoteDetonationFindingsCount = -1;
+
     // Awake is always called before any Start functions
     void Awake()
     {
@@ -143,10 +153,49 @@ public class GameManager : MonoBehaviour {
         return configurator.findingFloatDist;
     }
 
-    public float GetFindingsCount()
+    public float GetExtraBombFindingsCount()
     {
-        // TODO This method's result should be dependent on current level number value!
-        return configurator.initialFindingsCount;
+        if(extraBombFindingsCount < 0)
+        {
+            extraBombFindingsCount = configurator.initialExtraBombFindings;
+        }
+        return extraBombFindingsCount;
+    }
+
+    public float GetExtraLiveFindingsCount()
+    {
+        if (extraLiveFindingsCount < 0)
+        {
+            extraLiveFindingsCount = configurator.initialExtraLiveFindings;
+        }
+        return extraLiveFindingsCount;
+    }
+
+    public float GetRangeBombFindingsCount()
+    {
+        if (rangeBombFindingsCount < 0)
+        {
+            rangeBombFindingsCount = configurator.initialRangeBombFindings;
+        }
+        return rangeBombFindingsCount;
+    }
+
+    public float GetFasterMovingFindingsCount()
+    {
+        if (fasterMovingFindingsCount < 0)
+        {
+            fasterMovingFindingsCount = configurator.initialFasterMovingFindings;
+        }
+        return fasterMovingFindingsCount;
+    }
+
+    public float GetRemoteDetonationFindingsCount()
+    {
+        if (remoteDetonationFindingsCount < 0)
+        {
+            remoteDetonationFindingsCount = configurator.initialRemoteBombFindings;
+        }
+        return remoteDetonationFindingsCount;
     }
 
     public int GetBombDetonateDelay()
@@ -215,6 +264,11 @@ public class GameManager : MonoBehaviour {
     public bool IsWatermarkEnabled()
     {
         return configurator.displayWatermark;
+    }
+
+    public float GetSpeedMultiplier()
+    {
+        return configurator.speedMultiplier;
     }
 
     /* HUD AUTO-UPDATE METHODS */

@@ -9,9 +9,17 @@ namespace Assets.Scripts.Model
     public class Player : AbstractPlayer
     {
         private int _bombs;
+
+
         public int bombs {
             get { return _bombs; }
-            set { _bombs = value; GameManager.instance.OnPlayerBombsChanged(value); }
+            set
+            {
+                if (value <= Constants.MAX_BOMBS_COUNT) { 
+                    _bombs = value;
+                    GameManager.instance.OnPlayerBombsChanged(value);
+            }
+        }
         }
 
         public int maximumBombsCount { get; set; }
