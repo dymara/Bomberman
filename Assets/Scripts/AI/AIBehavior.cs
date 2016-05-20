@@ -45,6 +45,10 @@ public abstract class AIBehavior : MonoBehaviour
 
     void MakeMove(GameCell targetCell)
     {
+        Animator animator = GetComponentInChildren<Animator>();
+        animator.SetBool("isWalk", true);
+        transform.LookAt(positionConverter.ConvertBoardPositionToScene(targetCell.GetCoordinates(), true));
+
         iTween.MoveTo(this.gameObject, iTween.Hash(
                 "position", positionConverter.ConvertBoardPositionToScene(targetCell.GetCoordinates(), true),
                 "oncomplete", "TryMove",
