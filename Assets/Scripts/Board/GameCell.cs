@@ -92,7 +92,7 @@ namespace Assets.Scripts.Board
 
         public bool AddPlayer(AbstractPlayer player)
         {
-            if(player is Monster)
+            if (player is Monster)
             {
                 monstersCount++;
             }
@@ -108,7 +108,7 @@ namespace Assets.Scripts.Board
             return players.Remove(player);
         }
 
-        public bool isThereMonster()
+        public bool isThereAMonster()
         {
             return monstersCount > 0;
         }
