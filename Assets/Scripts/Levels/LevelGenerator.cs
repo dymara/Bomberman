@@ -3,33 +3,50 @@ using System.Collections;
 
 public class LevelGenerator : MonoBehaviour
 {
-    private const int BASE_BOARD_SIZE = 5;
-
     public Configurator configurator;
 
     void Awake()
     {
-		configurator = GameManager.instance.configurator;
+        configurator = GameManager.instance.configurator;
     }
 
     public LevelConfig GenerateLevelConfig(int level)
     {
         LevelConfig levelConfig = new LevelConfig();
         levelConfig.boardSize = GetBoardSize(level);
-        levelConfig.levelDuration = GetLevelDuration(levelConfig.boardSize);
+        levelConfig.levelDuration = GetLevelDuration(levelConfig.boardSize, level);
+        levelConfig.monstersCount = GetMonstersCount(level);
         return levelConfig;
     }
 
     private Vector2 GetBoardSize(int level)
     {
-        int sizeX = BASE_BOARD_SIZE + level / 2;
-        int sizeY = BASE_BOARD_SIZE + level / 2;
+        int sizeX = configurator.level1CubesXCount + level / 2;
+        int sizeZ = configurator.level1CubesZCount + level / 2;
 
-        return new Vector2(sizeX, sizeY);
+        return new Vector2(sizeX, sizeZ);
     }
 
-    private float GetLevelDuration(Vector2 levelSize)
+    private int GetMonstersCount(int level)
     {
-        return levelSize.x * levelSize.y * configurator.levelDurationPerBlock;
+        int monstersCount = configurator.level1EnemiesCount;
+        while (level-- > 0)
+        {
+            if (Random.value < Mathf.Pow(0.7f, level))
+            {
+                monstersCount++;
+            }
+            else
+            {
+                break;
+            }
+        }
+        Debug.Log("Enemies count:" + monstersCount);
+        return monstersCount;
+    }
+
+    private float GetLevelDuration(Vector2 levelSize, int level)
+    {
+        return levelSize.x * levelSize.y * Mathf.Max(Mathf.Pow(0.97f, level), 0.6f) * configurator.levelDurationPerBlock;
     }
 }
