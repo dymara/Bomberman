@@ -145,7 +145,7 @@ public class LevelManager : MonoBehaviour {
 
     private IEnumerator StartLevelCountdown()
     {
-        levelTimeLeft = (int)Mathf.Ceil(GameManager.instance.GetLevelDuration());
+        levelTimeLeft = (int)Mathf.Ceil(levelConfig.levelDuration);
         while (levelTimeLeft > 0)
         {
             uiController.SetTimerValue(levelTimeLeft--);
