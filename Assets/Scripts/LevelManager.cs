@@ -15,6 +15,8 @@ public class LevelManager : MonoBehaviour {
     public GameObject monsterPrefab;
 
     public AISpawner aiSpawner;
+    
+    public LevelGenerator levelGenerator;
 
     /*=================================*/
 
@@ -56,10 +58,13 @@ public class LevelManager : MonoBehaviour {
     private PlayerPositionManager positionManager;
 
     private int levelTimeLeft;
+    
+    private LevelConfig levelConfig;
 
     void Awake() {
-        this.indestructibleCubesXNumber = GameManager.instance.GetCubesXCount();
-        this.indestructibleCubesZNumber = GameManager.instance.GetCubesZCount();
+        this.levelConfig = levelGenerator.GenerateLevelConfig(GameManager.instance.GetCurrentLevelNumber());
+        this.indestructibleCubesXNumber = (int) levelConfig.boardSize.x;
+        this.indestructibleCubesZNumber = (int) levelConfig.boardSize.y;
         this.cellSize = GameManager.instance.GetCellSize();
         this.cubeHeight = GameManager.instance.GetCubeHeight();
         this.wallHeight = GameManager.instance.GetWallHeight();
@@ -90,6 +95,7 @@ public class LevelManager : MonoBehaviour {
         float mazeLength = indestructibleCubesZNumber * cellSize * 2 + cellSize;
         float startX = startPositionX.Equals(StartPosition.MIN) ? 1 : mazeWidth - 1;
         float startZ = startPositionZ.Equals(StartPosition.MIN) ? 1 : mazeLength - 1;
+        Debug.Log("Generating maze with size: " + indestructibleCubesXNumber + "x" + indestructibleCubesZNumber);
         board = mazeInstance.Generate(mazeWidth, mazeLength, cellSize, cubeHeight, wallHeight, startX, startZ, positionConverter);
 
         positionManager = new PlayerPositionManager(board, positionConverter);
