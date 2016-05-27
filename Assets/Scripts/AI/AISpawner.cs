@@ -49,7 +49,7 @@ public class AISpawner : MonoBehaviour
     public void SpawnEnemiesInPosition(Vector3 scenePosition)
     {
             GameObject monster = Instantiate(monsterPrefab, scenePosition, Quaternion.identity) as GameObject;
-            monster.AddComponent<RandomAI>();
+            monster.AddComponent<LineAI>();
             Monster monsterComponent = monster.GetComponent<Monster>();
             monsterComponent.positionManager = positionManager;
             positionManager.AddPlayer(monsterComponent);
