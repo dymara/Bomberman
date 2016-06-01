@@ -11,6 +11,7 @@ TagManager:
   - Exit
   - AISpawner
   - Finding
+  - Player
   layers:
   - Default
   - TransparentFX
