@@ -10,8 +10,11 @@ public class LevelGenerator : MonoBehaviour
         levelConfig.boardSize = GetBoardSize(level);
         levelConfig.levelDuration = GetLevelDuration(levelConfig.boardSize, level);
         levelConfig.monstersCount = GetMonstersCount(level);
-        levelConfig.extraBombsCount = GetExtraBombsFindingsCount(level, player);
-        levelConfig.extraLivesCount = GetExtraLivesFindingsCount(level, player);
+        levelConfig.findingExtraBombsCount = GetExtraBombsFindingsCount(level, player);
+        levelConfig.findingExtraLivesCount = GetExtraLivesFindingsCount(level, player);
+        levelConfig.findingBombRangeCount = GetBombRangeFindingsCount(level, player);
+        levelConfig.findingFasterMovingCount = GetFasterMovingFindingsCount(level, player);
+        levelConfig.findingRemoteDetonationCount = GetRemoteDetonationFindingsCount(level, player);
 
         Debug.Log("Level Config: " + levelConfig.ToString());
 
@@ -75,6 +78,43 @@ public class LevelGenerator : MonoBehaviour
         else
         {
             return LevelGeneratorConfig.LEVEL_1_EXTRA_LIVES_COUNT;
+        }
+    }
+
+    private int GetBombRangeFindingsCount(int level, Player player)
+    {
+        if (player.bombRange >= LevelGeneratorConfig.MAX_PLAYER_BOMB_RANGE)
+        {
+            return 0;
+        } 
+        else
+        {
+            return 1;
+        }
+        
+    }
+
+    private int GetFasterMovingFindingsCount(int level, Player player)
+    {
+        if (player.speed < LevelGeneratorConfig.MAX_PLAYER_SPEED && Random.value > LevelGeneratorConfig.FASTER_MOVING_FINDING_PROBABILITY)
+        {
+            return 1;
+        }
+        else
+        {
+            return 0;
+        }
+    }
+
+    private int GetRemoteDetonationFindingsCount(int level, Player player)
+    {
+        if (player.remoteDetonationBonus)
+        {
+            return 0;
+        }
+        else
+        {
+            return level >= LevelGeneratorConfig.MIN_LEVEL_FOR_REMOTE_DETONATION ? 1 : 0;
         }
     }
 }

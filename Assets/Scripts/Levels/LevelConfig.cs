@@ -7,9 +7,15 @@ public class LevelConfig
 
     public int monstersCount;
 
-    public int extraBombsCount;
+    public int findingExtraBombsCount;
 	
-	public int extraLivesCount;
+	public int findingExtraLivesCount;
+	
+	public int findingBombRangeCount;
+	
+	public int findingFasterMovingCount;
+	
+	public int findingRemoteDetonationCount;
 	
     public Vector2 boardSize;
 
@@ -19,8 +25,11 @@ public class LevelConfig
 		return "LevelConfig {" +
 			"levelDuration: " + levelDuration + SEPARATOR +
 			"monstersCount: " + monstersCount + SEPARATOR +
-			"extraLivesCount: " + extraLivesCount + SEPARATOR +
-			"extraBombsCount: " + extraBombsCount + SEPARATOR + 
+			"findingExtraLivesCount: " + findingExtraLivesCount + SEPARATOR +
+			"findingExtraBombsCount: " + findingExtraBombsCount + SEPARATOR +
+			"findingBombRangeCount: " + findingBombRangeCount + SEPARATOR +
+			"findingFasterMovingCount: " + findingFasterMovingCount + SEPARATOR +
+			"findingRemoteDetonationCount: " + findingRemoteDetonationCount + SEPARATOR + 
 			"boardSize: " + boardSize + "}";
     }
 }

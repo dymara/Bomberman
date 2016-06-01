@@ -198,27 +198,27 @@ public class Maze : MonoBehaviour
 
     private void CreateFindings(ArrayList destructibleCubes, float cubeWidth, GameCell[,] cells, PositionConverter positionConverter, LevelConfig levelConfig)
     {
-        for (int i = 0; i < levelConfig.extraBombsCount; i++)
+        for (int i = 0; i < levelConfig.findingExtraBombsCount; i++)
         {
             CreateFindingObject(destructibleCubes, cubeWidth, cells, positionConverter, extraBombFindingPrefab, i);
         }
 
-        for (int i = 0; i < GameManager.instance.GetExtraLiveFindingsCount(); i++)
+        for (int i = 0; i < levelConfig.findingExtraLivesCount; i++)
         {
             CreateFindingObject(destructibleCubes, cubeWidth, cells, positionConverter, extraLiveFindingPrefab, i);
         }
 
-        for (int i = 0; i < GameManager.instance.GetRangeBombFindingsCount(); i++)
+        for (int i = 0; i < levelConfig.findingBombRangeCount; i++)
         {
             CreateFindingObject(destructibleCubes, cubeWidth, cells, positionConverter, rangeBombFindingPrefab, i);
         }
 
-        for (int i = 0; i < GameManager.instance.GetFasterMovingFindingsCount(); i++)
+        for (int i = 0; i < levelConfig.findingFasterMovingCount; i++)
         {
             CreateFindingObject(destructibleCubes, cubeWidth, cells, positionConverter, fasterMovingFindingPrefab, i);
         }
 
-        for (int i = 0; i < GameManager.instance.GetRemoteDetonationFindingsCount(); i++)
+        for (int i = 0; i < levelConfig.findingRemoteDetonationCount; i++)
         {
             CreateFindingObject(destructibleCubes, cubeWidth, cells, positionConverter, remoteDetonationFindingPrefab, i);
         }
