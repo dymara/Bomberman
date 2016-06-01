@@ -3,7 +3,7 @@ using System;
 
 namespace Assets.Scripts.Model
 {
-    public class Exit : Finding
+    public class Exit : AbstractFinding
     {
         public override void OnExplode()
         {

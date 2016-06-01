@@ -4,7 +4,7 @@ using System;
 
 namespace Assets.Scripts.Model
 {
-    public abstract class Finding : StaticGameObject
+    public abstract class AbstractFinding : StaticGameObject
     {
         private const float PICKUP_SOUND_VOLUME = 0.4f;
 

@@ -1,6 +1,6 @@
 ﻿namespace Assets.Scripts.Model.Findings
 {
-    public class RemoteDetonation : Finding
+    public class RemoteDetonation : AbstractFinding
     {
         protected override void PowerUp(Player player)
         {

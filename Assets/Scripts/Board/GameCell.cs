@@ -8,7 +8,7 @@ namespace Assets.Scripts.Board
     {
         public AbstractCubeObject block { get; set; }
 
-        public Finding finding { get; set; }
+        public AbstractFinding finding { get; set; }
 
         public Bomb bomb { get; set; }
 

@@ -3,7 +3,7 @@ using UnityStandardAssets.Characters.FirstPerson;
 
 namespace Assets.Scripts.Model.Findings
 {
-    public class FasterMoving : Finding
+    public class FasterMoving : AbstractFinding
     {
         protected override void PowerUp(Player player)
         {

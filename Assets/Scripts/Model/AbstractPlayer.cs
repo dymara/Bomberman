@@ -8,10 +8,8 @@ namespace Assets.Scripts.Model
         protected int _remainingLives;
         public int remainingLives {
             get { return _remainingLives; }
-            set { if (value <= Constants.MAX_LIVES_COUNT)
-                {
+            set { 
                     _remainingLives = value; OnLivesChanged(value);
-                }
             }
         }
 

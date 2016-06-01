@@ -15,11 +15,9 @@ namespace Assets.Scripts.Model
             get { return _bombs; }
             set
             {
-                if (value <= Constants.MAX_BOMBS_COUNT) { 
                     _bombs = value;
                     GameManager.instance.OnPlayerBombsChanged(value);
             }
-        }
         }
 
         public int maximumBombsCount { get; set; }
@@ -78,7 +76,7 @@ namespace Assets.Scripts.Model
             }
             else if (hit.gameObject.tag.Equals(Constants.FINDING_TAG))
             {
-                hit.gameObject.GetComponent<Finding>().PickUp(this);
+                hit.gameObject.GetComponent<AbstractFinding>().PickUp(this);
             }
         }
 

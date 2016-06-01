@@ -224,12 +224,12 @@ public class Maze : MonoBehaviour
         }
     }
 
-    private void CreateFindingObject(ArrayList destructibleCubes, float cubeWidth, GameCell[,] cells, PositionConverter positionConverter, Finding findingPrefab, int i)
+    private void CreateFindingObject(ArrayList destructibleCubes, float cubeWidth, GameCell[,] cells, PositionConverter positionConverter, AbstractFinding findingPrefab, int i)
     {
         int index = rnd.Next(0, destructibleCubes.Count);
         Vector2 findingPostion = (Vector2)destructibleCubes[index];
         destructibleCubes.Remove(findingPostion);
-        Finding finding = CreateGameObject(findingPostion.x, cubeWidth / 4 + 0.5f, findingPostion.y, findingPrefab, "Fiding " + (i + 1));
+        AbstractFinding finding = CreateGameObject(findingPostion.x, cubeWidth / 4 + 0.5f, findingPostion.y, findingPrefab, "Fiding " + (i + 1));
         finding.transform.localScale = new Vector3(cubeWidth / 4, cubeWidth / 4, cubeWidth / 4);
         finding.GetComponent<SphereCollider>().radius = cubeWidth / 4;
         finding.gameObject.GetComponent<Spin>().SetSpeed(GameManager.instance.GetFindingSpinSpeed());

@@ -1,6 +1,6 @@
 ﻿namespace Assets.Scripts.Model.Findings
 {
-    public class ExtraLive : Finding
+    public class ExtraLive : AbstractFinding
     {
         protected override void PowerUp(Player player)
         {

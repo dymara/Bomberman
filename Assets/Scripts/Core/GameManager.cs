@@ -17,16 +17,6 @@ public class GameManager : MonoBehaviour {
 
     private Player player;
 
-    private int extraBombFindingsCount = -1;
-
-    private int extraLiveFindingsCount = -1;
-
-    private int rangeBombFindingsCount = -1;
-
-    private int fasterMovingFindingsCount = -1;
-
-    private int remoteDetonationFindingsCount = -1;
-
     // Awake is always called before any Start functions
     void Awake()
     {
@@ -155,47 +145,32 @@ public class GameManager : MonoBehaviour {
 
     public float GetExtraBombFindingsCount()
     {
-        if(extraBombFindingsCount < 0)
-        {
-            extraBombFindingsCount = configurator.initialExtraBombFindings;
-        }
-        return extraBombFindingsCount;
+        //TODO uzależnić od poziomu i ilości bomb u gracza
+        return configurator.initialExtraBombFindings; ;
     }
 
     public float GetExtraLiveFindingsCount()
     {
-        if (extraLiveFindingsCount < 0)
-        {
-            extraLiveFindingsCount = configurator.initialExtraLiveFindings;
-        }
-        return extraLiveFindingsCount;
+        //TODO uzależnić od poziomu i ilości żyć u gracza
+        return configurator.initialExtraLiveFindings;
     }
 
     public float GetRangeBombFindingsCount()
     {
-        if (rangeBombFindingsCount < 0)
-        {
-            rangeBombFindingsCount = configurator.initialRangeBombFindings;
-        }
-        return rangeBombFindingsCount;
+        //TODO uzależnić od poziomu
+        return configurator.initialRangeBombFindings;
     }
 
     public float GetFasterMovingFindingsCount()
     {
-        if (fasterMovingFindingsCount < 0)
-        {
-            fasterMovingFindingsCount = configurator.initialFasterMovingFindings;
-        }
-        return fasterMovingFindingsCount;
+        //TODO uzależnić od poziomu
+        return configurator.initialFasterMovingFindings;
     }
 
     public float GetRemoteDetonationFindingsCount()
     {
-        if (remoteDetonationFindingsCount < 0)
-        {
-            remoteDetonationFindingsCount = configurator.initialRemoteBombFindings;
-        }
-        return remoteDetonationFindingsCount;
+        //TODO uzależnić od poziomu
+        return configurator.initialRemoteBombFindings;
     }
 
     public int GetBombDetonateDelay()
