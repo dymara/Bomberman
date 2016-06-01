@@ -28,16 +28,15 @@ namespace Assets.Scripts.Model
 
         void OnTriggerEnter(Collider other)
         {
-            if (other.gameObject.tag.Equals(Constants.PLAYER_TAG))
+            String tag = other.gameObject.tag;
+            if (tag.Equals(Constants.PLAYER_TAG))
             {
-                Debug.Log("Player");
                 other.gameObject.GetComponent<Player>().TriggerKill();
             }
-            else if (other.gameObject.tag.Equals(Constants.BOMB_TAG))
+            else if (tag.Equals(Constants.BOMB_TAG) || tag.Equals(Constants.MONSTER_TAG))
             {
-                Debug.Log("Bomb");
+                gameObject.GetComponent<AIBehavior>().MoveBack();
             }
         }
-
     }
 }

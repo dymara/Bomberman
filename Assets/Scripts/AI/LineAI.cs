@@ -5,6 +5,9 @@ using System;
 
 public class LineAI : AIBehavior
 {
+    private GameCell prevCell;
+
+    private GameCell currentCell;
 
     enum Direction
     {
@@ -88,6 +91,8 @@ public class LineAI : AIBehavior
         GameCell move = GetMoveInDirection(currentPosition);
         if (move != null)
         {
+            prevCell = currentCell;
+            currentCell = move;
             return move;
         }
         this.direction = SwitchDirection(this.direction);
@@ -95,6 +100,8 @@ public class LineAI : AIBehavior
         move = GetMoveInDirection(currentPosition);
         if (move != null)
         {
+            prevCell = currentCell;
+            currentCell = move;
             return move;
         }
         
@@ -124,5 +131,14 @@ public class LineAI : AIBehavior
         Vector2 offset = GetDirectionOffset(direction);
         GameCell nextMoveCell = board.GetGameCell(new Vector2(currentPosition.x + offset.x, currentPosition.y + offset.y));
         return nextMoveCell;
+    }
+
+    protected override GameCell GetBackMove()
+    {   
+        if (prevCell == null)
+        {
+            return currentCell;
+        }
+        return prevCell;
     }
 }
