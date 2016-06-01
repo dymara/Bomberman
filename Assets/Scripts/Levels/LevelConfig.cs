@@ -3,11 +3,24 @@ using System.Collections;
 
 public class LevelConfig
 {
-	public Vector2 boardSize;
+    public float levelDuration;
+
+    public int monstersCount;
+
+    public int extraBombsCount;
 	
-	public float levelDuration;
+	public int extraLivesCount;
 	
-	public int monstersCount;
-	
-	public int findingsCount;
+    public Vector2 boardSize;
+
+    public override string ToString()
+    {
+		string SEPARATOR = ", ";
+		return "LevelConfig {" +
+			"levelDuration: " + levelDuration + SEPARATOR +
+			"monstersCount: " + monstersCount + SEPARATOR +
+			"extraLivesCount: " + extraLivesCount + SEPARATOR +
+			"extraBombsCount: " + extraBombsCount + SEPARATOR + 
+			"boardSize: " + boardSize + "}";
+    }
 }

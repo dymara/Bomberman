@@ -49,7 +49,7 @@ public class Maze : MonoBehaviour
 
     private readonly float[] ROTATIONS = { 0, 90 };
 
-    public Board Generate(float boardWidth, float boardLength, float cubeWidth, float cubeHeight, float wallHeight, float startPositionX, float startPositionZ, PositionConverter positionConverter)
+    public Board Generate(float boardWidth, float boardLength, float cubeWidth, float cubeHeight, float wallHeight, float startPositionX, float startPositionZ, PositionConverter positionConverter, LevelConfig levelConfig)
     {
         Vector3 cubeSize = new Vector3(cubeWidth, cubeHeight, cubeWidth);
 
@@ -93,7 +93,7 @@ public class Maze : MonoBehaviour
         CreateExit(availableExits, destructibleCubes, cubeWidth, cells, positionConverter);
 
         //create findings
-        CreateFindings(destructibleCubes, cubeWidth, cells, positionConverter);
+        CreateFindings(destructibleCubes, cubeWidth, cells, positionConverter, levelConfig);
 
         return new Board(cells, new Vector2(allXCell, allZCell));
     }
@@ -196,9 +196,9 @@ public class Maze : MonoBehaviour
         return exit;
     }
 
-    private void CreateFindings(ArrayList destructibleCubes, float cubeWidth, GameCell[,] cells, PositionConverter positionConverter)
+    private void CreateFindings(ArrayList destructibleCubes, float cubeWidth, GameCell[,] cells, PositionConverter positionConverter, LevelConfig levelConfig)
     {
-        for (int i = 0; i < GameManager.instance.GetExtraBombFindingsCount(); i++)
+        for (int i = 0; i < levelConfig.extraBombsCount; i++)
         {
             CreateFindingObject(destructibleCubes, cubeWidth, cells, positionConverter, extraBombFindingPrefab, i);
         }
