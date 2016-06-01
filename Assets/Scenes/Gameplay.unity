@@ -1265,6 +1265,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 11464212, guid: b3da61fb7e4f62743a63554ed5319aa6, type: 2}
+      propertyPath: monsterPrefab
+      value: 
+      objectReference: {fileID: 172334, guid: b4b574ade7e70439da366dfb2a133717, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b3da61fb7e4f62743a63554ed5319aa6, type: 2}
   m_IsPrefabParent: 0
@@ -1364,7 +1368,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36316d08593684eb8b2886ea4d283c07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  monsterPrefab: {fileID: 132228, guid: be52c1412023b4689a61a1afb7ecb098, type: 2}
+  monsterPrefab: {fileID: 172334, guid: b4b574ade7e70439da366dfb2a133717, type: 2}
 --- !u!4 &830500032
 Transform:
   m_ObjectHideFlags: 0
@@ -1504,6 +1508,7 @@ Canvas:
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0

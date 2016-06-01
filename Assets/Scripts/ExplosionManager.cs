@@ -24,7 +24,7 @@ public class ExplosionManager : MonoBehaviour {
             return;
         }
         GameCell cell = levelManager.GetBoard().GetGameCell(position);
-        if (cell != null && cell.block == null && cell.bomb == null)
+        if (cell != null && cell.block == null && cell.bomb == null && !cell.isThereAMonster())
         {
             DoPutBomb(player, bomb, cell);
         } else

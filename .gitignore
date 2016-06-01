@@ -34,3 +34,5 @@ Assets/VSCode/Plugins.meta
 Assets/VSCode/Plugins/Editor.meta
 Assets/VSCode/Plugins/Editor/VSCode.cs
 Assets/VSCode/Plugins/Editor/VSCode.cs.meta
+settings.json
+Assets/VSCode
