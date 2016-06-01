@@ -14,4 +14,7 @@
 
     public const string HUMAN_PLAYER_TAG = "Player";
 
+    public const int MAX_LIVES_COUNT = 6;
+
+    public const int MAX_BOMBS_COUNT = 5;
 }

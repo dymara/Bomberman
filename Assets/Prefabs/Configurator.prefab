@@ -40,6 +40,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initialApplicationState: 0
+  displayWatermark: 0
   splashDuration: 2
   initialLevelNumber: 1
   initialPlayerLives: 3
@@ -47,7 +48,11 @@ MonoBehaviour:
   initialPlayerBombRange: 1
   initialPlayerSpeed: 1
   initialPlayerRemoteDetonationBonus: 0
-  initialFindingsCount: 3
+  initialExtraBombFindings: 1
+  initialRangeBombFindings: 1
+  initialExtraLiveFindings: 1
+  initialFasterMovingFindings: 1
+  initialRemoteBombFindings: 0
   level1CubesXCount: 5
   level1CubesZCount: 5
   level1EnemiesCount: 3
@@ -64,6 +69,7 @@ MonoBehaviour:
   enemyKillingPoints: 1000
   levelClearedPoints: 1000
   timeMultiplierPoints: 50
+  speedMultiplier: 1.1
   cellSize: 3
   cubeHeight: 3
   wallHeight: 5

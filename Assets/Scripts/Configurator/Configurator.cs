@@ -27,7 +27,19 @@ public class Configurator : MonoBehaviour {
     public bool initialPlayerRemoteDetonationBonus;
 
     [Range(0, 10)]
-    public int initialFindingsCount;
+    public int initialExtraBombFindings;
+
+    [Range(0, 10)]
+    public int initialRangeBombFindings;
+
+    [Range(0, 10)]
+    public int initialExtraLiveFindings;
+
+    [Range(0, 10)]
+    public int initialFasterMovingFindings;
+
+    [Range(0, 2)]
+    public int initialRemoteBombFindings;
 
     /** Number of indestructible cubes in x axis */
     [Range(4, 128)]
@@ -77,6 +89,9 @@ public class Configurator : MonoBehaviour {
 
     [Range(0, 10000)]
     public int timeMultiplierPoints;
+
+    [Range(1, 2)]
+    public float speedMultiplier;
 
     /** Cell size -> cube length and width */
     public float cellSize;
