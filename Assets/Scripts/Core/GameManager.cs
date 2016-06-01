@@ -143,10 +143,34 @@ public class GameManager : MonoBehaviour {
         return configurator.findingFloatDist;
     }
 
-    public float GetFindingsCount()
+    public float GetExtraBombFindingsCount()
     {
-        // TODO This method's result should be dependent on current level number value!
-        return configurator.initialFindingsCount;
+        //TODO uzależnić od poziomu i ilości bomb u gracza
+        return configurator.initialExtraBombFindings; ;
+    }
+
+    public float GetExtraLiveFindingsCount()
+    {
+        //TODO uzależnić od poziomu i ilości żyć u gracza
+        return configurator.initialExtraLiveFindings;
+    }
+
+    public float GetRangeBombFindingsCount()
+    {
+        //TODO uzależnić od poziomu
+        return configurator.initialRangeBombFindings;
+    }
+
+    public float GetFasterMovingFindingsCount()
+    {
+        //TODO uzależnić od poziomu
+        return configurator.initialFasterMovingFindings;
+    }
+
+    public float GetRemoteDetonationFindingsCount()
+    {
+        //TODO uzależnić od poziomu
+        return configurator.initialRemoteBombFindings;
     }
 
     public int GetBombDetonateDelay()
@@ -215,6 +239,11 @@ public class GameManager : MonoBehaviour {
     public bool IsWatermarkEnabled()
     {
         return configurator.displayWatermark;
+    }
+
+    public float GetSpeedMultiplier()
+    {
+        return configurator.speedMultiplier;
     }
 
     /* HUD AUTO-UPDATE METHODS */

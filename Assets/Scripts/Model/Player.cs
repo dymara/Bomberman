@@ -9,9 +9,15 @@ namespace Assets.Scripts.Model
     public class Player : AbstractPlayer
     {
         private int _bombs;
+
+
         public int bombs {
             get { return _bombs; }
-            set { _bombs = value; GameManager.instance.OnPlayerBombsChanged(value); }
+            set
+            {
+                    _bombs = value;
+                    GameManager.instance.OnPlayerBombsChanged(value);
+            }
         }
 
         public int maximumBombsCount { get; set; }
@@ -70,7 +76,7 @@ namespace Assets.Scripts.Model
             }
             else if (hit.gameObject.tag.Equals(Constants.FINDING_TAG))
             {
-                hit.gameObject.GetComponent<Finding>().PickUp(this);
+                hit.gameObject.GetComponent<AbstractFinding>().PickUp(this);
             }
         }
 
