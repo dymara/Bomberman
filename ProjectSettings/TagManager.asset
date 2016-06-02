@@ -11,7 +11,7 @@ TagManager:
   - Exit
   - AISpawner
   - Finding
-  - Player
+  - Monster
   layers:
   - Default
   - TransparentFX
