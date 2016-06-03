@@ -65,7 +65,7 @@ namespace Assets.Scripts.Model
 
         /***********************************************************************/
 
-        private void OnControllerColliderHit(ControllerColliderHit hit)
+        void OnControllerColliderHit(ControllerColliderHit hit)
         {
             if (hit.gameObject.tag.Equals(Constants.EXIT_TAG))
             {

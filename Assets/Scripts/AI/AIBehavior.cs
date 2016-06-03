@@ -55,4 +55,21 @@ public abstract class AIBehavior : MonoBehaviour
                 "time", 3,
                 "easetype", "linear"));
     }
+
+
+    public void MoveBack()
+    {
+        GameCell nextCell = GetBackMove();
+        if (nextCell != null)
+        {
+            isMoving = true;
+            MakeMove(nextCell);
+        }
+        else
+        {
+            isMoving = false;
+        }
+    }
+
+    protected abstract GameCell GetBackMove();
 }

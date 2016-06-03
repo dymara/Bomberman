@@ -4,6 +4,10 @@ using System.Collections.Generic;
 
 public class RandomAI : AIBehavior
 {
+    private GameCell prevCell;
+
+    private GameCell currentCell;
+
     public override void Start()
     {
         base.Start();
@@ -15,12 +19,23 @@ public class RandomAI : AIBehavior
         List<GameCell> adjacentCells = board.GetAdjacentCells(currentPosition);
         if (adjacentCells.Count != 0)
         {
-            GameCell nextCell = adjacentCells[Random.Range(0, adjacentCells.Count)];
-            return nextCell;
+            prevCell = currentCell;
+            currentCell = adjacentCells[Random.Range(0, adjacentCells.Count)];
+            return currentCell;
         }
         else
         {
             return null;
         }
     }
+
+    protected override GameCell GetBackMove()
+    {
+        if(prevCell == null)
+        {
+            return currentCell;
+        }
+        return prevCell;
+    }
+
 }
