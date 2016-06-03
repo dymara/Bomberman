@@ -31,7 +31,7 @@ public class RandomAI : AIBehavior
 
     protected override GameCell GetBackMove()
     {
-        if(prevCell == null)
+        if (prevCell == null)
         {
             return currentCell;
         }

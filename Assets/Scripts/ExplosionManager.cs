@@ -142,9 +142,9 @@ public class ExplosionManager : MonoBehaviour {
         bombs.Add(bombGameCell.bomb);
 
         InspectCell(cells, bombs, initialX - 1, initialY, RayDirection.LEFT, bombRange);
-        InspectCell(cells, bombs, initialX, initialY - 1, RayDirection.UP, bombRange);
+        InspectCell(cells, bombs, initialX, initialY + 1, RayDirection.UP, bombRange);
         InspectCell(cells, bombs, initialX + 1, initialY, RayDirection.RIGHT, bombRange);
-        InspectCell(cells, bombs, initialX, initialY + 1, RayDirection.BOTTOM, bombRange);
+        InspectCell(cells, bombs, initialX, initialY - 1, RayDirection.BOTTOM, bombRange);
 
         return cells;
     }
@@ -164,25 +164,28 @@ public class ExplosionManager : MonoBehaviour {
                     bombs.Add(cell.bomb);
                     int bombRange = cell.bomb.explosionRange;
                     InspectCell(resultCells, bombs, cellX - 1, cellY, RayDirection.LEFT, bombRange);
-                    InspectCell(resultCells, bombs, cellX, cellY - 1, RayDirection.UP, bombRange);
+                    InspectCell(resultCells, bombs, cellX, cellY + 1, RayDirection.UP, bombRange);
                     InspectCell(resultCells, bombs, cellX + 1, cellY, RayDirection.RIGHT, bombRange);
-                    InspectCell(resultCells, bombs, cellX, cellY + 1, RayDirection.BOTTOM, bombRange);
+                    InspectCell(resultCells, bombs, cellX, cellY - 1, RayDirection.BOTTOM, bombRange);
                 }
 
-                switch (direction)
+                if (IsGameCellRangeTransparent(cell))
                 {
-                    case RayDirection.LEFT:
-                        InspectCell(resultCells, bombs, cellX - 1, cellY, direction, rangeLeft - 1);
-                        break;
-                    case RayDirection.UP:
-                        InspectCell(resultCells, bombs, cellX, cellY - 1, direction, rangeLeft - 1);
-                        break;
-                    case RayDirection.RIGHT:
-                        InspectCell(resultCells, bombs, cellX + 1, cellY, direction, rangeLeft - 1);
-                        break;
-                    case RayDirection.BOTTOM:
-                        InspectCell(resultCells, bombs, cellX, cellY + 1, direction, rangeLeft - 1);
-                        break;
+                    switch (direction)
+                    {
+                        case RayDirection.LEFT:
+                            InspectCell(resultCells, bombs, cellX - 1, cellY, direction, rangeLeft - 1);
+                            break;
+                        case RayDirection.UP:
+                            InspectCell(resultCells, bombs, cellX, cellY + 1, direction, rangeLeft - 1);
+                            break;
+                        case RayDirection.RIGHT:
+                            InspectCell(resultCells, bombs, cellX + 1, cellY, direction, rangeLeft - 1);
+                            break;
+                        case RayDirection.BOTTOM:
+                            InspectCell(resultCells, bombs, cellX, cellY - 1, direction, rangeLeft - 1);
+                            break;
+                    }
                 }
             }
         }
@@ -191,6 +194,11 @@ public class ExplosionManager : MonoBehaviour {
     private bool IsGameCellDestructible(GameCell gameCell)
     {
         return gameCell != null && (gameCell.block == null || gameCell.block.GetType() != typeof(IndesctructibleCubeObject));
+    }
+
+    private bool IsGameCellRangeTransparent(GameCell gameCell)
+    {
+        return gameCell != null && gameCell.block == null;
     }
 
     private enum RayDirection { LEFT, UP, RIGHT, BOTTOM }
