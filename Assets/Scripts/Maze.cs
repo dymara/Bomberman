@@ -29,7 +29,7 @@ public class Maze : MonoBehaviour
 
     public ExtraBomb extraBombFindingPrefab;
 
-    public ExtraLive extraLiveFindingPrefab;
+    public ExtraLife extraLifeFindingPrefab;
 
     public ExtraRange rangeBombFindingPrefab;
 
@@ -205,7 +205,7 @@ public class Maze : MonoBehaviour
 
         for (int i = 0; i < GameManager.instance.GetExtraLiveFindingsCount(); i++)
         {
-            CreateFindingObject(destructibleCubes, cubeWidth, cells, positionConverter, extraLiveFindingPrefab, i);
+            CreateFindingObject(destructibleCubes, cubeWidth, cells, positionConverter, extraLifeFindingPrefab, i);
         }
 
         for (int i = 0; i < GameManager.instance.GetRangeBombFindingsCount(); i++)

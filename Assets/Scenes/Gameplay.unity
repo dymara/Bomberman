@@ -589,22 +589,22 @@ Prefab:
     - target: {fileID: 11402826, guid: b7828e9b10118314999c14f9a4bb114e, type: 2}
       propertyPath: extraBombFindingPrefab
       value: 
-      objectReference: {fileID: 11428860, guid: 19ac780803ee50e498cc1aa6aaf52ca3,
+      objectReference: {fileID: 11430644, guid: 78f4256cedced6b47b5cecc56cf3886b,
         type: 2}
     - target: {fileID: 11402826, guid: b7828e9b10118314999c14f9a4bb114e, type: 2}
       propertyPath: rangeBombFindingPrefab
       value: 
-      objectReference: {fileID: 11480426, guid: 53cfa62d7e63dca4cbbccd83dd5728ca,
+      objectReference: {fileID: 11429352, guid: f5111da19e42121468913a84a0a7b56a,
         type: 2}
     - target: {fileID: 11402826, guid: b7828e9b10118314999c14f9a4bb114e, type: 2}
       propertyPath: extraLiveFindingPrefab
       value: 
-      objectReference: {fileID: 11480910, guid: 6250c5bea82cf7b4f97b57a087a4bd42,
+      objectReference: {fileID: 11499758, guid: 1bd3a724a044d794191f74c16d79e21d,
         type: 2}
     - target: {fileID: 11402826, guid: b7828e9b10118314999c14f9a4bb114e, type: 2}
       propertyPath: fasterMovingFindingPrefab
       value: 
-      objectReference: {fileID: 11460976, guid: e552404f491a21f4ea60a34108407c46,
+      objectReference: {fileID: 11477268, guid: 801511dbcf7832f4eb3b7b6f17ce2af7,
         type: 2}
     - target: {fileID: 11402826, guid: b7828e9b10118314999c14f9a4bb114e, type: 2}
       propertyPath: cellHighlight
@@ -613,7 +613,12 @@ Prefab:
     - target: {fileID: 11402826, guid: b7828e9b10118314999c14f9a4bb114e, type: 2}
       propertyPath: remoteDetonationFindingPrefab
       value: 
-      objectReference: {fileID: 11435828, guid: ee2b9dd12f4f47f4196189e0ce19f957,
+      objectReference: {fileID: 11404466, guid: ee0f40076e21f07458bc7f5cbf5b85ab,
+        type: 2}
+    - target: {fileID: 11402826, guid: b7828e9b10118314999c14f9a4bb114e, type: 2}
+      propertyPath: extraLifeFindingPrefab
+      value: 
+      objectReference: {fileID: 11474672, guid: aef2caafd882db144877a626084c20ba,
         type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b7828e9b10118314999c14f9a4bb114e, type: 2}
@@ -1412,15 +1417,15 @@ MonoBehaviour:
   indestructibleCube: {fileID: 11468434, guid: 02ff0ae3b2b964f4c88f1903f86a2927, type: 2}
   destructibleCube: {fileID: 11419582, guid: c328450039a723045957e9441f15b3a9, type: 2}
   mazeExit: {fileID: 11423772, guid: 998967a7c58b4c44189d9e25f7964dd7, type: 2}
-  extraBombFindingPrefab: {fileID: 11428860, guid: 19ac780803ee50e498cc1aa6aaf52ca3,
+  extraBombFindingPrefab: {fileID: 11430644, guid: 78f4256cedced6b47b5cecc56cf3886b,
     type: 2}
-  extraLiveFindingPrefab: {fileID: 11480910, guid: 6250c5bea82cf7b4f97b57a087a4bd42,
+  extraLifeFindingPrefab: {fileID: 11474672, guid: aef2caafd882db144877a626084c20ba,
     type: 2}
-  rangeBombFindingPrefab: {fileID: 11480426, guid: 53cfa62d7e63dca4cbbccd83dd5728ca,
+  rangeBombFindingPrefab: {fileID: 11429352, guid: f5111da19e42121468913a84a0a7b56a,
     type: 2}
-  fasterMovingFindingPrefab: {fileID: 11460976, guid: e552404f491a21f4ea60a34108407c46,
+  fasterMovingFindingPrefab: {fileID: 11477268, guid: 801511dbcf7832f4eb3b7b6f17ce2af7,
     type: 2}
-  remoteDetonationFindingPrefab: {fileID: 11435828, guid: ee2b9dd12f4f47f4196189e0ce19f957,
+  remoteDetonationFindingPrefab: {fileID: 11404466, guid: ee0f40076e21f07458bc7f5cbf5b85ab,
     type: 2}
   wallA: {fileID: 411830, guid: 71625952fbadcc244ac8f2b0eeffbf8d, type: 2}
   wallB: {fileID: 411830, guid: c3d240cc3f8d51f4984b0d55b458e010, type: 2}
@@ -1508,7 +1513,6 @@ Canvas:
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
-  m_SortingBucketNormalizedSize: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
