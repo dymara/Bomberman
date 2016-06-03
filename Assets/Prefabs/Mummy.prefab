@@ -146,7 +146,7 @@ GameObject:
   - 95: {fileID: 9529654}
   m_Layer: 0
   m_Name: mummy_rig
-  m_TagString: Untagged
+  m_TagString: Monster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -355,9 +355,11 @@ GameObject:
   m_Component:
   - 4: {fileID: 486072}
   - 114: {fileID: 11430516}
+  - 136: {fileID: 13686434}
+  - 136: {fileID: 13683940}
   m_Layer: 0
   m_Name: Mummy
-  m_TagString: Untagged
+  m_TagString: Monster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1096,6 +1098,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5c0970ec3fe790439ee99b075e02688, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!136 &13683940
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 172334}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.2
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.5, z: 0}
+--- !u!136 &13686434
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 172334}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.3
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!137 &13706990
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

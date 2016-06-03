@@ -25,5 +25,18 @@ namespace Assets.Scripts.Model
         {
             // Monster enemies do not have to request GameManager to update HUD
         }
+
+        void OnTriggerEnter(Collider other)
+        {
+            String tag = other.gameObject.tag;
+            if (tag.Equals(Constants.PLAYER_TAG))
+            {
+                other.gameObject.GetComponent<Player>().TriggerKill();
+            }
+            else if (tag.Equals(Constants.BOMB_TAG) || tag.Equals(Constants.MONSTER_TAG))
+            {
+                gameObject.GetComponent<AIBehavior>().MoveBack();
+            }
+        }
     }
 }

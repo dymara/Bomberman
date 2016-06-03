@@ -12,6 +12,12 @@
 
     public const string FINDING_TAG = "Finding";
 
+    public const string PLAYER_TAG = "Player";
+
+    public const string MONSTER_TAG = "Monster";
+
+    public const string BOMB_TAG = "Bomb";
+
     public const string HUMAN_PLAYER_TAG = "Player";
 
     public const int MAX_LIVES_COUNT = 6;
