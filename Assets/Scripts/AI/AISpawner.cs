@@ -2,9 +2,9 @@
 using Assets.Scripts.Board;
 using System.Collections.Generic;
 using Assets.Scripts.Util;
-using Assets.Scripts.Postion;
 using Assets.Scripts.Model;
 using System.Collections;
+using Assets.Scripts.Position;
 
 public class AISpawner : MonoBehaviour
 {

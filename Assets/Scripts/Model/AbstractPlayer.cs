@@ -1,5 +1,6 @@
-﻿using Assets.Scripts.Postion;
-using UnityEngine;
+﻿using UnityEngine;
+using System.Collections.Generic;
+using Assets.Scripts.Position;
 
 namespace Assets.Scripts.Model
 {
@@ -13,7 +14,7 @@ namespace Assets.Scripts.Model
             }
         }
 
-        public PostionListener postionLisener { set; get; }
+        public BoardPostionListener postionLisener { set; get; }
 
         public PlayerPositionManager positionManager { set; get; }
 
@@ -32,13 +33,12 @@ namespace Assets.Scripts.Model
 
         protected abstract void Kill();
 
-        void Update()
+        protected void Update()
         {
             if (postionLisener != null)
             {
                 postionLisener.OnPostionChanged(transform.position);
             }
         }
-
     }
 }

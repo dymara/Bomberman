@@ -12,6 +12,7 @@ TagManager:
   - AISpawner
   - Finding
   - Monster
+  - MinimapCamera
   layers:
   - Default
   - TransparentFX

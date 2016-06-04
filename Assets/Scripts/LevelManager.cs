@@ -2,9 +2,9 @@
 using Assets.Scripts.Board;
 using Assets.Scripts.Model;
 using Assets.Scripts.Util;
-using Assets.Scripts.Postion;
 using System;
 using System.Collections;
+using Assets.Scripts.Position;
 
 public class LevelManager : MonoBehaviour {
 
@@ -105,7 +105,7 @@ public class LevelManager : MonoBehaviour {
 
         explosionManager = GameObject.Find(Constants.EXPLOSION_MANAGER_NAME).GetComponent<ExplosionManager>();
         uiController = GameObject.Find(Constants.UI_CONTROLLER_NAME).GetComponent<UIController>();
-        uiController.InitializeHUD();
+        uiController.InitializeHUD(mazeWidth, mazeLength);
 
         StartCoroutine(StartLevelCountdown());
     }

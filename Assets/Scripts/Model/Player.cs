@@ -3,12 +3,16 @@ using UnityEditor;
 using UnityEngine;
 using System.Collections;
 using UnityStandardAssets.Characters.FirstPerson;
+using Assets.Scripts.Position;
 
 namespace Assets.Scripts.Model
 {
     public class Player : AbstractPlayer
     {
         private int _bombs;
+
+
+        public CameraPositionListener cameraPositionListener { set; get; }
 
 
         public int bombs {
@@ -140,6 +144,16 @@ namespace Assets.Scripts.Model
             }
             yield return new WaitForSeconds(3); // [dymara] Hack for disabling exit events untill scene fade out animation finishes.
             exitReached = false;
+        }
+
+        new void Update()
+        {
+            if (cameraPositionListener != null)
+            {
+                cameraPositionListener.OnPostionChanged(transform.position);
+            }
+
+            base.Update();
         }
     }
 }
