@@ -9,7 +9,7 @@ public class Configurator : MonoBehaviour {
     [Range(0, 10)]
     public float splashDuration;
 
-    [Range(1, 1000)]
+    [Range(1, 999)]
     public int initialLevelNumber;
 
     [Range(1, 6)]

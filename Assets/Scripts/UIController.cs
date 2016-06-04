@@ -9,9 +9,13 @@ public class UIController : MonoBehaviour
 
     private const float MESSAGE_DISPLAY_DURATION = 1.0f;
 
+    private const float LEVEL_MESSAGE_DISPLAY_DURATION = 3.0f;
+
     private IEnumerator messageCorutine;
 
     private Text messageText;
+
+    private Text levelMessageText;
 
     private Image[] lives;
 
@@ -30,6 +34,7 @@ public class UIController : MonoBehaviour
     void Awake()
     {
         this.messageText = GameObject.Find("Message").GetComponent<Text>();
+        this.levelMessageText = GameObject.Find("Level Message").GetComponent<Text>();
 
         this.lives = new Image[6];
         this.lives[0] = GameObject.Find("Heart Outer Right").GetComponent<Image>();
@@ -73,6 +78,7 @@ public class UIController : MonoBehaviour
         SetRangeBonusValue(player.bombRange);
         SetSpeedBonusValue(player.speed);
         SetRemoteDetonationBonusAvailable(player.remoteDetonationBonus);
+        StartCoroutine(DoShowLevelMessage());
     }
 
     public void ShowTimedMessage(string text)
@@ -152,6 +158,15 @@ public class UIController : MonoBehaviour
         messageText.text = text;
         yield return new WaitForSeconds(MESSAGE_DISPLAY_DURATION);
         messageText.CrossFadeAlpha(0.0f, FADE_ANIMATION_DURATION, false);
+    }
+
+    private IEnumerator DoShowLevelMessage()
+    {
+        levelMessageText.canvasRenderer.SetAlpha(0.0f);
+        levelMessageText.CrossFadeAlpha(1.0f, 2 * FADE_ANIMATION_DURATION, false);
+        levelMessageText.text = "LEVEL " + GameManager.instance.GetCurrentLevelNumber();
+        yield return new WaitForSeconds(LEVEL_MESSAGE_DISPLAY_DURATION);
+        levelMessageText.CrossFadeAlpha(0.0f, 3 * FADE_ANIMATION_DURATION, false);
     }
 
 }
