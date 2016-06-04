@@ -181,6 +181,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b1371ad5b50942359588ac60262edba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cellHighlight: {fileID: 0}
   explosions:
   - {fileID: 100000, guid: bf3f387d006f0414b80b25ba2b9cdf38, type: 2}
   - {fileID: 100000, guid: 1e47e1a2302b340578c901da5181c6f1, type: 2}
@@ -209,7 +210,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
 --- !u!1 &89269068
 GameObject:
   m_ObjectHideFlags: 0
@@ -304,7 +305,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
 --- !u!1 &186649215
 GameObject:
   m_ObjectHideFlags: 0
@@ -1240,11 +1241,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 432526, guid: b3da61fb7e4f62743a63554ed5319aa6, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 582.21216
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 432526, guid: b3da61fb7e4f62743a63554ed5319aa6, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 268.17426
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 432526, guid: b3da61fb7e4f62743a63554ed5319aa6, type: 2}
       propertyPath: m_LocalPosition.z
@@ -1381,11 +1382,11 @@ Transform:
   m_PrefabInternal: {fileID: 783240569}
   m_GameObject: {fileID: 830500030}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 582.21216, y: 268.17426, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
 --- !u!1 &965791086
 GameObject:
   m_ObjectHideFlags: 0
@@ -1430,7 +1431,6 @@ MonoBehaviour:
   wallA: {fileID: 411830, guid: 71625952fbadcc244ac8f2b0eeffbf8d, type: 2}
   wallB: {fileID: 411830, guid: c3d240cc3f8d51f4984b0d55b458e010, type: 2}
   floor: {fileID: 461014, guid: fd77bb678f3a49b4fa33938f9df7fbd8, type: 2}
-  cellHighlight: {fileID: 446552, guid: 52ba60f250cc69146833ef20b0b5a191, type: 2}
 --- !u!4 &965791088
 Transform:
   m_ObjectHideFlags: 0
@@ -1442,7 +1442,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
 --- !u!1 &994491304
 GameObject:
   m_ObjectHideFlags: 0
@@ -1550,7 +1550,7 @@ RectTransform:
   - {fileID: 1245586589}
   - {fileID: 186649216}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -2288,7 +2288,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
 --- !u!1 &1895376307
 GameObject:
   m_ObjectHideFlags: 0
@@ -2417,6 +2417,46 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1925625750}
+--- !u!1 &1994961794
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1994961795}
+  - 114: {fileID: 1994961796}
+  m_Layer: 0
+  m_Name: CellHighlighter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1994961795
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1994961794}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 1
+--- !u!114 &1994961796
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1994961794}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cececf34b2a5d8f49b0d50db8608e896, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cellHighlightPrefeb: {fileID: 446552, guid: 52ba60f250cc69146833ef20b0b5a191, type: 2}
 --- !u!1 &2001157596
 GameObject:
   m_ObjectHideFlags: 0
