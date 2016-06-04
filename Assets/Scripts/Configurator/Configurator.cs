@@ -26,21 +26,6 @@ public class Configurator : MonoBehaviour {
 
     public bool initialPlayerRemoteDetonationBonus;
 
-    [Range(0, 10)]
-    public int initialExtraBombFindings;
-
-    [Range(0, 10)]
-    public int initialRangeBombFindings;
-
-    [Range(0, 10)]
-    public int initialExtraLiveFindings;
-
-    [Range(0, 10)]
-    public int initialFasterMovingFindings;
-
-    [Range(0, 2)]
-    public int initialRemoteBombFindings;
-
     /** Number of indestructible cubes in x axis */
     [Range(4, 128)]
     public int level1CubesXCount; //indestructibleCubesXNumber;
@@ -48,9 +33,6 @@ public class Configurator : MonoBehaviour {
     /** Number of indestructible cubes in z axis */
     [Range(4, 128)]
     public int level1CubesZCount; //indestructibleCubesZNumber;
-
-    [Range(0, 32)]
-    public int level1EnemiesCount;
 
     [Range(1, 32)]
     public int exitExplosionEnemiesCount;
@@ -71,9 +53,6 @@ public class Configurator : MonoBehaviour {
 
     [Range(1, 10)]
     public int bombDetonateDelay;
-
-    [Range(1, 32)]
-    public float levelDurationPerBlock;
 
     [Range(0, 10000)]
     public int blockDestructionPoints;

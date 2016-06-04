@@ -120,7 +120,7 @@ public class LevelManager : MonoBehaviour {
     {
         aiSpawner.SetPostitionManager(positionManager);
         Vector2 playerPosition = positionConverter.ConvertScenePositionToBoard(player.gameObject.transform.position);
-        aiSpawner.SpawnEnemies(board, positionConverter, playerPosition);
+        aiSpawner.SpawnEnemies(board, positionConverter, playerPosition, levelConfig);
     }
 
     private void SetInitialCameraRotation()
