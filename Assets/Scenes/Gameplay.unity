@@ -1924,7 +1924,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mazePrefab: {fileID: 965791087}
-  bombPrefab: {fileID: 11461716, guid: 62dc13b3164b8457fa6fc4696643fe73, type: 2}
+  bombPrefab: {fileID: 114000013531257556, guid: 5b54aed9344b94945b8efc2346425a42,
+    type: 2}
   monsterPrefab: {fileID: 132228, guid: be52c1412023b4689a61a1afb7ecb098, type: 2}
   aiSpawner: {fileID: 830500031}
 --- !u!1 &1517893154
