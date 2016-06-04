@@ -354,9 +354,9 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 486072}
-  - 114: {fileID: 11430516}
-  - 136: {fileID: 13686434}
   - 136: {fileID: 13683940}
+  - 136: {fileID: 13686434}
+  - 114: {fileID: 11430516}
   m_Layer: 0
   m_Name: Mummy
   m_TagString: Monster

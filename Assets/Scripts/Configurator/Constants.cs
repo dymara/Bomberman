@@ -8,6 +8,8 @@
 
     public const string EXPLOSION_MANAGER_NAME = "ExplosionManager";
 
+    public const string CELL_HIGHLIGHTER_NAME = "CellHighlighter";
+
     public const string UI_CONTROLLER_NAME = "UIController";
 
     public const string FINDING_TAG = "Finding";

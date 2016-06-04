@@ -29,7 +29,7 @@ public class Maze : MonoBehaviour
 
     public ExtraBomb extraBombFindingPrefab;
 
-    public ExtraLive extraLiveFindingPrefab;
+    public ExtraLife extraLifeFindingPrefab;
 
     public ExtraRange rangeBombFindingPrefab;
 
@@ -43,8 +43,6 @@ public class Maze : MonoBehaviour
 
     public Component floor;
 
-    public Component cellHighlight;
-
     private System.Random rnd = new System.Random();
 
     private readonly float[] ROTATIONS = { 0, 90 };
@@ -55,7 +53,6 @@ public class Maze : MonoBehaviour
 
         indestructibleCube.transform.localScale = cubeSize;
         destructibleCube.transform.localScale = cubeSize;
-        cellHighlight.transform.localScale = cubeSize;
 
         int allXCell = (int)(boardWidth / cubeSize.x);
         int allZCell = (int)(boardLength / cubeSize.z);
@@ -92,7 +89,7 @@ public class Maze : MonoBehaviour
         // create exit position
         CreateExit(availableExits, destructibleCubes, cubeWidth, cells, positionConverter);
 
-        //create findings
+        // create findings
         CreateFindings(destructibleCubes, cubeWidth, cells, positionConverter);
 
         return new Board(cells, new Vector2(allXCell, allZCell));
@@ -172,15 +169,6 @@ public class Maze : MonoBehaviour
         return availableExits;
     }
 
-    private void CreateCellHighlight(GameCell[,] cells, Vector3 cubeSize, int x, int z)
-    {
-        float posX = (x * 2 + 1) * cubeSize.x / 2;
-        float posZ = (z * 2 + 1) * cubeSize.z / 2;
-        Component highlight = CreateGameObject(posX, 0.01f, posZ, cellHighlight, "Cell Highlight");
-        cells[x, z].highlight = highlight.gameObject;
-        cells[x, z].highlight.SetActive(false);
-    }
-
     private Exit CreateExit(ArrayList availableExits, ArrayList destructibleCubes, float cubeWidth, GameCell[,] cells, PositionConverter positionConverter)
     {
         int index = rnd.Next(0, availableExits.Count);
@@ -205,7 +193,7 @@ public class Maze : MonoBehaviour
 
         for (int i = 0; i < GameManager.instance.GetExtraLiveFindingsCount(); i++)
         {
-            CreateFindingObject(destructibleCubes, cubeWidth, cells, positionConverter, extraLiveFindingPrefab, i);
+            CreateFindingObject(destructibleCubes, cubeWidth, cells, positionConverter, extraLifeFindingPrefab, i);
         }
 
         for (int i = 0; i < GameManager.instance.GetRangeBombFindingsCount(); i++)
@@ -262,7 +250,6 @@ public class Maze : MonoBehaviour
             {
                 board[x, z] = CellType.EMPTY;
                 cells[x, z] = new GameCell(new Vector2(x, z));
-                CreateCellHighlight(cells, cubeSize, x, z);
             }
         }
     }

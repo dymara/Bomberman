@@ -18,9 +18,13 @@ public class UIController : MonoBehaviour
 
     private const float MINIMAP_Y_CORRECTION = 2;
 
+    private const float LEVEL_MESSAGE_DISPLAY_DURATION = 3.0f;
+
     private IEnumerator messageCorutine;
 
     private Text messageText;
+
+    private Text levelMessageText;
 
     private Image[] lives;
 
@@ -39,6 +43,7 @@ public class UIController : MonoBehaviour
     void Awake()
     {
         this.messageText = GameObject.Find("Message").GetComponent<Text>();
+        this.levelMessageText = GameObject.Find("Level Message").GetComponent<Text>();
 
         this.lives = new Image[6];
         this.lives[0] = GameObject.Find("Heart Outer Right").GetComponent<Image>();
@@ -83,6 +88,7 @@ public class UIController : MonoBehaviour
         SetSpeedBonusValue(player.speed);
         SetRemoteDetonationBonusAvailable(player.remoteDetonationBonus);
         PrepareMiniMap(player, mazeWidth, mazeLength);
+        StartCoroutine(DoShowLevelMessage());
     }
 
     public void ShowTimedMessage(string text)
@@ -164,6 +170,7 @@ public class UIController : MonoBehaviour
         messageText.CrossFadeAlpha(0.0f, FADE_ANIMATION_DURATION, false);
     }
 
+
     private void PrepareMiniMap(Player player, float mazeWidth, float mazeLength)
     {
         GameObject minimapCameraObject = GameObject.Find(Constants.MINIMAP_CAMERA_NAME);
@@ -183,6 +190,15 @@ public class UIController : MonoBehaviour
         cameraRect.x = (MINIMAP_X_CORRECTION + transform.position.x - transform.rect.width / 2) / Screen.width;
         cameraRect.y = (MINIMAP_Y_CORRECTION + transform.position.y - transform.rect.height / 2) / Screen.height;
         minimapCamera.rect = cameraRect;
+    }
+
+    private IEnumerator DoShowLevelMessage()
+    {
+        levelMessageText.canvasRenderer.SetAlpha(0.0f);
+        levelMessageText.CrossFadeAlpha(1.0f, 2 * FADE_ANIMATION_DURATION, false);
+        levelMessageText.text = "LEVEL " + GameManager.instance.GetCurrentLevelNumber();
+        yield return new WaitForSeconds(LEVEL_MESSAGE_DISPLAY_DURATION);
+        levelMessageText.CrossFadeAlpha(0.0f, 3 * FADE_ANIMATION_DURATION, false);
     }
 
 }
