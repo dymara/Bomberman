@@ -7,6 +7,8 @@ using System.Collections;
 
 public class ExplosionManager : MonoBehaviour {
 
+    public Component cellHighlight;
+
     public GameObject[] explosions;
 
     public LevelManager levelManager;
@@ -14,6 +16,13 @@ public class ExplosionManager : MonoBehaviour {
     private Dictionary<Bomb, GameCell> bombMap = new Dictionary<Bomb, GameCell>();
 
     private readonly object bombMapLock = new object();
+
+    private CellHighlighter cellHighlighter;
+
+    public void Awake()
+    {
+        this.cellHighlighter = GameObject.Find(Constants.CELL_HIGHLIGHTER_NAME).GetComponent<CellHighlighter>();
+    }
 
     public void PutBomb(Player player, Bomb bomb, Vector2 position)
     {
@@ -37,7 +46,7 @@ public class ExplosionManager : MonoBehaviour {
     private void DoPutBomb(Player player, Bomb bombPrefab, GameCell gameCell)
     {
         Vector3 bombPosition = levelManager.GetPositionConverter().ConvertBoardPositionToScene(gameCell.GetCoordinates(), true);
-        bombPosition.y = bombPrefab.transform.localScale.y / 1.25f;
+        bombPosition.y = bombPrefab.transform.localScale.y / 0.85f;
 
         Bomb bomb = Instantiate(bombPrefab, bombPosition, Quaternion.identity) as Bomb;
         bomb.player = player.gameObject;
@@ -83,7 +92,7 @@ public class ExplosionManager : MonoBehaviour {
         lock (bombMapLock) {
             player.bombs--; 
             bombMap.Add(bomb, gameCell);
-            HighlightCellsToExplode(bomb, true);
+            HighlightCellsToExplode(bomb);
         }
     }
 
@@ -91,27 +100,23 @@ public class ExplosionManager : MonoBehaviour {
     {
         lock (bombMapLock)
         {
+            cellHighlighter.DisableCellsHighlights();
             foreach (Bomb bomb in bombs)
             {
-                HighlightCellsToExplode(bomb, false);
                 bombMap.Remove(bomb);
                 player.bombs++;
             }
             foreach (Bomb remainingBomb in bombMap.Keys) {
-                HighlightCellsToExplode(remainingBomb, true);
+                HighlightCellsToExplode(remainingBomb);
             }
         }
     }
 
-    private void HighlightCellsToExplode(Bomb bomb, bool shouldBeHighlighted)
+    private void HighlightCellsToExplode(Bomb bomb)
     {
         GameCell gameCell = bombMap[bomb];
         HashSet<GameCell> cellsToExplode = GetCellsToExplode(gameCell, bomb.explosionRange);
-       
-        foreach (GameCell cell in cellsToExplode)
-        {
-            cell.highlight.SetActive(shouldBeHighlighted);
-        }
+        cellHighlighter.EnableCellsHighlight(cellsToExplode);
     }
 
     public void PlayExplosionEffect(Vector2 gameCellCoordinates, float height)
