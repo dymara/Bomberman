@@ -1,6 +1,6 @@
 ﻿public class LevelGeneratorConfig
 {
-	public const int LEVEL_1_BOARD_SIZE = 3;
+	public const int LEVEL_1_BOARD_SIZE = 4;
 	
 	public const int LEVEL_1_MONSTERS_COUNT = 1;
 	
