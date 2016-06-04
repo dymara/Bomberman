@@ -1508,7 +1508,6 @@ Canvas:
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
-  m_SortingBucketNormalizedSize: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -1908,6 +1907,11 @@ Prefab:
       propertyPath: aiSpawner
       value: 
       objectReference: {fileID: 830500031}
+    - target: {fileID: 11481908, guid: 71aea5113141c4848a7df8476a53e7c9, type: 2}
+      propertyPath: bombPrefab
+      value: 
+      objectReference: {fileID: 11495666, guid: 63172036b310625478a47691d9a8693a,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 71aea5113141c4848a7df8476a53e7c9, type: 2}
   m_IsPrefabParent: 0
@@ -1924,8 +1928,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mazePrefab: {fileID: 965791087}
-  bombPrefab: {fileID: 114000013531257556, guid: 5b54aed9344b94945b8efc2346425a42,
-    type: 2}
+  bombPrefab: {fileID: 11495666, guid: 63172036b310625478a47691d9a8693a, type: 2}
   monsterPrefab: {fileID: 132228, guid: be52c1412023b4689a61a1afb7ecb098, type: 2}
   aiSpawner: {fileID: 830500031}
 --- !u!1 &1517893154
