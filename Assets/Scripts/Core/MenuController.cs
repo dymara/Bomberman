@@ -21,7 +21,7 @@ public class MenuController : MonoBehaviour {
 
     private IEnumerator StartGame()
     {
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(15);
         GameManager.instance.ResetPlayerState();
         GameManager.instance.SwitchGameState(GameState.GAMEPLAY);
     }
