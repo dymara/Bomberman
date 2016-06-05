@@ -65,8 +65,20 @@ public class LevelGenerator : MonoBehaviour
         }
         else
         {
-            return LevelGeneratorConfig.LEVEL_1_EXTRA_BOMBS_COUNT;
+            if (Random.value <= GetExtraBombFindingProbability(player))
+            {
+                return 1;
+            }
+            else
+            {
+                return 0;
+            }
         }
+    }
+
+    private float GetExtraBombFindingProbability(Player player)
+    {
+        return (1 - player.maximumBombsCount * LevelGeneratorConfig.EXTRA_BOMB_PROBABILITY_PENALTY);
     }
 
     private int GetExtraLivesFindingsCount(int level, Player player)

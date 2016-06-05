@@ -12,6 +12,8 @@
 	
 	public const int LEVEL_1_EXTRA_BOMBS_COUNT = 1;
 	
+	public const float EXTRA_BOMB_PROBABILITY_PENALTY = 0.1f;
+	
 	public const int LEVEL_1_EXTRA_LIVES_COUNT = 1;
 	
 	public const int MAX_PLAYER_BOMBS_COUNT = 5;
