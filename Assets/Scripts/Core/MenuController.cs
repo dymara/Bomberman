@@ -7,7 +7,11 @@ public class MenuController : MonoBehaviour {
 
     private Button newGameButton;
 
+    private bool newGameButtonPressed = false;
+
     private Button scoreBoardButton;
+
+    private bool scoreBoardButtonPressed = false;
 
     private Button exitButton;
 
@@ -38,13 +42,21 @@ public class MenuController : MonoBehaviour {
 
     public void NewGameButtonPressed()
     {
-        GameManager.instance.ResetPlayerState();
-        GameManager.instance.SwitchGameState(GameState.GAMEPLAY);
+        if (!newGameButtonPressed && !scoreBoardButtonPressed)
+        {
+            newGameButtonPressed = true;
+            GameManager.instance.ResetPlayerState();
+            GameManager.instance.SwitchGameState(GameState.GAMEPLAY);
+        }
     }
 
     public void ScoreBoardButtonPressed()
     {
-        GameManager.instance.SwitchGameState(GameState.SCORE_BOARD);
+        if (!newGameButtonPressed && !scoreBoardButtonPressed)
+        {
+            scoreBoardButtonPressed = true;
+            GameManager.instance.SwitchGameState(GameState.SCORE_BOARD);
+        }
     }
 
     public void ExitButtonPressed()
