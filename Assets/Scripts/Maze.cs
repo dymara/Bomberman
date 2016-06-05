@@ -27,6 +27,16 @@ public class Maze : MonoBehaviour
 
     public Exit mazeExit;
 
+    public GameObject extraBombFindingMinimap;
+
+    public GameObject extraLifeFindingMinimap;
+
+    public GameObject rangeBombFindingMinimap;
+
+    public GameObject fasterMovingFindingMinimap;
+
+    public GameObject remoteDetonationFindingMinimap;
+
     public ExtraBomb extraBombFindingPrefab;
 
     public ExtraLife extraLifeFindingPrefab;
@@ -188,36 +198,37 @@ public class Maze : MonoBehaviour
     {
         for (int i = 0; i < GameManager.instance.GetExtraBombFindingsCount(); i++)
         {
-            CreateFindingObject(destructibleCubes, cubeWidth, cells, positionConverter, extraBombFindingPrefab, i);
+            CreateFindingObject(destructibleCubes, cubeWidth, cells, positionConverter, extraBombFindingPrefab, i, extraBombFindingMinimap);
         }
 
         for (int i = 0; i < GameManager.instance.GetExtraLiveFindingsCount(); i++)
         {
-            CreateFindingObject(destructibleCubes, cubeWidth, cells, positionConverter, extraLifeFindingPrefab, i);
+            CreateFindingObject(destructibleCubes, cubeWidth, cells, positionConverter, extraLifeFindingPrefab, i, extraLifeFindingMinimap);
         }
 
         for (int i = 0; i < GameManager.instance.GetRangeBombFindingsCount(); i++)
         {
-            CreateFindingObject(destructibleCubes, cubeWidth, cells, positionConverter, rangeBombFindingPrefab, i);
+            CreateFindingObject(destructibleCubes, cubeWidth, cells, positionConverter, rangeBombFindingPrefab, i, rangeBombFindingMinimap);
         }
 
         for (int i = 0; i < GameManager.instance.GetFasterMovingFindingsCount(); i++)
         {
-            CreateFindingObject(destructibleCubes, cubeWidth, cells, positionConverter, fasterMovingFindingPrefab, i);
+            CreateFindingObject(destructibleCubes, cubeWidth, cells, positionConverter, fasterMovingFindingPrefab, i, fasterMovingFindingMinimap);
         }
 
         for (int i = 0; i < GameManager.instance.GetRemoteDetonationFindingsCount(); i++)
         {
-            CreateFindingObject(destructibleCubes, cubeWidth, cells, positionConverter, remoteDetonationFindingPrefab, i);
+            CreateFindingObject(destructibleCubes, cubeWidth, cells, positionConverter, remoteDetonationFindingPrefab, i, remoteDetonationFindingMinimap);
         }
     }
 
-    private void CreateFindingObject(ArrayList destructibleCubes, float cubeWidth, GameCell[,] cells, PositionConverter positionConverter, AbstractFinding findingPrefab, int i)
+    private void CreateFindingObject(ArrayList destructibleCubes, float cubeWidth, GameCell[,] cells, PositionConverter positionConverter, AbstractFinding findingPrefab, int i, GameObject minimapFindingPrefab)
     {
         int index = rnd.Next(0, destructibleCubes.Count);
         Vector2 findingPostion = (Vector2)destructibleCubes[index];
         destructibleCubes.Remove(findingPostion);
         AbstractFinding finding = CreateGameObject(findingPostion.x, cubeWidth / 4 + 0.5f, findingPostion.y, findingPrefab, "Fiding " + (i + 1));
+        finding.minimapObject = CreateGameObject(findingPostion.x, cubeWidth / 4 + 0.5f, findingPostion.y, minimapFindingPrefab, "MinimapFiding " + (i + 1));
         finding.transform.localScale = new Vector3(cubeWidth / 4, cubeWidth / 4, cubeWidth / 4);
         finding.GetComponent<SphereCollider>().radius = cubeWidth / 4;
         finding.gameObject.GetComponent<Spin>().SetSpeed(GameManager.instance.GetFindingSpinSpeed());
@@ -231,6 +242,15 @@ public class Maze : MonoBehaviour
     private T CreateGameObject<T>(float x, float y, float z, T prefab, string name) where T : Component
     {
         T newGameObject = Instantiate(prefab) as T;
+        newGameObject.name = name + " " + x + ", " + z;
+        newGameObject.transform.parent = transform;
+        newGameObject.transform.localPosition = new Vector3(x, y, z);
+        return newGameObject;
+    }
+
+    private GameObject CreateGameObject(float x, float y, float z, GameObject prefab, string name)
+    {
+        GameObject newGameObject = Instantiate(prefab);
         newGameObject.name = name + " " + x + ", " + z;
         newGameObject.transform.parent = transform;
         newGameObject.transform.localPosition = new Vector3(x, y, z);

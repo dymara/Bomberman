@@ -14,7 +14,7 @@ GameObject:
   - 114: {fileID: 11467400}
   - 114: {fileID: 11410220}
   - 114: {fileID: 11429352}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: FindingRange
   m_TagString: Finding
   m_Icon: {fileID: 0}

@@ -621,6 +621,26 @@ Prefab:
       value: 
       objectReference: {fileID: 11474672, guid: aef2caafd882db144877a626084c20ba,
         type: 2}
+    - target: {fileID: 11402826, guid: b7828e9b10118314999c14f9a4bb114e, type: 2}
+      propertyPath: extraBombFindingMinimap
+      value: 
+      objectReference: {fileID: 150086, guid: 6667121616fb920439744bb742782c0d, type: 2}
+    - target: {fileID: 11402826, guid: b7828e9b10118314999c14f9a4bb114e, type: 2}
+      propertyPath: extraLifeFindingMinimap
+      value: 
+      objectReference: {fileID: 187252, guid: 877d9f9e18883c94b9010a8cf808a96c, type: 2}
+    - target: {fileID: 11402826, guid: b7828e9b10118314999c14f9a4bb114e, type: 2}
+      propertyPath: rangeBombFindingMinimap
+      value: 
+      objectReference: {fileID: 169568, guid: d0b8aa847a4b68f42ac27cef5c4b79a7, type: 2}
+    - target: {fileID: 11402826, guid: b7828e9b10118314999c14f9a4bb114e, type: 2}
+      propertyPath: fasterMovingFindingMinimap
+      value: 
+      objectReference: {fileID: 128240, guid: 0562db59f262bc445bc22d56915f1a22, type: 2}
+    - target: {fileID: 11402826, guid: b7828e9b10118314999c14f9a4bb114e, type: 2}
+      propertyPath: remoteDetonationFindingMinimap
+      value: 
+      objectReference: {fileID: 145526, guid: ed19b2dd09931c14fb6e762ebc9f9910, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b7828e9b10118314999c14f9a4bb114e, type: 2}
   m_IsPrefabParent: 0
@@ -1418,6 +1438,16 @@ MonoBehaviour:
   indestructibleCube: {fileID: 11468434, guid: 02ff0ae3b2b964f4c88f1903f86a2927, type: 2}
   destructibleCube: {fileID: 11419582, guid: c328450039a723045957e9441f15b3a9, type: 2}
   mazeExit: {fileID: 11423772, guid: 998967a7c58b4c44189d9e25f7964dd7, type: 2}
+  extraBombFindingMinimap: {fileID: 150086, guid: 6667121616fb920439744bb742782c0d,
+    type: 2}
+  extraLifeFindingMinimap: {fileID: 187252, guid: 877d9f9e18883c94b9010a8cf808a96c,
+    type: 2}
+  rangeBombFindingMinimap: {fileID: 169568, guid: d0b8aa847a4b68f42ac27cef5c4b79a7,
+    type: 2}
+  fasterMovingFindingMinimap: {fileID: 128240, guid: 0562db59f262bc445bc22d56915f1a22,
+    type: 2}
+  remoteDetonationFindingMinimap: {fileID: 145526, guid: ed19b2dd09931c14fb6e762ebc9f9910,
+    type: 2}
   extraBombFindingPrefab: {fileID: 11430644, guid: 78f4256cedced6b47b5cecc56cf3886b,
     type: 2}
   extraLifeFindingPrefab: {fileID: 11474672, guid: aef2caafd882db144877a626084c20ba,
@@ -1661,7 +1691,7 @@ Camera:
   m_Depth: 1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 4294967039
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0

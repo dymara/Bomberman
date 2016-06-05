@@ -14,7 +14,9 @@ namespace Assets.Scripts.Model
 
         public GameObject player { get; set; }
 
-        private TextMesh textMesh;
+        public TextMesh textMesh;
+
+        public TextMesh minimapTextMesh;
 
         private bool detonated = false;        
 
@@ -22,11 +24,6 @@ namespace Assets.Scripts.Model
         {
             PlayExplosionSound();
             Destroy(this.gameObject);
-        }
-
-        void Awake()
-        {
-            this.textMesh = GetComponentInChildren<TextMesh>();
         }
 
         void Update()
@@ -40,6 +37,7 @@ namespace Assets.Scripts.Model
             if (!HasBeenDetonated())
             {
                 textMesh.text = value.ToString();
+                minimapTextMesh.text = value.ToString();
             }
         }
 
