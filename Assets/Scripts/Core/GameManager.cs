@@ -143,50 +143,9 @@ public class GameManager : MonoBehaviour {
         return configurator.findingFloatDist;
     }
 
-    public float GetExtraBombFindingsCount()
-    {
-        //TODO uzależnić od poziomu i ilości bomb u gracza
-        return configurator.initialExtraBombFindings; ;
-    }
-
-    public float GetExtraLiveFindingsCount()
-    {
-        //TODO uzależnić od poziomu i ilości żyć u gracza
-        return configurator.initialExtraLiveFindings;
-    }
-
-    public float GetRangeBombFindingsCount()
-    {
-        //TODO uzależnić od poziomu
-        return configurator.initialRangeBombFindings;
-    }
-
-    public float GetFasterMovingFindingsCount()
-    {
-        //TODO uzależnić od poziomu
-        return configurator.initialFasterMovingFindings;
-    }
-
-    public float GetRemoteDetonationFindingsCount()
-    {
-        //TODO uzależnić od poziomu
-        return configurator.initialRemoteBombFindings;
-    }
-
     public int GetBombDetonateDelay()
     {
         return configurator.bombDetonateDelay;
-    }
-
-    public float GetLevelDuration()
-    {
-        return GetCubesXCount() * GetCubesZCount() * configurator.levelDurationPerBlock;
-    }
-
-    public int GetEnemiesCount()
-    {
-        // TODO This method's result should be dependent on current level number value!
-        return configurator.level1EnemiesCount;
     }
 
     public int GetExitExplosionEnemiesCount()

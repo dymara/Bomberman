@@ -15,6 +15,8 @@ public class LevelManager : MonoBehaviour {
     public GameObject monsterPrefab;
 
     public AISpawner aiSpawner;
+    
+    public LevelGenerator levelGenerator;
 
     /*=================================*/
 
@@ -56,16 +58,19 @@ public class LevelManager : MonoBehaviour {
     private PlayerPositionManager positionManager;
 
     private int levelTimeLeft;
+    
+    private LevelConfig levelConfig;
 
     void Awake() {
-        this.indestructibleCubesXNumber = GameManager.instance.GetCubesXCount();
-        this.indestructibleCubesZNumber = GameManager.instance.GetCubesZCount();
+        this.player = GameManager.instance.GetPlayer();
+        this.levelConfig = levelGenerator.GenerateLevelConfig(GameManager.instance.GetCurrentLevelNumber(), player);
+        this.indestructibleCubesXNumber = (int) levelConfig.boardSize.x;
+        this.indestructibleCubesZNumber = (int) levelConfig.boardSize.y;
         this.cellSize = GameManager.instance.GetCellSize();
         this.cubeHeight = GameManager.instance.GetCubeHeight();
         this.wallHeight = GameManager.instance.GetWallHeight();
         this.startPositionX = GameManager.instance.GetStartXPosition();
         this.startPositionZ = GameManager.instance.GetStartZPosition();
-        this.player = GameManager.instance.GetPlayer();
     }
    
     // Use this for initialization
@@ -90,7 +95,8 @@ public class LevelManager : MonoBehaviour {
         float mazeLength = indestructibleCubesZNumber * cellSize * 2 + cellSize;
         float startX = startPositionX.Equals(StartPosition.MIN) ? 1 : mazeWidth - 1;
         float startZ = startPositionZ.Equals(StartPosition.MIN) ? 1 : mazeLength - 1;
-        board = mazeInstance.Generate(mazeWidth, mazeLength, cellSize, cubeHeight, wallHeight, startX, startZ, positionConverter);
+        Debug.Log("Generating maze with size " + indestructibleCubesXNumber + "x" + indestructibleCubesZNumber + "...");
+        board = mazeInstance.Generate(mazeWidth, mazeLength, cellSize, cubeHeight, wallHeight, startX, startZ, positionConverter, levelConfig);
 
         positionManager = new PlayerPositionManager(board, positionConverter);
 
@@ -114,7 +120,7 @@ public class LevelManager : MonoBehaviour {
     {
         aiSpawner.SetPostitionManager(positionManager);
         Vector2 playerPosition = positionConverter.ConvertScenePositionToBoard(player.gameObject.transform.position);
-        aiSpawner.SpawnEnemies(board, positionConverter, playerPosition);
+        aiSpawner.SpawnEnemies(board, positionConverter, playerPosition, levelConfig);
     }
 
     private void SetInitialCameraRotation()
@@ -139,7 +145,7 @@ public class LevelManager : MonoBehaviour {
 
     private IEnumerator StartLevelCountdown()
     {
-        levelTimeLeft = (int)Mathf.Ceil(GameManager.instance.GetLevelDuration());
+        levelTimeLeft = (int)Mathf.Ceil(levelConfig.levelDuration);
         while (levelTimeLeft > 0)
         {
             uiController.SetTimerValue(levelTimeLeft--);
