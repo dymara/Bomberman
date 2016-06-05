@@ -86,17 +86,19 @@ public class LevelGenerator : MonoBehaviour
         if (player.bombRange >= LevelGeneratorConfig.MAX_PLAYER_BOMB_RANGE)
         {
             return 0;
-        } 
+        }
         else
         {
             return 1;
         }
-        
+
     }
 
     private int GetFasterMovingFindingsCount(int level, Player player)
     {
-        if (player.speed < LevelGeneratorConfig.MAX_PLAYER_SPEED && Random.value > LevelGeneratorConfig.FASTER_MOVING_FINDING_PROBABILITY)
+        if (level >= LevelGeneratorConfig.MIN_LEVEL_FOR_FASTER_MOVING &&
+            player.speed < LevelGeneratorConfig.MAX_PLAYER_SPEED &&
+            Random.value > LevelGeneratorConfig.FASTER_MOVING_FINDING_PROBABILITY)
         {
             return 1;
         }

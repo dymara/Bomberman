@@ -20,6 +20,8 @@
 	
 	public const int MIN_LEVEL_FOR_REMOTE_DETONATION = 3;
 	
+	public const int MIN_LEVEL_FOR_FASTER_MOVING = 3;
+	
 	public const float FASTER_MOVING_FINDING_PROBABILITY = 0.3f;
 	
 	public const float MAX_PLAYER_SPEED = 1.5f;
