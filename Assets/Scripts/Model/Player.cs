@@ -1,20 +1,17 @@
 using System;
-using UnityEditor;
 using UnityEngine;
 using System.Collections;
-using UnityStandardAssets.Characters.FirstPerson;
 using Assets.Scripts.Position;
 
 namespace Assets.Scripts.Model
 {
     public class Player : AbstractPlayer
     {
-        private int _bombs;
-
         private GameObject playerAvatar;
 
         public CameraPositionListener cameraPositionListener { set; get; }
 
+        private int _bombs;
         public int bombs {
             get { return _bombs; }
             set
@@ -54,18 +51,23 @@ namespace Assets.Scripts.Model
 
         private bool wait = false;
 
-        private FirstPersonController controller;
-
-        public Player(int lives) : base(lives)
-        {
-
-        }
+        public Player(int lives) : base(lives) { }
 
         void Awake()
         {
-            this.controller = gameObject.GetComponent<FirstPersonController>();
             this.playerAvatar = GameObject.Find("PlayerAvatar");
             DontDestroyOnLoad(gameObject);  // Sets this to not be destroyed when reloading scene
+        }
+
+        public void PrepareForNextLevel()
+        {
+            StartCoroutine(PrepareForNextLevelCoroutine());
+        }
+
+        private IEnumerator PrepareForNextLevelCoroutine()
+        {
+            yield return new WaitForSeconds(3); // [dymara] Hack for disabling exit events untill scene fade out animation finishes
+            this.exitReached = false;
         }
 
         /***********************************************************************/
@@ -90,6 +92,14 @@ namespace Assets.Scripts.Model
             GameManager.instance.OnPlayerLivesChanged(newValue);
         }
 
+        public override void OnExplode()
+        {
+            if (GameManager.instance.CanPlayerBeKilled())
+            {
+                base.OnExplode();
+            }
+        }
+
         public void TriggerKill()
         {
             remainingLives--;
@@ -106,24 +116,13 @@ namespace Assets.Scripts.Model
 
         private IEnumerator KillCoroutine()
         {
-            controller.DisableMoving();
+            GameManager.instance.GetFPSController().DisableMoving();
             if (wait)
             {
                 yield return new WaitForSeconds(1);
             }
 
-            if (remainingLives > 0)
-            {
-                EditorUtility.DisplayDialog("Bomberman 3D", "Unfortunately, you are dead...", "Repeat level");
-                controller.EnableMoving();
-                GameManager.instance.RestartLevel();
-            }
-            else
-            {
-                EditorUtility.DisplayDialog("Bomberman 3D", "GAME OVER!", "Return to main menu");
-                GameManager.instance.SwitchGameState(GameState.MAIN_MENU);
-                controller.EnableMoving();
-            }
+            GameManager.instance.EndCurrentLevel(false);
         }
 
         private IEnumerator OnExitReached()
@@ -135,16 +134,10 @@ namespace Assets.Scripts.Model
             int currentLevel = GameManager.instance.GetCurrentLevelNumber();
             Debug.Log(DateTime.Now + " Player has reached level " + currentLevel + " maze exit!");
 
-            bool answer = EditorUtility.DisplayDialog("Bomberman 3D", "Congratulations! Level " + currentLevel  + " cleared!", "Go to the next level", "Return to main menu");
-            if (answer) {
-                GameManager.instance.AdvanceToNextLevel();
-            }
-            else
-            {
-                GameManager.instance.SwitchGameState(GameState.MAIN_MENU);
-            }
-            yield return new WaitForSeconds(3); // [dymara] Hack for disabling exit events untill scene fade out animation finishes.
-            exitReached = false;
+            GameManager.instance.GetFPSController().DisableMoving();
+            GameManager.instance.EndCurrentLevel(true);
+
+            yield return null;
         }
 
         new void Update()

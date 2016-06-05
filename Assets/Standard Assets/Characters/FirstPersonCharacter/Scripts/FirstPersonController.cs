@@ -66,6 +66,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private float prevWalkSpeed;
         private float prevRunSpeed;
 
+        private bool disabled = false;
+
         // Use this for initialization
         private void Start()
         {
@@ -304,19 +306,27 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         public void DisableMoving()
         {
-            prevWalkSpeed = m_WalkSpeed;
-            prevRunSpeed = m_RunSpeed;
+            if (!disabled)
+            {
+                disabled = true;
+                prevWalkSpeed = m_WalkSpeed;
+                prevRunSpeed = m_RunSpeed;
 
-            m_WalkSpeed = 0;
-            m_RunSpeed = 0;
-            FixedUpdate();
+                m_WalkSpeed = 0;
+                m_RunSpeed = 0;
+                FixedUpdate();
+            }
         }
 
         public void EnableMoving()
         {
-            m_WalkSpeed = prevWalkSpeed;
-            m_RunSpeed = prevRunSpeed;
-            FixedUpdate();
+            if (disabled)
+            {
+                disabled = false;
+                m_WalkSpeed = prevWalkSpeed;
+                m_RunSpeed = prevRunSpeed;
+                FixedUpdate();
+            }
         }
 
         public void SetWalkSpeed(float speed)

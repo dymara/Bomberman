@@ -77,6 +77,7 @@ public class LevelManager : MonoBehaviour {
     void Start() {
         BeginGame();
         GameManager.instance.SetCameraMenuMode(false);
+        GameManager.instance.GetFPSController().EnableMoving();
     }
 
     // Update is called once per frame
