@@ -32,7 +32,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 439786}
   - 20: {fileID: 2077104}
-  - 81: {fileID: 8170102}
+  - 81: {fileID: 8133658}
   m_Layer: 0
   m_Name: FirstPersonCharacter
   m_TagString: MainCamera
@@ -147,7 +147,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!81 &8170102
+--- !u!81 &8133658
 AudioListener:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}

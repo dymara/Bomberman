@@ -23,7 +23,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 124396}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 582.21216, y: 268.17426, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -48,14 +48,8 @@ MonoBehaviour:
   initialPlayerBombRange: 1
   initialPlayerSpeed: 1
   initialPlayerRemoteDetonationBonus: 0
-  initialExtraBombFindings: 1
-  initialRangeBombFindings: 1
-  initialExtraLiveFindings: 1
-  initialFasterMovingFindings: 1
-  initialRemoteBombFindings: 0
   level1CubesXCount: 5
   level1CubesZCount: 5
-  level1EnemiesCount: 3
   exitExplosionEnemiesCount: 3
   enemiesMinDistance: 8
   findingSpinSpeed: 50
@@ -63,7 +57,6 @@ MonoBehaviour:
   findingFloatDist: 0.4
   exitSpinSpeed: 10
   bombDetonateDelay: 4
-  levelDurationPerBlock: 8
   blockDestructionPoints: 100
   findingPickupPoints: 1000
   enemyKillingPoints: 1000

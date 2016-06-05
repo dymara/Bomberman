@@ -128,16 +128,17 @@ public class UIController : MonoBehaviour
 
     public void SetTimerValue(float timer)
     {
-        float minutes = Mathf.Floor(timer / 60);
-        float seconds = Mathf.RoundToInt(timer % 60);
+        int hours = (int)Mathf.Floor(timer / 3600);
+        int minutes = (int)Mathf.Floor((timer - 3600 * hours) / 60);
+        int seconds = Mathf.RoundToInt(timer % 60);
 
-        if (seconds < 10)
+        if (hours > 0)
         {
-            timerValue.text = minutes.ToString() + ":" + "0" + seconds.ToString();
+            timerValue.text = hours.ToString() + ":" + minutes.ToString("D2") + ":" + seconds.ToString("D2");
         }
         else
         {
-            timerValue.text = minutes.ToString() + ":" + seconds.ToString();
+            timerValue.text = minutes.ToString() + ":" + seconds.ToString("D2");
         }
     }
 

@@ -36,10 +36,10 @@ public class SceneFader : MonoBehaviour
         GL.Color(aColor); // This function can only be called between GL.Begin and GL.End functions.
         GL.PushMatrix();
         GL.LoadOrtho();        
-        GL.Vertex3(0, 0, -12);
-        GL.Vertex3(0, 1, -12);
-        GL.Vertex3(1, 1, -12);
-        GL.Vertex3(1, 0, -12);
+        GL.Vertex3(0, 0, 0);
+        GL.Vertex3(0, 1, 0);
+        GL.Vertex3(1, 1, 0);
+        GL.Vertex3(1, 0, 0);
         GL.End();
         GL.PopMatrix();
     }

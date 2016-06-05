@@ -70,20 +70,29 @@ public class GameManager : MonoBehaviour {
                 // Hack - fadeOut time must be greater than zero. Otherwise animation framerate decreases significantly.
                 break;
             case GameState.MAIN_MENU:
-                SceneFader.LoadScene("Menu", 1, 0);
+                SceneFader.LoadScene("Menu", 1, 1);
                 break;
             case GameState.SCORE_BOARD:
                 SceneFader.LoadScene("ScoreBoard", 1, 0);
                 break;
             case GameState.GAMEPLAY:
                 Debug.Log(DateTime.Now + " Loading level " + levelNumber + "...");
-                SceneFader.LoadScene("Gameplay", 0, 1);
+                SceneFader.LoadScene("Gameplay", 1, 1);
                 player.bombs = player.maximumBombsCount;
                 Debug.Log(DateTime.Now + " Level " + levelNumber + " loaded successfully!");
                 break;
             default:
                 break;
         }
+    }
+
+    public void SetCameraMenuMode(bool setMenuMode)
+    {
+        // disable FPS Camera, MouseLook and enable cursor
+        GetPlayer().gameObject.transform.FindChild("FirstPersonCharacter").gameObject.SetActive(!setMenuMode);
+        GetPlayer().gameObject.SetActive(!setMenuMode);
+        Cursor.lockState = setMenuMode ? CursorLockMode.None : CursorLockMode.Locked;
+        Cursor.visible = setMenuMode;
     }
 
     public Player GetPlayer()
@@ -143,50 +152,9 @@ public class GameManager : MonoBehaviour {
         return configurator.findingFloatDist;
     }
 
-    public float GetExtraBombFindingsCount()
-    {
-        //TODO uzależnić od poziomu i ilości bomb u gracza
-        return configurator.initialExtraBombFindings; ;
-    }
-
-    public float GetExtraLiveFindingsCount()
-    {
-        //TODO uzależnić od poziomu i ilości żyć u gracza
-        return configurator.initialExtraLiveFindings;
-    }
-
-    public float GetRangeBombFindingsCount()
-    {
-        //TODO uzależnić od poziomu
-        return configurator.initialRangeBombFindings;
-    }
-
-    public float GetFasterMovingFindingsCount()
-    {
-        //TODO uzależnić od poziomu
-        return configurator.initialFasterMovingFindings;
-    }
-
-    public float GetRemoteDetonationFindingsCount()
-    {
-        //TODO uzależnić od poziomu
-        return configurator.initialRemoteBombFindings;
-    }
-
     public int GetBombDetonateDelay()
     {
         return configurator.bombDetonateDelay;
-    }
-
-    public float GetLevelDuration()
-    {
-        return GetCubesXCount() * GetCubesZCount() * configurator.levelDurationPerBlock;
-    }
-
-    public int GetEnemiesCount()
-    {
-        // TODO This method's result should be dependent on current level number value!
-        return configurator.level1EnemiesCount;
     }
 
     public int GetExitExplosionEnemiesCount()
