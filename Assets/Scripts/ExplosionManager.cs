@@ -7,8 +7,6 @@ using System.Collections;
 
 public class ExplosionManager : MonoBehaviour {
 
-    public Component cellHighlight;
-
     public GameObject[] explosions;
 
     public LevelManager levelManager;

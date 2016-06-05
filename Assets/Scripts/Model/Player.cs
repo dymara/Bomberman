@@ -1,11 +1,16 @@
 using System;
 using UnityEngine;
 using System.Collections;
+using Assets.Scripts.Position;
 
 namespace Assets.Scripts.Model
 {
     public class Player : AbstractPlayer
     {
+        private GameObject playerAvatar;
+
+        public CameraPositionListener cameraPositionListener { set; get; }
+
         private int _bombs;
         public int bombs {
             get { return _bombs; }
@@ -50,6 +55,7 @@ namespace Assets.Scripts.Model
 
         void Awake()
         {
+            this.playerAvatar = GameObject.Find("PlayerAvatar");
             DontDestroyOnLoad(gameObject);  // Sets this to not be destroyed when reloading scene
         }
 
@@ -132,6 +138,20 @@ namespace Assets.Scripts.Model
             GameManager.instance.EndCurrentLevel(true);
 
             yield return null;
+        }
+
+        new void Update()
+        {
+            Quaternion avatarRotation = playerAvatar.transform.rotation;
+            avatarRotation.y = (transform.rotation.y + 180) % 360;
+            playerAvatar.transform.rotation = avatarRotation;
+
+            if (cameraPositionListener != null)
+            {
+                cameraPositionListener.OnPostionChanged(transform.position);
+            }
+
+            base.Update();
         }
     }
 }
