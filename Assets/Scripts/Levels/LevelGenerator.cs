@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
-using System.Collections;
 using Assets.Scripts.Model;
 
 public class LevelGenerator : MonoBehaviour
 {
+    private System.Random random = new System.Random();
+
     public LevelConfig GenerateLevelConfig(int level, Player player)
     {
         LevelConfig levelConfig = new LevelConfig();
@@ -16,7 +17,7 @@ public class LevelGenerator : MonoBehaviour
         levelConfig.findingFasterMovingCount = GetFasterMovingFindingsCount(level, player);
         levelConfig.findingRemoteDetonationCount = GetRemoteDetonationFindingsCount(level, player);
 
-        Debug.Log("Level Config: " + levelConfig.ToString());
+        Debug.Log(levelConfig.ToString());
 
         return levelConfig;
     }
@@ -27,27 +28,28 @@ public class LevelGenerator : MonoBehaviour
     */
     private Vector2 GetBoardSize(int level)
     {
-        int sizeX = LevelGeneratorConfig.LEVEL_1_BOARD_SIZE + level / LevelGeneratorConfig.LEVELS_TO_INCREASE_BOARD_SIZE;
-        int sizeZ = LevelGeneratorConfig.LEVEL_1_BOARD_SIZE + level / LevelGeneratorConfig.LEVELS_TO_INCREASE_BOARD_SIZE;
+        int divider = LevelGeneratorConfig.LEVELS_TO_INCREASE_BOARD_SIZE;
 
-        return new Vector2(sizeX, sizeZ);
+        int baseSize = LevelGeneratorConfig.LEVEL_1_BOARD_SIZE + (level - 1) / divider;
+        int deltaX = (level % divider == divider - 1) ? 1 : 0;
+        int deltaY = (level % divider == 0) ? 1 : 0;
+
+        return new Vector2(baseSize + deltaX, baseSize + deltaY);
     }
 
     private int GetMonstersCount(int level)
     {
-        int monstersCount = level;
+        int monstersCount = Mathf.Max(1, level / 2);
         float additionalMonsterChance = 0.7f;
         int i = level;
         while (i-- > 0)
         {
-            if (Random.value < additionalMonsterChance)
+            if (random.NextDouble() < additionalMonsterChance)
             {
                 monstersCount++;
-                additionalMonsterChance = additionalMonsterChance * 0.7f;
+                additionalMonsterChance *= 0.7f;
             }
         }
-        monstersCount = Mathf.Max(monstersCount, level);
-        Debug.Log("Level: " + level + " Enemies count:" + monstersCount);
         return monstersCount;
     }
 
@@ -65,7 +67,7 @@ public class LevelGenerator : MonoBehaviour
         }
         else
         {
-            if (Random.value <= GetExtraBombFindingProbability(player))
+            if (random.NextDouble() <= GetExtraBombFindingProbability(player))
             {
                 return 1;
             }
