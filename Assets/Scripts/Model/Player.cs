@@ -3,6 +3,7 @@ using UnityEditor;
 using UnityEngine;
 using System.Collections;
 using UnityStandardAssets.Characters.FirstPerson;
+using Assets.Scripts.Position;
 
 namespace Assets.Scripts.Model
 {
@@ -10,6 +11,9 @@ namespace Assets.Scripts.Model
     {
         private int _bombs;
 
+        private GameObject playerAvatar;
+
+        public CameraPositionListener cameraPositionListener { set; get; }
 
         public int bombs {
             get { return _bombs; }
@@ -60,6 +64,7 @@ namespace Assets.Scripts.Model
         void Awake()
         {
             this.controller = gameObject.GetComponent<FirstPersonController>();
+            this.playerAvatar = GameObject.Find("PlayerAvatar");
             DontDestroyOnLoad(gameObject);  // Sets this to not be destroyed when reloading scene
         }
 
@@ -140,6 +145,20 @@ namespace Assets.Scripts.Model
             }
             yield return new WaitForSeconds(3); // [dymara] Hack for disabling exit events untill scene fade out animation finishes.
             exitReached = false;
+        }
+
+        new void Update()
+        {
+            Quaternion avatarRotation = playerAvatar.transform.rotation;
+            avatarRotation.y = (transform.rotation.y + 180) % 360;
+            playerAvatar.transform.rotation = avatarRotation;
+
+            if (cameraPositionListener != null)
+            {
+                cameraPositionListener.OnPostionChanged(transform.position);
+            }
+
+            base.Update();
         }
     }
 }

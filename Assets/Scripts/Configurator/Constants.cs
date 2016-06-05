@@ -25,4 +25,8 @@
     public const int MAX_LIVES_COUNT = 6;
 
     public const int MAX_BOMBS_COUNT = 5;
+
+    public const string MINIMAP_NAME = "Minimap";
+
+    public const string MINIMAP_CAMERA_NAME = "MinimapCamera";
 }

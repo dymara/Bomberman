@@ -12,12 +12,15 @@ namespace Assets.Scripts.Model
 
         public AudioClip pickUpSound;
 
+        public GameObject minimapObject { set; get; }
+
         private PositionConverter positionConverter;
 
         private bool pickedUp = false;
 
         public override void OnExplode()
         {
+            Destroy(minimapObject);
             Destroy(this.gameObject);
         }
 
@@ -28,6 +31,7 @@ namespace Assets.Scripts.Model
                 pickedUp = true;
                 PlayFlashEffect();
                 PlaySoundEffect();
+                Destroy(minimapObject);
                 Destroy(this.gameObject);
 
                 PowerUp(player);

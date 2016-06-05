@@ -2,12 +2,21 @@
 using UnityEngine.UI;
 using System.Collections;
 using Assets.Scripts.Model;
+using Assets.Scripts.Position;
 
 public class UIController : MonoBehaviour
 {
     private const float FADE_ANIMATION_DURATION = 0.5f;
 
     private const float MESSAGE_DISPLAY_DURATION = 1.0f;
+
+    private const float WIDTH_CORRECTION = 7;
+
+    private const float HEIGHT_CORRECTION = 5;
+
+    private const float MINIMAP_X_CORRECTION = 3;
+
+    private const float MINIMAP_Y_CORRECTION = 2;
 
     private const float LEVEL_MESSAGE_DISPLAY_DURATION = 3.0f;
 
@@ -69,7 +78,7 @@ public class UIController : MonoBehaviour
         }
     }
 
-    public void InitializeHUD()
+    public void InitializeHUD(float mazeWidth, float mazeLength)
     {
         Player player = GameManager.instance.GetPlayer();
         SetLivesCount(player.remainingLives);
@@ -78,6 +87,7 @@ public class UIController : MonoBehaviour
         SetRangeBonusValue(player.bombRange);
         SetSpeedBonusValue(player.speed);
         SetRemoteDetonationBonusAvailable(player.remoteDetonationBonus);
+        PrepareMiniMap(player, mazeWidth, mazeLength);
         StartCoroutine(DoShowLevelMessage());
     }
 
@@ -159,6 +169,28 @@ public class UIController : MonoBehaviour
         messageText.text = text;
         yield return new WaitForSeconds(MESSAGE_DISPLAY_DURATION);
         messageText.CrossFadeAlpha(0.0f, FADE_ANIMATION_DURATION, false);
+    }
+
+
+    private void PrepareMiniMap(Player player, float mazeWidth, float mazeLength)
+    {
+        GameObject minimapCameraObject = GameObject.Find(Constants.MINIMAP_CAMERA_NAME);
+        Camera minimapCamera = minimapCameraObject.GetComponent<Camera>();
+        AdjustMiniMapSizeAndPosition(minimapCamera);
+        player.cameraPositionListener = new CameraPositionListener(minimapCamera, mazeWidth, mazeLength);
+        player.cameraPositionListener.OnPostionChanged(player.transform.position);
+    }
+
+    private void AdjustMiniMapSizeAndPosition(Camera minimapCamera)
+    {
+        GameObject minimap = GameObject.Find(Constants.MINIMAP_NAME);
+        RectTransform transform = minimap.GetComponent<RectTransform>();
+        Rect cameraRect = minimapCamera.rect;
+        cameraRect.width = (transform.rect.width - WIDTH_CORRECTION) / Screen.width;
+        cameraRect.height = (transform.rect.height - HEIGHT_CORRECTION) / Screen.height;
+        cameraRect.x = (MINIMAP_X_CORRECTION + transform.position.x - transform.rect.width / 2) / Screen.width;
+        cameraRect.y = (MINIMAP_Y_CORRECTION + transform.position.y - transform.rect.height / 2) / Screen.height;
+        minimapCamera.rect = cameraRect;
     }
 
     private IEnumerator DoShowLevelMessage()

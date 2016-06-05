@@ -2,10 +2,11 @@
 using Assets.Scripts.Model;
 using Assets.Scripts.Util;
 using Assets.Scripts.Board;
+using Assets.Scripts.Position;
 
-namespace Assets.Scripts.Postion
+namespace Assets.Scripts.Position
 {
-    public class PostionListener
+    public class BoardPostionListener : IPositionListener
     {
         private AbstractPlayer player;
 
@@ -15,7 +16,7 @@ namespace Assets.Scripts.Postion
 
         private GameCell currentCell;
 
-        public PostionListener(AbstractPlayer player, Board.Board board, PositionConverter positonConverter)
+        public BoardPostionListener(AbstractPlayer player, Board.Board board, PositionConverter positonConverter)
         {
             this.player = player;
             this.board = board;
