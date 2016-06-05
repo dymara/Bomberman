@@ -5,13 +5,19 @@ using Assets.Scripts.Model;
 
 public class UIController : MonoBehaviour
 {
-    private const float FADE_ANIMATION_DURATION = 0.5f;
+    private const float MESSAGE_FADE_ANIMATION_DURATION = 0.5f;
 
     private const float MESSAGE_DISPLAY_DURATION = 1.0f;
 
     private const float LEVEL_MESSAGE_DISPLAY_DURATION = 3.0f;
 
+    private const float GAMEPLAY_FADE_DURATION = 1.0f;
+
+    private const float LETTER_TYPING_DELAY = 0.05f;
+
     private IEnumerator messageCorutine;
+
+    /******************* HUD ELEMENTS *******************/
 
     private Text messageText;
 
@@ -31,7 +37,60 @@ public class UIController : MonoBehaviour
 
     private Image remoteDetonation;
 
+    /***************** SUMMARY ELEMENTS *****************/
+
+    private IEnumerator summaryDisplayCoroutine;
+
+    private GameObject summaryPane;
+
+    private Text summaryText;
+
+    private Text clearBonusText;
+
+    private Text clearBonusValue;
+
+    private Text blocksBonusText;
+
+    private Text blocksBonusValue;
+
+    private Text enemiesBonusText;
+
+    private Text enemiesBonusValue;
+
+    private Text pickupBonusText;
+
+    private Text pickupBonusValue;
+
+    private Text timeBonusText;
+
+    private Text timeBonusValue;
+
+    private Text totalScoreText;
+
+    private string clearBonusValueString;
+
+    private string blocksBonusValueString;
+
+    private string monsterBonusValueString;
+
+    private string pickupBonusValueString;
+
+    private string timeBonusValueString;
+
+    private string totalScoreString;
+
+    private bool displaySkipAllowed = false;
+
+    private bool summarySkipAllowed = false;
+
     void Awake()
+    {
+        InitializeHUDElements();
+        InitializeSummaryElements();
+        InitializeWatermark();
+    }
+
+    private void InitializeHUDElements()
     {
         this.messageText = GameObject.Find("Message").GetComponent<Text>();
         this.levelMessageText = GameObject.Find("Level Message").GetComponent<Text>();
@@ -57,7 +116,25 @@ public class UIController : MonoBehaviour
         this.speedValue = GameObject.Find("Speed Bonus Value").GetComponent<Text>();
 
         this.remoteDetonation = GameObject.Find("Remote Detonation Bonus").GetComponent<Image>();
-        InitializeWatermark();
+    }
+
+    private void InitializeSummaryElements()
+    {
+        this.summaryPane = GameObject.Find("Level Summary");
+        this.summaryText = GameObject.Find("Summary Message").GetComponent<Text>();
+
+        this.clearBonusText = GameObject.Find("Clear Bonus Text").GetComponent<Text>();
+        this.clearBonusValue = GameObject.Find("Clear Bonus Value").GetComponent<Text>();
+        this.blocksBonusText = GameObject.Find("Block Destroy Bonus Text").GetComponent<Text>();
+        this.blocksBonusValue = GameObject.Find("Block Destroy Bonus Value").GetComponent<Text>();
+        this.enemiesBonusText = GameObject.Find("Enemy Kill Bonus Text").GetComponent<Text>();
+        this.enemiesBonusValue = GameObject.Find("Enemy Kill Bonus Value").GetComponent<Text>();
+        this.pickupBonusText = GameObject.Find("Pickup Bonus Text").GetComponent<Text>();
+        this.pickupBonusValue = GameObject.Find("Pickup Bonus Value").GetComponent<Text>();
+        this.timeBonusText = GameObject.Find("Time Bonus Text").GetComponent<Text>();
+        this.timeBonusValue = GameObject.Find("Time Bonus Value").GetComponent<Text>();
+
+        this.totalScoreText = GameObject.Find("Total Message").GetComponent<Text>();
     }
 
     private void InitializeWatermark()
@@ -155,19 +232,181 @@ public class UIController : MonoBehaviour
     private IEnumerator DoShowMessage(string text)
     {
         messageText.canvasRenderer.SetAlpha(0.0f);
-        messageText.CrossFadeAlpha(1.0f, FADE_ANIMATION_DURATION, false);
+        messageText.CrossFadeAlpha(1.0f, MESSAGE_FADE_ANIMATION_DURATION, false);
         messageText.text = text;
         yield return new WaitForSeconds(MESSAGE_DISPLAY_DURATION);
-        messageText.CrossFadeAlpha(0.0f, FADE_ANIMATION_DURATION, false);
+        messageText.CrossFadeAlpha(0.0f, MESSAGE_FADE_ANIMATION_DURATION, false);
     }
 
     private IEnumerator DoShowLevelMessage()
     {
         levelMessageText.canvasRenderer.SetAlpha(0.0f);
-        levelMessageText.CrossFadeAlpha(1.0f, 2 * FADE_ANIMATION_DURATION, false);
+        levelMessageText.CrossFadeAlpha(1.0f, 2 * MESSAGE_FADE_ANIMATION_DURATION, false);
         levelMessageText.text = "LEVEL " + GameManager.instance.GetCurrentLevelNumber();
         yield return new WaitForSeconds(LEVEL_MESSAGE_DISPLAY_DURATION);
-        levelMessageText.CrossFadeAlpha(0.0f, 3 * FADE_ANIMATION_DURATION, false);
+        levelMessageText.CrossFadeAlpha(0.0f, 3 * MESSAGE_FADE_ANIMATION_DURATION, false);
+    }
+
+    /***************************************** LEVEL SUMMARY SCREEEN METHODS *****************************************/
+
+    public void Update()
+    {
+        if (displaySkipAllowed)
+        {
+            if (Input.anyKeyDown)
+            {
+                StopCoroutine(summaryDisplayCoroutine);
+                clearBonusText.text = SummaryStringConstants.CLEAR_BONUS_MESSAGE;
+                clearBonusValue.text = clearBonusValueString;
+                blocksBonusText.text = SummaryStringConstants.BLOCKS_BONUS_MESSAGE;
+                blocksBonusValue.text = blocksBonusValueString;
+                enemiesBonusText.text = SummaryStringConstants.MONSTERS_BONUS;
+                enemiesBonusValue.text = monsterBonusValueString;
+                pickupBonusText.text = SummaryStringConstants.PICKUPS_BONUS;
+                pickupBonusValue.text = pickupBonusValueString;
+                timeBonusText.text = SummaryStringConstants.TIME_BONUS;
+                timeBonusValue.text = timeBonusValueString;
+                totalScoreText.text = totalScoreString;
+                displaySkipAllowed = false;
+                summarySkipAllowed = true;
+            }
+        }
+        else if (summarySkipAllowed)
+        {
+            if (Input.anyKeyDown)
+            {
+                summarySkipAllowed = false;
+                GameManager.instance.OnSummaryDisplayingFinished();
+            }
+        }
+    }
+
+    public void DisplayLevelSummary(bool cleared, int remainingLives, int clearBonus, int blocksBonus, int monsterBonus, int pickupBonus, int timeBonus)
+    {
+        this.clearBonusValueString = clearBonus.ToString();
+        this.blocksBonusValueString = blocksBonus.ToString();
+        this.monsterBonusValueString = monsterBonus.ToString();
+        this.pickupBonusValueString = pickupBonus.ToString();
+        this.timeBonusValueString = timeBonus.ToString();
+        this.totalScoreString = string.Format(SummaryStringConstants.TOTAL_SCORE, (clearBonus + blocksBonus + monsterBonus + pickupBonus + timeBonus));
+
+        this.summaryDisplayCoroutine = SummaryDisplayCoroutine(GetTopMessageString(cleared, remainingLives));
+        StartCoroutine(summaryDisplayCoroutine);
+    }
+
+    private string GetTopMessageString(bool levelCleared, int remainingLives)
+    {
+        if (levelCleared)
+        {
+            return SummaryStringConstants.LEVEL_CLEARED_MESSAGE;
+        } else
+        {
+            return remainingLives > 0 ? SummaryStringConstants.PLAYER_KILLED_MESSAGE : SummaryStringConstants.GAME_OVER_MESSAGE;
+        }
+    }
+
+    private IEnumerator SummaryDisplayCoroutine(string topMessage)
+    {
+        // fade gameplay
+        Image image = summaryPane.GetComponent<Image>();
+        while (image.color.a < 1)
+        {
+            float oldAlpha = image.color.a;
+            summaryPane.GetComponent<Image>().color = new Color(0, 0, 0, oldAlpha + Time.deltaTime / GAMEPLAY_FADE_DURATION);
+            yield return null;
+        }
+
+        // display summary - top message
+        for (int i = 0; i <= topMessage.Length; i++)
+        {
+            summaryText.text = topMessage.Substring(0, i);
+            yield return new WaitForSeconds(LETTER_TYPING_DELAY);
+        }
+        this.displaySkipAllowed = true;
+        // display summary - clear bonus
+        for (int i = 0; i <= SummaryStringConstants.CLEAR_BONUS_MESSAGE.Length; i++)
+        {
+            clearBonusText.text = SummaryStringConstants.CLEAR_BONUS_MESSAGE.Substring(0, i);
+            yield return new WaitForSeconds(LETTER_TYPING_DELAY);
+        }
+        for (int i = 0; i <= this.clearBonusValueString.Length; i++)
+        {
+            clearBonusValue.text = this.clearBonusValueString.Substring(0, i);
+            yield return new WaitForSeconds(LETTER_TYPING_DELAY);
+        }
+        // display summary - blocks bonus
+        for (int i = 0; i <= SummaryStringConstants.BLOCKS_BONUS_MESSAGE.Length; i++)
+        {
+            blocksBonusText.text = SummaryStringConstants.BLOCKS_BONUS_MESSAGE.Substring(0, i);
+            yield return new WaitForSeconds(LETTER_TYPING_DELAY);
+        }
+        for (int i = 0; i <= this.blocksBonusValueString.Length; i++)
+        {
+            blocksBonusValue.text = this.blocksBonusValueString.Substring(0, i);
+            yield return new WaitForSeconds(LETTER_TYPING_DELAY);
+        }
+        // display summary - enemies bonus
+        for (int i = 0; i <= SummaryStringConstants.MONSTERS_BONUS.Length; i++)
+        {
+            enemiesBonusText.text = SummaryStringConstants.MONSTERS_BONUS.Substring(0, i);
+            yield return new WaitForSeconds(LETTER_TYPING_DELAY);
+        }
+        for (int i = 0; i <= this.monsterBonusValueString.Length; i++)
+        {
+            enemiesBonusValue.text = this.monsterBonusValueString.Substring(0, i);
+            yield return new WaitForSeconds(LETTER_TYPING_DELAY);
+        }
+        // display summary - pickup bonus
+        for (int i = 0; i <= SummaryStringConstants.PICKUPS_BONUS.Length; i++)
+        {
+            pickupBonusText.text = SummaryStringConstants.PICKUPS_BONUS.Substring(0, i);
+            yield return new WaitForSeconds(LETTER_TYPING_DELAY);
+        }
+        for (int i = 0; i <= this.pickupBonusValueString.Length; i++)
+        {
+            pickupBonusValue.text = this.pickupBonusValueString.Substring(0, i);
+            yield return new WaitForSeconds(LETTER_TYPING_DELAY);
+        }
+        // display summary - time bonus
+        for (int i = 0; i <= SummaryStringConstants.TIME_BONUS.Length; i++)
+        {
+            timeBonusText.text = SummaryStringConstants.TIME_BONUS.Substring(0, i);
+            yield return new WaitForSeconds(LETTER_TYPING_DELAY);
+        }
+        for (int i = 0; i <= this.timeBonusValueString.Length; i++)
+        {
+            timeBonusValue.text = this.timeBonusValueString.Substring(0, i);
+            yield return new WaitForSeconds(LETTER_TYPING_DELAY);
+        }
+        // display summary - total score
+        for (int i = 0; i <= this.totalScoreString.Length; i++)
+        {
+            totalScoreText.text = this.totalScoreString.Substring(0, i);
+            yield return new WaitForSeconds(LETTER_TYPING_DELAY);
+        }
+        this.displaySkipAllowed = false;
+        this.summarySkipAllowed = true;
+    }
+
+    private class SummaryStringConstants
+    {
+        public const string LEVEL_CLEARED_MESSAGE = "Level Cleared!";
+
+        public const string GAME_OVER_MESSAGE = "Game Over!";
+
+        public const string PLAYER_KILLED_MESSAGE = "Player Killed!";
+
+        public const string CLEAR_BONUS_MESSAGE = "Level Clear Bonus";
+
+        public const string BLOCKS_BONUS_MESSAGE = "Block Destroy Bonus";
+
+        public const string MONSTERS_BONUS = "Enemy Kill Bonus";
+
+        public const string PICKUPS_BONUS = "Pickup Bonus";
+
+        public const string TIME_BONUS = "Time Bonus";
+
+        public const string TOTAL_SCORE = "Level Score: {0:0}";
     }
 
 }

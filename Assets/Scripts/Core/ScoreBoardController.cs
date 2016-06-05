@@ -7,7 +7,7 @@ public class ScoreBoardController : MonoBehaviour
     void Start()
     {
         // TODO - THIS IS A TEMPORARY SOLUTION BEFORE A SCORE BOARD SCENE GETS IMPLEMENTED
-        GameManager.instance.SwitchGameState(GameState.GAMEPLAY);
+        GameManager.instance.SwitchGameState(GameState.MAIN_MENU);
     }
 
     // Update is called once per frame

@@ -17,6 +17,10 @@ public class GameManager : MonoBehaviour {
 
     private Player player;
 
+    private LevelScore levelScore;
+
+    private bool levelCleared;
+
     // Awake is always called before any Start functions
     void Awake()
     {
@@ -48,6 +52,7 @@ public class GameManager : MonoBehaviour {
         player.bombRange = configurator.initialPlayerBombRange;
         player.speed = configurator.initialPlayerSpeed;
         player.remoteDetonationBonus = configurator.initialPlayerRemoteDetonationBonus;
+        levelScore = new LevelScore();
     }
 
     // Update is called once per frame
@@ -73,7 +78,7 @@ public class GameManager : MonoBehaviour {
                 SceneFader.LoadScene("Menu", 1, 1);
                 break;
             case GameState.SCORE_BOARD:
-                SceneFader.LoadScene("ScoreBoard", 1, 0);
+                SceneFader.LoadScene("ScoreBoard", 1, 1);
                 break;
             case GameState.GAMEPLAY:
                 Debug.Log(DateTime.Now + " Loading level " + levelNumber + "...");
@@ -100,26 +105,63 @@ public class GameManager : MonoBehaviour {
         return player;
     }
 
+    public FirstPersonController GetFPSController()
+    {
+        return player.GetComponent<FirstPersonController>();
+    }
+
     public void SetCameraRotation(Vector3 rotation)
     {
-        FirstPersonController fpsController = player.GetComponent<FirstPersonController>();
-        fpsController.SetCameraRotation(rotation);
+        GetFPSController().SetCameraRotation(rotation);
+    }
+
+    public void EndCurrentLevel(bool cleared)
+    {
+        if (levelScore != null)
+        {
+            this.levelCleared = cleared;
+            GetUIController().DisplayLevelSummary(cleared, player.remainingLives, levelScore.clearBonus, levelScore.blocksBonus, levelScore.monsterBonus, levelScore.pickupBonus, levelScore.timeBonus);
+            levelScore = null;
+        }
+    }
+
+    public void OnSummaryDisplayingFinished()
+    {
+        if (levelCleared)
+        {
+            AdvanceToNextLevel();
+        } else if (!levelCleared && player.remainingLives > 0)
+        {
+            RestartLevel();
+        } else
+        {
+            SwitchGameState(GameState.MAIN_MENU);
+        }
     }
 
     public void AdvanceToNextLevel()
     {
         levelNumber++;
         SwitchGameState(GameState.GAMEPLAY);
+        player.PrepareForNextLevel();
+        levelScore = new LevelScore();
     }
 
     public void RestartLevel()
     {
         SwitchGameState(GameState.GAMEPLAY);
+        player.PrepareForNextLevel();
+        levelScore = new LevelScore();
     }
 
     public void ResetPlayerState()
     {
         Init();
+    }
+
+    public bool CanPlayerBeKilled()
+    {
+        return levelScore != null;  // level score is null only when summary screen is being displayed
     }
 
     public int GetCurrentLevelNumber()
@@ -165,18 +207,6 @@ public class GameManager : MonoBehaviour {
     public int GetEnemiesMinimumDistance()
     {
         return configurator.enemiesMinDistance;
-    }
-
-    public int GetCubesXCount()
-    {
-        // TODO This method's result should be dependent on current level number value!
-        return configurator.level1CubesXCount;
-    }
-
-    public int GetCubesZCount()
-    {
-        // TODO This method's result should be dependent on current level number value!
-        return configurator.level1CubesZCount;
     }
 
     public float GetCellSize()
@@ -283,24 +313,54 @@ public class GameManager : MonoBehaviour {
 
     public void OnBlockDestroyed()
     {
-        player.score += configurator.blockDestructionPoints;
+        if (levelScore != null)
+        {
+            levelScore.blocksBonus += configurator.blockDestructionPoints;
+            player.score += configurator.blockDestructionPoints;
+        }
     }
 
     public void OnFindingPickedUp()
     {
-        player.score += configurator.findingPickupPoints;
+        if (levelScore != null)
+        {
+            levelScore.pickupBonus += configurator.findingPickupPoints;
+            player.score += configurator.findingPickupPoints;
+        }
     }
 
     public void OnEnemyKilled()
     {
-        player.score += configurator.enemyKillingPoints;
+        if (levelScore != null)
+        {
+            levelScore.monsterBonus += configurator.enemyKillingPoints;
+            player.score += configurator.enemyKillingPoints;
+        }
     }
 
     public void OnLevelCleared(int timeLeft)
     {
-        int levelBonus = levelNumber * configurator.levelClearedPoints;
-        int timeBonus = timeLeft * configurator.timeMultiplierPoints;
-        player.score += levelBonus + timeBonus;
+        if (levelScore != null)
+        {
+            int levelBonus = levelNumber * configurator.levelClearedPoints;
+            levelScore.clearBonus = levelBonus;
+            int timeBonus = timeLeft * configurator.timeMultiplierPoints;
+            levelScore.timeBonus = timeBonus;
+            player.score += levelBonus + timeBonus;
+        }
+    }
+
+    private class LevelScore
+    {
+        public int clearBonus { set; get; }
+
+        public int blocksBonus { set; get; }
+
+        public int monsterBonus { set; get; }
+        
+        public int pickupBonus { set; get; }
+
+        public int timeBonus { set; get; }
     }
 
 }
