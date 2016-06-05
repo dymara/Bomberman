@@ -86,6 +86,15 @@ public class GameManager : MonoBehaviour {
         }
     }
 
+    public void SetCameraMenuMode(bool setMenuMode)
+    {
+        // disable FPS Camera, MouseLook and enable cursor
+        GetPlayer().gameObject.transform.FindChild("FirstPersonCharacter").gameObject.SetActive(!setMenuMode);
+        GetPlayer().gameObject.SetActive(!setMenuMode);
+        Cursor.lockState = setMenuMode ? CursorLockMode.None : CursorLockMode.Locked;
+        Cursor.visible = setMenuMode;
+    }
+
     public Player GetPlayer()
     {
         return player;
