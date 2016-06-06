@@ -115,7 +115,7 @@ public class Maze : MonoBehaviour
     private void CreateWalls(float boardWidth, float boardLength, float wallHeight)
     {
         TailTexture(wallA, boardWidth / WALL_TEXTURE_WIDTH, 1.0f);
-        wallA.transform.localScale = new Vector3(boardWidth + WALL_THICKNESS, wallHeight, WALL_THICKNESS);
+        wallA.transform.localScale = new Vector3(boardWidth + 2 * WALL_THICKNESS, wallHeight, WALL_THICKNESS);
         CreateGameObject(boardWidth / 2, wallHeight / 2, boardLength + WALL_THICKNESS / 2, wallA, "Wall1");
         CreateGameObject(boardWidth / 2, wallHeight / 2, -(WALL_THICKNESS / 2), wallA, "Wall2");
 
