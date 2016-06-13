@@ -2748,7 +2748,12 @@ Prefab:
     - target: {fileID: 11481908, guid: 71aea5113141c4848a7df8476a53e7c9, type: 2}
       propertyPath: bombPrefab
       value: 
-      objectReference: {fileID: 11495666, guid: 63172036b310625478a47691d9a8693a,
+      objectReference: {fileID: 11479528, guid: f313e6aa90cd28747bed3f41eda3e61e,
+        type: 2}
+    - target: {fileID: 11481908, guid: 71aea5113141c4848a7df8476a53e7c9, type: 2}
+      propertyPath: bombWithTimerPrefab
+      value: 
+      objectReference: {fileID: 11491522, guid: 63172036b310625478a47691d9a8693a,
         type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 71aea5113141c4848a7df8476a53e7c9, type: 2}
@@ -2766,7 +2771,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mazePrefab: {fileID: 965791087}
-  bombPrefab: {fileID: 11495666, guid: 63172036b310625478a47691d9a8693a, type: 2}
+  bombPrefab: {fileID: 11479528, guid: f313e6aa90cd28747bed3f41eda3e61e, type: 2}
+  bombWithTimerPrefab: {fileID: 11491522, guid: 63172036b310625478a47691d9a8693a,
+    type: 2}
   monsterPrefab: {fileID: 132228, guid: be52c1412023b4689a61a1afb7ecb098, type: 2}
   aiSpawner: {fileID: 830500031}
   levelGenerator: {fileID: 695950906}

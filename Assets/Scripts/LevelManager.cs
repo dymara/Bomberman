@@ -12,6 +12,8 @@ public class LevelManager : MonoBehaviour {
 
     public Bomb bombPrefab;
 
+    public BombWithTimer bombWithTimerPrefab;
+
     public GameObject monsterPrefab;
 
     public AISpawner aiSpawner;
@@ -82,10 +84,14 @@ public class LevelManager : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        if (Input.GetKeyDown("f")) {
+        if (Input.GetKeyDown(KeyCode.Space)) {
             Vector3 sceneBombPosition = board.GetPlayers()[0].transform.position + board.GetPlayers()[0].transform.forward;
             Vector2 boardBombPosition = positionConverter.ConvertScenePositionToBoard(sceneBombPosition);
-            explosionManager.PutBomb(player, bombPrefab, boardBombPosition);
+            explosionManager.PutBomb(player, player.remoteDetonationBonus ? bombPrefab : bombWithTimerPrefab, boardBombPosition);
+        }
+        else if (Input.GetKeyDown(KeyCode.Q) && player.remoteDetonationBonus)
+        {
+               explosionManager.DetonateBombs(player);
         }
     }
 
