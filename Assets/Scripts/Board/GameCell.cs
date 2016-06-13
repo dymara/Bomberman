@@ -20,6 +20,14 @@ namespace Assets.Scripts.Board
 
         private int monstersCount;
 
+        private bool _suppressExplosion = false;
+
+        public bool suppressExplosion
+        {
+            get { return _suppressExplosion; }
+            set { _suppressExplosion = value; }
+        }
+
         public GameCell(Vector2 coordinates)
         {
             this.coordinates = coordinates;
@@ -48,6 +56,10 @@ namespace Assets.Scripts.Board
 
         public void Explode()
         {
+            if (_suppressExplosion)
+            {
+                return;
+            }
             ExplodeFinding();
             ExplodeBlock();
             ExplodeBomb();
