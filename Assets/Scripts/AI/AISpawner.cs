@@ -10,7 +10,7 @@ public class AISpawner : MonoBehaviour
 {
     public GameObject monsterPrefab;
 
-    private int enemiesCountAfterExitExploded;
+    private LevelConfig levelConfig;
 
     private int minDistance;    
 
@@ -18,7 +18,6 @@ public class AISpawner : MonoBehaviour
 
     void Awake()
     {
-        this.enemiesCountAfterExitExploded = GameManager.instance.GetExitExplosionEnemiesCount();
         this.minDistance = GameManager.instance.GetEnemiesMinimumDistance();
     }
 
@@ -27,7 +26,12 @@ public class AISpawner : MonoBehaviour
         this.positionManager = positionManager;
     }
 
-    public void SpawnEnemies(Board board, PositionConverter positionConverter, Vector2 originPoint, LevelConfig levelConfig)
+    public void SetLevelConfig(LevelConfig levelConfig)
+    {
+        this.levelConfig = levelConfig;
+    }
+
+    public void SpawnEnemies(Board board, PositionConverter positionConverter, Vector2 originPoint)
     {
         List<GameCell> freeCells = board.GetFreeCellsAtMinDistance(originPoint, minDistance);
         freeCells.Shuffle();
@@ -54,7 +58,7 @@ public class AISpawner : MonoBehaviour
 
     public void SpawnEnemiesAfterExitExploded(Vector3 exitPosition)
     {
-        StartCoroutine(SpawnEnemiesCoroutine(enemiesCountAfterExitExploded, 1.3f, exitPosition));
+        StartCoroutine(SpawnEnemiesCoroutine(levelConfig.enemiesCountAfterExitExploded, 2.0f, exitPosition));
     }
 
     private IEnumerator SpawnEnemiesCoroutine(int count, float interval, Vector3 scenePosition)

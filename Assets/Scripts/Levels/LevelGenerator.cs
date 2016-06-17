@@ -17,6 +17,7 @@ public class LevelGenerator : MonoBehaviour
         levelConfig.findingBombRangeCount = GetBombRangeFindingsCount(level, player);
         levelConfig.findingFasterMovingCount = GetFasterMovingFindingsCount(level, player);
         levelConfig.findingRemoteDetonationCount = GetRemoteDetonationFindingsCount(level, player);
+        levelConfig.enemiesCountAfterExitExploded = GetEnemiesCountAfterExitExploded(levelConfig.monstersCount);
 
         Debug.Log(DateTime.Now + " " + levelConfig.ToString());
 
@@ -133,5 +134,10 @@ public class LevelGenerator : MonoBehaviour
         {
             return level >= LevelGeneratorConfig.MIN_LEVEL_FOR_REMOTE_DETONATION ? 1 : 0;
         }
+    }
+
+    private int GetEnemiesCountAfterExitExploded(int currentLevelMonstersCount)
+    {
+        return Mathf.Max(GameManager.instance.GetExitExplosionEnemiesCount(), currentLevelMonstersCount / 3);
     }
 }

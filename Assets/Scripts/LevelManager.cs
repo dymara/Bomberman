@@ -128,8 +128,9 @@ public class LevelManager : MonoBehaviour {
     private void InitAI() 
     {
         aiSpawner.SetPostitionManager(positionManager);
+        aiSpawner.SetLevelConfig(levelConfig);
         Vector2 playerPosition = positionConverter.ConvertScenePositionToBoard(player.gameObject.transform.position);
-        aiSpawner.SpawnEnemies(board, positionConverter, playerPosition, levelConfig);
+        aiSpawner.SpawnEnemies(board, positionConverter, playerPosition);
     }
 
     private void SetInitialCameraRotation()

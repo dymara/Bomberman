@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class LevelConfig
 {
@@ -17,6 +16,8 @@ public class LevelConfig
 
     public int findingRemoteDetonationCount;
 
+    public int enemiesCountAfterExitExploded;
+
     public Vector2 boardSize;
 
     public override string ToString()
@@ -30,6 +31,7 @@ public class LevelConfig
             "findingBombRangeCount: " + findingBombRangeCount + SEPARATOR +
             "findingFasterMovingCount: " + findingFasterMovingCount + SEPARATOR +
             "findingRemoteDetonationCount: " + findingRemoteDetonationCount + SEPARATOR +
+            "enemiesCountAfterExitExploded: " + enemiesCountAfterExitExploded + SEPARATOR +
             "boardSize: " + boardSize + "}";
     }
 }

@@ -50,7 +50,7 @@ MonoBehaviour:
   initialPlayerRemoteDetonationBonus: 0
   level1CubesXCount: 5
   level1CubesZCount: 5
-  exitExplosionEnemiesCount: 3
+  exitExplosionEnemiesCount: 5
   enemiesMinDistance: 8
   findingSpinSpeed: 50
   findingFloatSpeed: 0.2
