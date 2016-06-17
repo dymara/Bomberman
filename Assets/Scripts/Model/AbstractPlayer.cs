@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-using System.Collections.Generic;
-using Assets.Scripts.Position;
+﻿using Assets.Scripts.Position;
 
 namespace Assets.Scripts.Model
 {

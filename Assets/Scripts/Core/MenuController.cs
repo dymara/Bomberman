@@ -55,7 +55,8 @@ public class MenuController : MonoBehaviour {
         if (!newGameButtonPressed && !scoreBoardButtonPressed)
         {
             scoreBoardButtonPressed = true;
-            GameManager.instance.SwitchGameState(GameState.SCORE_BOARD);
+            GameManager.instance.SwitchGameState(GameState.MAIN_MENU);
+            // GameManager.instance.SwitchGameState(GameState.SCORE_BOARD);
         }
     }
 

@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.Model;
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityStandardAssets.Characters.FirstPerson;
 
@@ -84,6 +85,7 @@ public class GameManager : MonoBehaviour {
                 Debug.Log(DateTime.Now + " Loading level " + levelNumber + "...");
                 SceneFader.LoadScene("Gameplay", 1, 1);
                 player.bombs = player.maximumBombsCount;
+                StartCoroutine(PrepareForNextLevel());
                 Debug.Log(DateTime.Now + " Level " + levelNumber + " loaded successfully!");
                 break;
             default:
@@ -143,15 +145,11 @@ public class GameManager : MonoBehaviour {
     {
         levelNumber++;
         SwitchGameState(GameState.GAMEPLAY);
-        player.PrepareForNextLevel();
-        levelScore = new LevelScore();
     }
 
     public void RestartLevel()
     {
         SwitchGameState(GameState.GAMEPLAY);
-        player.PrepareForNextLevel();
-        levelScore = new LevelScore();
     }
 
     public void ResetPlayerState()
@@ -162,6 +160,13 @@ public class GameManager : MonoBehaviour {
     public bool CanPlayerBeKilled()
     {
         return levelScore != null;  // level score is null only when summary screen is being displayed
+    }
+
+    private IEnumerator PrepareForNextLevel()
+    {
+        yield return new WaitForSeconds(3); // [dymara] Hack for disabling exit & death events until scene fade out animation finishes
+        player.ResetPlayerFlags();
+        levelScore = new LevelScore();
     }
 
     public int GetCurrentLevelNumber()

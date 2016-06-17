@@ -14,7 +14,7 @@ namespace Assets.Scripts.Model
 
         protected override void PowerUp(Player player)
         {
-            //NOTHING TO DO
+            // Nothing to do here
         }
     }
 }

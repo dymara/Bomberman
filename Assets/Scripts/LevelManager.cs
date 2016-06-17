@@ -84,14 +84,14 @@ public class LevelManager : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        if (Input.GetKeyDown(KeyCode.Space)) {
+        if (Input.GetKeyDown(KeyCode.F)) {
             Vector3 sceneBombPosition = board.GetPlayers()[0].transform.position + board.GetPlayers()[0].transform.forward;
             Vector2 boardBombPosition = positionConverter.ConvertScenePositionToBoard(sceneBombPosition);
             explosionManager.PutBomb(player, player.remoteDetonationBonus ? bombPrefab : bombWithTimerPrefab, boardBombPosition);
         }
         else if (Input.GetKeyDown(KeyCode.Q) && player.remoteDetonationBonus)
         {
-               explosionManager.DetonateBombs(player);
+            explosionManager.DetonateBombs(player);
         }
     }
 

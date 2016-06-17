@@ -59,14 +59,8 @@ namespace Assets.Scripts.Model
             DontDestroyOnLoad(gameObject);  // Sets this to not be destroyed when reloading scene
         }
 
-        public void PrepareForNextLevel()
+        public void ResetPlayerFlags()
         {
-            StartCoroutine(PrepareForNextLevelCoroutine());
-        }
-
-        private IEnumerator PrepareForNextLevelCoroutine()
-        {
-            yield return new WaitForSeconds(3); // [dymara] Hack for disabling exit events untill scene fade out animation finishes
             this.exitReached = false;
         }
 
@@ -102,9 +96,12 @@ namespace Assets.Scripts.Model
 
         public void TriggerKill()
         {
-            remainingLives--;
-            wait = false;
-            StartCoroutine(KillCoroutine());
+            if (GameManager.instance.CanPlayerBeKilled())
+            {
+                remainingLives--;
+                wait = false;
+                StartCoroutine(KillCoroutine());
+            }
         }
 
         protected override void Kill()
