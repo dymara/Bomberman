@@ -103,7 +103,7 @@ public class LevelManager : MonoBehaviour {
         float mazeLength = indestructibleCubesZNumber * cellSize * 2 + cellSize;
         float startX = startPositionX.Equals(StartPosition.MIN) ? 1 : mazeWidth - 1;
         float startZ = startPositionZ.Equals(StartPosition.MIN) ? 1 : mazeLength - 1;
-        Debug.Log("Generating maze with size " + indestructibleCubesXNumber + "x" + indestructibleCubesZNumber + "...");
+        Debug.Log(DateTime.Now + " Generating maze with size " + indestructibleCubesXNumber + "x" + indestructibleCubesZNumber + "...");
         board = mazeInstance.Generate(mazeWidth, mazeLength, cellSize, cubeHeight, wallHeight, startX, startZ, positionConverter, levelConfig);
 
         positionManager = new PlayerPositionManager(board, positionConverter);
@@ -122,6 +122,7 @@ public class LevelManager : MonoBehaviour {
         uiController.InitializeHUD(mazeWidth, mazeLength);
 
         StartCoroutine(StartLevelCountdown());
+        Debug.Log(DateTime.Now + " Level " + GameManager.instance.GetCurrentLevelNumber() + " loaded successfully!");
     }
     
     private void InitAI() 

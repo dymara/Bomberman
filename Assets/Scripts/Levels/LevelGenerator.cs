@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using Assets.Scripts.Model;
+using System;
 
 public class LevelGenerator : MonoBehaviour
 {
@@ -17,7 +18,7 @@ public class LevelGenerator : MonoBehaviour
         levelConfig.findingFasterMovingCount = GetFasterMovingFindingsCount(level, player);
         levelConfig.findingRemoteDetonationCount = GetRemoteDetonationFindingsCount(level, player);
 
-        Debug.Log(levelConfig.ToString());
+        Debug.Log(DateTime.Now + " " + levelConfig.ToString());
 
         return levelConfig;
     }
@@ -112,7 +113,7 @@ public class LevelGenerator : MonoBehaviour
     {
         if (level >= LevelGeneratorConfig.MIN_LEVEL_FOR_FASTER_MOVING &&
             player.speed < LevelGeneratorConfig.MAX_PLAYER_SPEED &&
-            Random.value > LevelGeneratorConfig.FASTER_MOVING_FINDING_PROBABILITY)
+            UnityEngine.Random.value > LevelGeneratorConfig.FASTER_MOVING_FINDING_PROBABILITY)
         {
             return 1;
         }

@@ -86,7 +86,6 @@ public class GameManager : MonoBehaviour {
                 ScreenFader.LoadScene("Gameplay", 1, 1);
                 player.bombs = player.maximumBombsCount;
                 StartCoroutine(PrepareForNextLevel());
-                Debug.Log(DateTime.Now + " Level " + levelNumber + " loaded successfully!");
                 break;
             default:
                 break;

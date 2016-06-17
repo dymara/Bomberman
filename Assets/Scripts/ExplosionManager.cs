@@ -26,7 +26,6 @@ public class ExplosionManager : MonoBehaviour {
     {
         if (player.bombs == 0)
         {
-            Debug.Log(DateTime.Now + " You don't have any bombs left to use!");
             levelManager.GetUIController().ShowTimedMessage("You don't have any bombs\nleft to use!");
             return;
         }
@@ -43,7 +42,6 @@ public class ExplosionManager : MonoBehaviour {
             }
         } else
         {
-            Debug.Log(DateTime.Now + " You can't place a bomb here!");
             levelManager.GetUIController().ShowTimedMessage("You can't place a bomb here!");
         }
     }
