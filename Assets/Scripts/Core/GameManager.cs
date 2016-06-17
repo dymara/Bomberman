@@ -72,18 +72,18 @@ public class GameManager : MonoBehaviour {
         switch (state)
         {
             case GameState.SPLASH:
-                SceneFader.LoadScene("Splash", 0.5f, 1);
+                ScreenFader.LoadScene("Splash", 0.5f, 1);
                 // Hack - fadeOut time must be greater than zero. Otherwise animation framerate decreases significantly.
                 break;
             case GameState.MAIN_MENU:
-                SceneFader.LoadScene("Menu", 1, 1);
+                ScreenFader.LoadScene("Menu", 1, 1);
                 break;
             case GameState.SCORE_BOARD:
-                SceneFader.LoadScene("ScoreBoard", 1, 1);
+                ScreenFader.LoadScene("ScoreBoard", 1, 1);
                 break;
             case GameState.GAMEPLAY:
                 Debug.Log(DateTime.Now + " Loading level " + levelNumber + "...");
-                SceneFader.LoadScene("Gameplay", 1, 1);
+                ScreenFader.LoadScene("Gameplay", 1, 1);
                 player.bombs = player.maximumBombsCount;
                 StartCoroutine(PrepareForNextLevel());
                 Debug.Log(DateTime.Now + " Level " + levelNumber + " loaded successfully!");

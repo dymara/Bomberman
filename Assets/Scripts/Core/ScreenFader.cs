@@ -2,19 +2,19 @@
 using System.Collections;
 using UnityEngine.SceneManagement;
 
-public class SceneFader : MonoBehaviour
+public class ScreenFader : MonoBehaviour
 {
     private Material m_Material = null;
 
-    private static SceneFader m_Instance = null;
+    private static ScreenFader m_Instance = null;
 
-    private static SceneFader instance
+    private static ScreenFader instance
     {
         get
         {
             if (m_Instance == null)
             {
-                m_Instance = (new GameObject("AutoFade")).AddComponent<SceneFader>();
+                m_Instance = (new GameObject("AutoFade")).AddComponent<ScreenFader>();
             }
             return m_Instance;
         }
