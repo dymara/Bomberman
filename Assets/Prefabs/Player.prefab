@@ -9,10 +9,15 @@ GameObject:
   m_Component:
   - 4: {fileID: 439064}
   - 143: {fileID: 14375452}
-  - 114: {fileID: 11472118}
   - 54: {fileID: 5445186}
   - 82: {fileID: 8220300}
   - 114: {fileID: 11493208}
+  - 114: {fileID: 11442944}
+  - 114: {fileID: 11404902}
+  - 114: {fileID: 11407968}
+  - 114: {fileID: 11410312}
+  - 114: {fileID: 11441208}
+  - 114: {fileID: 11442976}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -255,7 +260,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
---- !u!114 &11472118
+--- !u!114 &11404902
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -263,16 +268,68 @@ MonoBehaviour:
   m_GameObject: {fileID: 109334}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 05ec5cf00ca181d45a42ba1870e148c3, type: 3}
+  m_Script: {fileID: 11500000, guid: 7e933e81d3c20c74ea6fdc708a67e3a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  queueAhead: 1
+  usePositionTracking: 1
+  resetTrackerOnLoad: 0
+--- !u!114 &11407968
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 109334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 462442f8bbce02946965112b1579f36d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EmitHitchLogging: 0
+  UseManualExposure: 0
+  FilterType: 1
+  InitialTrackingColor: 0
+  PSMoveOffset: {x: 0, y: 0, z: 0}
+  ManualExposureValue: 0.04
+  TrackerEnabled: 0
+--- !u!114 &11410312
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 109334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdbf55f5d10ccf644b8075a1993977a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PSMoveID: 0
+  ShowTrackingDebug: 0
+  ShowHMDFrustumDebug: 0
+--- !u!114 &11441208
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 109334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfbb95226674d9c409fa4b2e6a10c586, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &11442944
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 109334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37402d41be95bff45a10d0400c950e84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_IsWalking: 0
   m_WalkSpeed: 5
-  m_RunSpeed: 10
-  m_RunstepLenghten: 0.7
-  m_IsJumpingEnabled: 0
-  m_IsRunningEnabled: 0
-  m_JumpSpeed: 10
   m_StickToGroundForce: 100
   m_GravityMultiplier: 2
   m_MouseLook:
@@ -293,17 +350,7 @@ MonoBehaviour:
     TimeToDecrease: 1
     IncreaseCurve:
       serializedVersion: 2
-      m_Curve:
-      - time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-      - time: 1
-        value: 1
-        inSlope: 2
-        outSlope: 2
-        tangentMode: 0
+      m_Curve: []
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -342,7 +389,7 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    VerticaltoHorizontalRatio: 2
+    VerticaltoHorizontalRatio: 1
   m_JumpBob:
     BobDuration: 0.2
     BobAmount: 0.1
@@ -352,6 +399,18 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 8bc94ec6ed537e743b481638bdcd503d, type: 3}
   m_JumpSound: {fileID: 8300000, guid: 5897aeed9b676024fbb8c694b421a861, type: 3}
   m_LandSound: {fileID: 8300000, guid: 3b09d59f4499d45428baa7a21e954296, type: 3}
+--- !u!114 &11442976
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 109334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa024252b15b2e94db99480578736471, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HideWhenUntracked: 0
 --- !u!114 &11493208
 MonoBehaviour:
   m_ObjectHideFlags: 1

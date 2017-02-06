@@ -63,6 +63,8 @@ public class LevelManager : MonoBehaviour {
     
     private LevelConfig levelConfig;
 
+    private PSMoveController moveComponent;
+
     void Awake() {
         this.player = GameManager.instance.GetPlayer();
         this.levelConfig = levelGenerator.GenerateLevelConfig(GameManager.instance.GetCurrentLevelNumber(), player);
@@ -79,19 +81,26 @@ public class LevelManager : MonoBehaviour {
     void Start() {
         BeginGame();
         GameManager.instance.SetCameraMenuMode(false);
-        GameManager.instance.GetFPSController().EnableMoving();
+
+        PSMoveFirstPersonController playerController = GameManager.instance.GetFPSController();
+        playerController.EnableMoving();
+        moveComponent = playerController.GetComponent<PSMoveController>();
     }
 
     // Update is called once per frame
     void Update() {
-        if (Input.GetKeyDown(KeyCode.F)) {
-            Vector3 sceneBombPosition = board.GetPlayers()[0].transform.position + board.GetPlayers()[0].transform.forward;
-            Vector2 boardBombPosition = positionConverter.ConvertScenePositionToBoard(sceneBombPosition);
-            explosionManager.PutBomb(player, player.remoteDetonationBonus ? bombPrefab : bombWithTimerPrefab, boardBombPosition);
-        }
-        else if (Input.GetKeyDown(KeyCode.Q) && player.remoteDetonationBonus)
+        if (moveComponent.IsConnected)
         {
-            explosionManager.DetonateBombs(player);
+            if (moveComponent.IsMoveButtonDown)
+            {
+                Vector3 sceneBombPosition = board.GetPlayers()[0].transform.position + board.GetPlayers()[0].transform.forward;
+                Vector2 boardBombPosition = positionConverter.ConvertScenePositionToBoard(sceneBombPosition);
+                explosionManager.PutBomb(player, player.remoteDetonationBonus ? bombPrefab : bombWithTimerPrefab, boardBombPosition);
+            }
+            else if (moveComponent.IsCrossButtonDown && player.remoteDetonationBonus)
+            {
+                explosionManager.DetonateBombs(player);
+            }
         }
     }
 

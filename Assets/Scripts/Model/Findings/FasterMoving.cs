@@ -7,7 +7,7 @@ namespace Assets.Scripts.Model.Findings
     {
         protected override void PowerUp(Player player)
         {
-            FirstPersonController fpc = player.gameObject.GetComponent<FirstPersonController>();
+            PSMoveFirstPersonController fpc = player.gameObject.GetComponent<PSMoveFirstPersonController>();
             fpc.SetWalkSpeed(fpc.GetWalkSpeed() * GameManager.instance.GetSpeedMultiplier());
             player.speed *= GameManager.instance.GetSpeedMultiplier();
         }

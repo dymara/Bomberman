@@ -614,7 +614,7 @@ class PSMoveWorker
             settings.use_fitEllipse = 1;
             settings.filter_do_2d_r = 0;
             settings.filter_do_2d_xy = 0;
-            settings.camera_mirror = PSMove_Bool.PSMove_False;
+            settings.camera_mirror = PSMove_Bool.PSMove_True;
             settings.color_list_start_ind = (int)WorkerSettings.InitialTrackingColor;
 
             context.TrackerCount = 0;

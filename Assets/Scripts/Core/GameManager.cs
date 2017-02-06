@@ -106,9 +106,9 @@ public class GameManager : MonoBehaviour {
         return player;
     }
 
-    public FirstPersonController GetFPSController()
+    public PSMoveFirstPersonController GetFPSController()
     {
-        return player.GetComponent<FirstPersonController>();
+        return player.GetComponent<PSMoveFirstPersonController>();
     }
 
     public void SetCameraRotation(Vector3 rotation)
